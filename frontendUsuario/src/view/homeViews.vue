@@ -12,12 +12,12 @@
                 <div class="headerDescription" v-if="!register">Completar campos para iniciar sesion</div>
                 <div class="headerDescription" v-else="!register">Completar campos para registros</div>
                 <div class="inputContainer" v-if="!register">
-                    <input type="email" v-model="usename" placeholder="Ingrese correo">
+                    <input type="email" v-model="username" placeholder="Ingrese correo">
                     <input type="password" v-model="password" placeholder="Ingrese contraseña">
                     <button class="sessionButton" @click="login">Iniciar sesion</button>
                 </div>
                 <div class="inputContainer" v-else>
-                    <input type="email" v-model="usenameRegister" placeholder="Ingrese correo">
+                    <input type="email" v-model="usernameRegister" placeholder="Ingrese correo">
                     <input type="password" v-model="passwordRegister" placeholder="Ingrese contraseña">
                     <input type="password" v-model="passwordRegisterConfirmation" placeholder="Repita contraseña">
                     <button class="sessionButton" @click="addUser">Registrar</button>
@@ -39,6 +39,119 @@
     </main>
 
 </template>
+
+<script>
+
+import axios from 'axios';
+
+//rediccionamientos
+//usuario
+function redireccionarASubpaginaUsuario(){
+    window.location.href = '/user';
+
+}
+
+function redireccionarASubpaginaUsuarioAnonimo(){
+    window.location.href = '/anonimo';
+
+} 
+
+export default{
+    data(){
+        return{
+            username: '',
+            password: '',
+            loggedIn: false,
+            register: false,
+            usernameRegister: '',
+            passwordRegister: '',
+            passwordRegisterConfirmation: '',
+        }
+
+    },
+
+    methods:{
+        async login(){
+            //envio de datos al backend
+            const usuario = {
+                "email":this.username,
+                "password":this.password
+            };
+            try{
+                const respuesta = await axios.post(import.meta.env.VITE_BASE_URL + 'api/usuarios/login', usuario)
+                if(respuesta.data == 1){
+                    return 0;
+                }
+
+                if(respuesta.data == 2){
+                    return 0;
+                }
+
+                //tipo usuario
+                if(respuesta.data == 3){
+                    localStorage.setItem('login', JSON.stringify(this.username));
+                    redireccionarASubpaginaUsuario();
+                }
+
+                if(respuesta.data == 0){
+                    alert('Credenciales invalidas!!');
+                }
+
+                respuesta.data = 0;
+                console.log(respuesta.data)
+
+            }catch(error){
+                alert('No se genera conexión con el servidor')
+
+            }
+        },
+
+        //permite cambiar entre registro y no registro
+        handleChange(){
+            this.register = !this.register
+            console.log(this.register)
+        },
+
+        //Ingresa al usuario de forma anonima
+        anonimo(){
+            this.username = 'anonimo'
+            redireccionarASubpaginaUsuarioAnonimo();
+            localStorage.setItem('login', JSON.stringify(this.username));
+        },
+
+        async addUser(){
+            //envio de datos al backend
+            if(this.passwordRegister == this.passwordRegisterConfirmation){
+                if(this.usernameRegister != ' ' & this.passwordRegister != ' '){
+                    const nuevo_usuario = {
+                        'email': this.usernameRegister,
+                        'password': this.passwordRegister,
+                        'rol': 'usuario'
+                    }
+                    try{
+                        const registro = await axios.post(import.meta.env.VITE_BASE_URL + 'api/usuarios/register', nuevo_usuario);
+                        console.log(registro)
+                        alert('Usuario se creo con exito')
+
+                    }catch(error){
+                        alert('No se pudo registrar')
+
+                    }
+                }
+                else{
+                    alert('No se ingresaron datos')
+                }
+            }
+            else{
+                alert('Las contraseñas no son iguales')
+            }
+        }
+
+
+
+    }
+}
+</script>
 
 <style>
 /* Estructura general */

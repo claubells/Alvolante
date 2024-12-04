@@ -10,6 +10,15 @@ const router = createRouter({
             alias: '/inicio',
 
 
+        },
+
+        {
+            path: '/user',
+            name: 'user',
+            component: () => import('../view/userSolicitation.vue'),
+            
+
+
         }
     ]
 });
