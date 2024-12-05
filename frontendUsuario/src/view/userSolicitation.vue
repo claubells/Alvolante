@@ -14,6 +14,7 @@ const userName = ref("Usuario");
         <a href="#">Inicio</a>
         <a href="#">Perfil</a>
         <a href="#">Opciones</a>
+        <a href="#"@click="toContact">contacto</a>
         <a href="#" @click="logout">Cerrar Sesión</a>
       </div>
     </nav>
@@ -46,12 +47,23 @@ const userName = ref("Usuario");
 </template>
 
 <script>
+import axios from 'axios';
+
+//rediccionamientos
+//usuario
+function redireccionarASubpaginaContacto(){
+    window.location.href = '/contacto';
+
+}
 export default {
   methods: {
     logout() {
       localStorage.removeItem("login"); // Limpia el almacenamiento local
       window.location.href = "/"; // Redirige al login
     },
+    toContact(){
+      redireccionarASubpaginaContacto();
+    }
   },
 };
 </script>

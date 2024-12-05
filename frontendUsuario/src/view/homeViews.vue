@@ -160,7 +160,7 @@ export default{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
+    background: linear-gradient(135deg, #dbc710,#ea8007, #f724f0,#8f07eb);
     font-family: 'Arial', sans-serif;
 }
 
