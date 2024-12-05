@@ -19,7 +19,30 @@ const router = createRouter({
             
 
 
+        },
+
+        {
+            path: '/anonimo',
+            name: 'anonimo',
+            component: () => import('../view/anonimo.vue'),
+            
+
+
+        },
+
+        {
+            path: '/Autos',
+            name: 'Autos',
+            component: () => import('../view/Autos.vue'),
+            
+
+
         }
+
+
+
+
+
     ]
 });
 

@@ -11,14 +11,22 @@ import{RouterView} from 'vue-router'
 <style>
 html,
 body{
-  height: 100vh;
-  width: 100vw;
+  html, body {
+
   margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
 }
 
 #app{
-  height: inherit;
-  width: inherit;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 </style>  
