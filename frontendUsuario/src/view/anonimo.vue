@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router'; 
 
 const router = useRouter(); 
-const anonymousMessage = "Bienvenido a la vista de usuario anónimo. Puedes explorar los automóviles disponibles.";
+const anonymousMessage = "Usted está a punto de recibir una atencion limitada, donde solo podrá visualizar los vehículos.";
 const goBack = () => {
     window.location.href = '/';
 };
@@ -18,12 +18,12 @@ const goToAutos = () => {
     <main>
         <div class="general">
             <div class="content">
-                <img class="image" src="./media/anonimo.png" alt="Usuario Anónimo">
+                <img class="image" src="./media/incognito.png" alt="Usuario Anónimo">
                 <div class="header">Vista Anónima</div>
                 <div class="headerDescription">{{ anonymousMessage }}</div>
                 <div class="actionsContainer">
                     <button class="sessionButton" @click="goBack">Volver al Inicio</button>
-                    <button class="exploreButton" @click="goToAutos">Explorar Automóviles</button>
+                    <button class="exploreButton" @click="goToAutos">Explorar Automóviles <br> (Experiencia limitada)</button>
                 </div>
             </div>
         </div>

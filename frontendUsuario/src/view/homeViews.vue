@@ -7,7 +7,7 @@
     <main>
         <div class="general">
             <div class="content">
-                <img class="image" src="./media/rayoMaquin.png">
+                <img class="image" src="./media/logoalvolante.png">
                 <div class="header">INICIO DE SESION</div>
                 <div class="headerDescription" v-if="!register">Completar campos para iniciar sesion</div>
                 <div class="headerDescription" v-else="!register">Completar campos para registros</div>
@@ -160,7 +160,7 @@ export default{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #dbc710,#ea8007, #f724f0,#8f07eb);
+    background: linear-gradient(135deg, #f8bbd0, #fce4ec);
     font-family: 'Arial', sans-serif;
 }
 

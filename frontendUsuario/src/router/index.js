@@ -41,13 +41,14 @@ const router = createRouter({
             name: 'Autos',
             component: () => import('../view/Autos.vue'),
             
+        },
 
-
-        }
-
-
-
-
+        {
+            path: '/vistaAutos',
+            name: 'vistaAutos',
+            component: () => import('../view/autosClienteVista.vue'),
+            
+        },
 
     ]
 });

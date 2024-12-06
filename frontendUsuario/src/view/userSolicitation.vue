@@ -14,7 +14,7 @@ const userName = ref("Usuario");
         <a href="#">Inicio</a>
         <a href="#">Perfil</a>
         <a href="#">Opciones</a>
-        <a href="#"@click="toContact">contacto</a>
+        <a href="#" @click="toContact">Contacto</a>
         <a href="#" @click="logout">Cerrar Sesión</a>
       </div>
     </nav>
@@ -29,17 +29,17 @@ const userName = ref("Usuario");
     <section class="content-section">
       <div class="card">
         <h2>Arriendo</h2>
-        <p>Accede para arrendar.</p>
+        <p>Accede para arrendar vehículos fácilmente.</p>
         <button class="card-button">Ir</button>
       </div>
       <div class="card">
-        <h2>Ver autos</h2>
-        <p>Revisa los autos.</p>
-        <button class="card-button">Ir</button>
+        <h2>Ver Autos</h2>
+        <p>Consulta nuestra lista de autos disponibles.</p>
+        <button class="card-button" @click.prevent="toAutosClientes">Ir</button>>
       </div>
       <div class="card">
-        <h2>pagos</h2>
-        <p>No hay plata.</p>
+        <h2>Pagos</h2>
+        <p>Revisa y gestiona tus pagos pendientes.</p>
         <button class="card-button">Ir</button>
       </div>
     </section>
@@ -49,21 +49,25 @@ const userName = ref("Usuario");
 <script>
 import axios from 'axios';
 
-//rediccionamientos
-//usuario
-function redireccionarASubpaginaContacto(){
-    window.location.href = '/contacto';
-
+// Redireccionamientos
+function redireccionarASubpaginaContacto() {
+  window.location.href = '/contacto';
 }
+
 export default {
   methods: {
     logout() {
       localStorage.removeItem("login"); // Limpia el almacenamiento local
       window.location.href = "/"; // Redirige al login
     },
-    toContact(){
+    toContact() {
       redireccionarASubpaginaContacto();
+    },
+    toAutosClientes(){
+      window.location.href = "/vistaAutos"; // Redirige al login
+
     }
+
   },
 };
 </script>
@@ -76,10 +80,6 @@ body {
   background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
 }
 
-.main-container {
-  padding: 1rem;
-}
-
 /* Barra de navegación */
 .navbar {
   display: flex;
@@ -89,6 +89,7 @@ body {
   background-color: #ff80ab;
   color: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;  /* Asegúrate de que ocupe todo el ancho */
 }
 
 .logo {
@@ -96,9 +97,13 @@ body {
   font-weight: bold;
 }
 
+.nav-links {
+  display: flex;
+  gap: 1.5rem;  /* Espacio entre los links */
+}
+
 .nav-links a {
   color: #fff;
-  margin-left: 1.5rem;
   text-decoration: none;
   font-size: 1rem;
   transition: color 0.3s ease;
@@ -175,4 +180,3 @@ body {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 </style>
-
