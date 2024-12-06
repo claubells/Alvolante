@@ -6,7 +6,7 @@
                 <div class="autosList">
                     <div class="autoCard">
                         <div class="autoImageContainer">
-                            <img class="image" src="./media/spark.jpg" alt="Rayo McQueen">
+                            <img class="image" src="./media/spark.jpg" alt="Chevrolet Spark">
                         </div>
                         <div class="autoDetails">
                             <h2 class="autoName">Zac</h2>

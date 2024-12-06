@@ -9,7 +9,7 @@ const userName = ref("Usuario");
   <main class="main-container">
     <!-- Barra de navegación -->
     <nav class="navbar">
-      <div class="logo">Rayo Maquin</div>
+      <div class="logo">Al Volante</div>
       <div class="nav-links">
         <a href="#">Inicio</a>
         <a href="#">Perfil</a>
@@ -89,7 +89,11 @@ body {
   background-color: #ff80ab;
   color: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;  /* Asegúrate de que ocupe todo el ancho */
+  position: fixed; /* Hace que la barra se quede fija en la parte superior */
+  top: 0; /* La coloca exactamente en la parte superior */
+  left: 0; /* Alinea al inicio del contenido horizontal */
+  width: 100%; /* Se asegura de que ocupe todo el ancho */
+  z-index: 1000; /* Asegura que quede encima de otros elementos */
 }
 
 .logo {
