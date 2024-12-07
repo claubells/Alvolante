@@ -62,6 +62,12 @@ const router = createRouter({
             component: () => import('../view/autosClienteVista.vue'),
             
         },
+        {
+            path: '/perfilCliente',
+            name: 'perfilCliente',
+            component: () => import('../view/perfilCliente.vue'),
+            
+        },
 
     ]
 });

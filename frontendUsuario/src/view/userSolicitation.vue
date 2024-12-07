@@ -12,7 +12,7 @@ const userName = ref("Usuario");
       <div class="logo">Al Volante</div>
       <div class="nav-links">
         <a href="#">Inicio</a>
-        <a href="#">Perfil</a>
+        <a href="#" @click="toPerfilCliente">Perfil</a>
         <a href="#">Opciones</a>
         <a href="#" @click="toContact">Contacto</a>
         <a href="#" @click="logout">Cerrar Sesión</a>
@@ -35,7 +35,7 @@ const userName = ref("Usuario");
       <div class="card">
         <h2>Ver Autos</h2>
         <p>Consulta nuestra lista de autos disponibles.</p>
-        <button class="card-button" @click.prevent="toAutosClientes">Ir</button>>
+        <button class="card-button" @click.prevent="toAutosClientes">Ir</button>
       </div>
       <div class="card">
         <h2>Pagos</h2>
@@ -66,7 +66,11 @@ export default {
     toAutosClientes(){
       window.location.href = "/vistaAutos"; // Redirige al login
 
-    }
+    },
+    toPerfilCliente(){
+      window.location.href = "/perfilCliente"; // Redirige al login
+
+    },
 
   },
 };

@@ -12,7 +12,7 @@ import axios from 'axios';
       <div class="logo">Al Volante</div>
       <div class="nav-links">
         <a href="#" @click.prevent="toInicio">Inicio</a>
-        <a href="#">Perfil</a>
+        <a href="#" @click.prevent="toPerfilCliente">Perfil</a>
         <a href="#">Opciones</a>
         <a href="#" @click.prevent="toContact">Contacto</a>
         <a href="#" @click.prevent="logout">Cerrar Sesión</a>
@@ -49,6 +49,9 @@ export default {
     },
     toInicio(){
       this.$router.push('/user'); // donde esta la vista inicio?????????
+    },
+    toPerfilCliente(){
+      this.$router.push('/perfilCliente'); // Redireccina a perfil clinete
     }
   },
 };
@@ -66,6 +69,10 @@ function redireccionarASubpaginaContacto(){
     window.location.href = '/Contacto';
 
 } 
+function redireccionarASubpaginaPerfilCliente(){
+    window.location.href = '/perfilCliente';
+
+}
 </script>
 
 
