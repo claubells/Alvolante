@@ -8,12 +8,12 @@ import java.util.Date;
 @Entity
 @Table(name = "usuario")
 
-public class usuarioEntity {
+public class UsuarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     //Atributos
-    private long id;
+    private long idUsuario;
     private String rut;
     private String name;
     private String email;
@@ -25,8 +25,8 @@ public class usuarioEntity {
 
     //Constructor de usuario
 
-    public usuarioEntity(String rut, String name, String email, String phone, Date fechaDeNacimiento, String password, String rol) {
-        this.id = id;
+    public UsuarioEntity(String rut, String name, String email, String phone, Date fechaDeNacimiento, String password, String rol) {
+        this.idUsuario = idUsuario;
         this.rut = rut;
         this.name = name;
         this.email = email;
@@ -36,7 +36,7 @@ public class usuarioEntity {
         this.rol = rol;
     }
 
-    public usuarioEntity() {
+    public UsuarioEntity() {
 
     }
 
@@ -45,11 +45,11 @@ public class usuarioEntity {
     //Getter y setter para el usuario
 
     public long getId() {
-        return id;
+        return idUsuario;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.idUsuario = idUsuario;
     }
 
     public String getRut() {
