@@ -18,7 +18,7 @@ import axios from 'axios';
         <a href="#" @click.prevent="logout">Cerrar Sesión</a>
       </div>
     </nav>
-    <div class="contacto_titulo">Contactenos</div>
+    <div class="contacto_titulo">Contáctenos</div>
     <!-- Sección de contacto -->
     <section class="contact-section">
       <div class="contact-content">
@@ -45,7 +45,7 @@ export default {
       window.location.href = "/"; // Redirige al login
     },
     toContact(){
-      this.$router.push('/contact'); // Redirecciona a la vista de contacto
+      this.$router.push('/contacto'); // Redirecciona a la vista de contacto
     },
     toInicio(){
       this.$router.push('/user'); // donde esta la vista inicio?????????
@@ -146,7 +146,7 @@ body {
 .support-img {
   width: 700px; /* Ajustar el ancho de la imagen de soporte según sea necesario */
   position: relative; /* Cambiar la posición a relativa */ 
-  left: 50px; /* Ajustar la posición vertical hacia arriba */
+  left: -300px; /* Ajustar la posición vertical hacia arriba */
   margin-right: 12rem; /* Ajustar el margen derecho según sea necesario */ 
   margin-left: -15rem; /* Ajustar el margen izquierdo para mover la imagen a la izquierda */
   margin-top: 3rem; /* Ajustar el margen superior para mover la imagen hacia arriba */
@@ -155,7 +155,7 @@ body {
 .contact-box {
   background: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
   position: relative; /* Cambiar la posición a relativa */ 
-  right: 50px; /* Ajustar la posición vertical hacia arriba */
+  left: -250px; /* Ajustar la posición vertical hacia arriba */
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -163,7 +163,7 @@ body {
   margin-right: 1rem;
   margin-left: 1rem;
   margin-top: 1rem; /* Ajustar el margen superior para mover la imagen hacia arriba */
-  width: 400px;
+  width: 500px;
 }
 
 .logo-img {

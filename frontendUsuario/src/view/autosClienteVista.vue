@@ -1,3 +1,4 @@
+ 
 <template>
     <main>
         <!-- Barra de navegación -->
@@ -81,6 +82,7 @@
 </template>
 
 <script setup>
+
 const selectCar = () => {
     alert('Has seleccionado un auto');
 };
@@ -88,10 +90,20 @@ const selectCar = () => {
 const goBack = () => {
     window.history.back();
 };
+
 </script>
 
 <style scoped>
 /* Barra de navegación */
+
+html, body {
+    height: auto;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto; /* Permitir scroll si es necesario */
+}
+
+
 .navbar {
     background: linear-gradient(135deg, #f8bbd0, #fce4ec);
     padding: 1rem;
@@ -104,6 +116,12 @@ const goBack = () => {
     justify-content: space-between;
     align-items: center;
     overflow-x: auto;
+    .navbar {
+    position: sticky; /* Alternativa a fixed, mantiene el scroll ordenado */
+    top: 0;
+    z-index: 10;
+}
+
 }
 
 .logoContainer {
@@ -139,15 +157,16 @@ const goBack = () => {
 /* Estilos principales */
 .general {
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Asegura una disposición vertical */
+    justify-content: flex-start; /* Alinea el contenido hacia el inicio */
     align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(50deg, #000000, #fce4ec); /* Rosado pastel */
+    min-height: auto; /* Permite que el contenido interno determine la altura */
+    background: linear-gradient(50deg, #000000, #fce4ec);
     font-family: 'Helvetica Neue', sans-serif;
     padding: 4rem;
-    margin-top: 80px; /* Para no quedar tapado por la barra de navegación */
-    overflow-y: auto; /* Habilitar desplazamiento si el contenido es grande */
+    margin-top: 80px; /* Asegura que no quede tapado por la navbar */
 }
+
 
 .content {
     background: rgba(255, 255, 255, 0.9);
@@ -158,6 +177,10 @@ const goBack = () => {
     max-width: 1200px;
     width: 100%;
     backdrop-filter: blur(10px);
+    .content {
+    margin-bottom: 4rem; /* Espacio para un scroll cómodo */
+}
+
 }
 
 .title {
