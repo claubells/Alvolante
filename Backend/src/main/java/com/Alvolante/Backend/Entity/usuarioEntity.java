@@ -1,6 +1,9 @@
 package com.Alvolante.Backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "usuario")
@@ -11,17 +14,24 @@ public class usuarioEntity {
 
     //Atributos
     private long id;
+    private String rut;
     private String name;
     private String email;
+    private String phone;
+    @JsonFormat
+    private Date fechaDeNacimiento;
     private String password;
     private String rol;
 
     //Constructor de usuario
 
-    public usuarioEntity(String name, String email, String password, String rol) {
+    public usuarioEntity(String rut, String name, String email, String phone, Date fechaDeNacimiento, String password, String rol) {
         this.id = id;
+        this.rut = rut;
         this.name = name;
         this.email = email;
+        this.phone = phone;
+        this.fechaDeNacimiento = fechaDeNacimiento;
         this.password = password;
         this.rol = rol;
     }
@@ -40,6 +50,30 @@ public class usuarioEntity {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getRut() {
+        return rut;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public Date getFechaDeNacimiento() {
+        return fechaDeNacimiento;
+    }
+
+    public void setRut(String rut) {
+        this.rut = rut;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setFechaDeNacimiento(Date fechaDeNacimiento) {
+        this.fechaDeNacimiento = fechaDeNacimiento;
     }
 
     public String getName() {
