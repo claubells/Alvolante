@@ -71,7 +71,7 @@ onMounted(() => {
           <h2 class="data-title">Datos Cliente</h2>
           <div class="data-section">
             <h3>Datos Personales</h3>
-            <p><strong>Correo:</strong> brucedickinson@usach.cl</p>
+            <p><strong>Correo:</strong> goku@usach.cl</p>
             <p><strong>Fecha de Nacimiento:</strong> 07/08/1958</p>
             <button @click="editProfile" class="edit-button">Editar Perfil</button>
           </div>

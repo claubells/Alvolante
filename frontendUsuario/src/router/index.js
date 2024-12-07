@@ -29,8 +29,11 @@ const router = createRouter({
 
         },
 
-
-
+        {
+            path: '/agregarVehiculo',
+            name: 'agregarVehiculo',
+            component: () => import('../view/agregarVehiculoAdmin.vue')
+        },
 
 
         {
