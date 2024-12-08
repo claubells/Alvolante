@@ -58,7 +58,6 @@ const router = createRouter({
             component: () => import('../view/Autos.vue'),
             
         },
-
         {
             path: '/vistaAutos',
             name: 'vistaAutos',
@@ -75,7 +74,13 @@ const router = createRouter({
             path: '/verVehiculos',
             name: 'verVehiculos',
             component: () => import('../view/VerVehiculos.vue'),
-        }
+        },
+        {
+            path: '/loginTrabajador',
+            name: 'loginTrabajador',
+            component: () => import('../view/loginTrabajador.vue'),
+            
+        },
 
     ]
 });
