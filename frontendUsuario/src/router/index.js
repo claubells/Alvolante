@@ -71,6 +71,11 @@ const router = createRouter({
             component: () => import('../view/perfilCliente.vue'),
             
         },
+        {
+            path: '/verVehiculos',
+            name: 'verVehiculos',
+            component: () => import('../view/VerVehiculos.vue'),
+        }
 
     ]
 });

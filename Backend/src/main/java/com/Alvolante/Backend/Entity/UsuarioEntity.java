@@ -2,7 +2,6 @@ package com.Alvolante.Backend.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-
 import java.util.Date;
 
 @Entity
@@ -11,7 +10,6 @@ import java.util.Date;
 public class UsuarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     //Atributos
     private long idUsuario;
     private String rut;

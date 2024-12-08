@@ -1,22 +1,15 @@
 package com.Alvolante.Backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 @Entity
 @Table(name = "vehiculo")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class VehiculoEntity {
 
+public class VehiculoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
     private long idVehiculo;
     private String codigoACRISS;
     private String estadoVehiculo;
@@ -31,12 +24,14 @@ public class VehiculoEntity {
     private String color;
     private int capacidadPasajeros;
     private boolean disponibilidad;
+    @JsonFormat
     private Date fechaUltimoMantenimiento;
     @Lob
     private byte[] fotoVehiculo;
 
+
     public VehiculoEntity(String codigoACRISS, String estadoVehiculo, String marca, String modelo, String patente, String numeroChasis, String kilometraje, float costo, int anio, String tipo, String color, int capacidadPasajeros, boolean disponibilidad, Date fechaUltimoMantenimiento, byte[] fotoVehiculo) {
-        this.idVehiculo = getIdVehiculo();
+        this.idVehiculo = idVehiculo;
         this.codigoACRISS = codigoACRISS;
         this.estadoVehiculo = estadoVehiculo;
         this.marca = marca;
@@ -52,6 +47,78 @@ public class VehiculoEntity {
         this.disponibilidad = disponibilidad;
         this.fechaUltimoMantenimiento = fechaUltimoMantenimiento;
         this.fotoVehiculo = fotoVehiculo;
+    }
+
+    public VehiculoEntity() {
+
+    }
+
+    public boolean getDisponibilidad() {
+        return disponibilidad;
+    }
+
+    public long getIdVehiculo() {
+        return idVehiculo;
+    }
+
+    public String getCodigoACRISS() {
+        return codigoACRISS;
+    }
+
+    public String getEstadoVehiculo() {
+        return estadoVehiculo;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public String getPatente() {
+        return patente;
+    }
+
+    public String getNumeroChasis() {
+        return numeroChasis;
+    }
+
+    public String getKilometraje() {
+        return kilometraje;
+    }
+
+    public float getCosto() {
+        return costo;
+    }
+
+    public int getAnio() {
+        return anio;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public int getCapacidadPasajeros() {
+        return capacidadPasajeros;
+    }
+
+    public boolean isDisponibilidad() {
+        return disponibilidad;
+    }
+
+    public Date getFechaUltimoMantenimiento() {
+        return fechaUltimoMantenimiento;
+    }
+
+    public byte[] getFotoVehiculo() {
+        return fotoVehiculo;
     }
 }
 

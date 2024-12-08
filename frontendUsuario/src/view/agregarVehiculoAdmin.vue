@@ -1,187 +1,186 @@
 <template>
-    <div class="container">
-      <div class="sidebar">
-        <ul>
-          <img class="image" src="./media/logoalvolante.png">
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Profile</a></li>
-          <li><a class= "botonSubir" href="#">Subir Vehículo</a></li>
-          <li><a href="#"  @click="cierreSesion" >Cerrar sesion</a></li>
-        </ul>
-      </div>
-      <div class="main-content">
-        
-        <h1>Subir Vehículo</h1>
-        <form @submit.prevent="submitForm">
-          <label for="vehicle-image">Imagen del vehículo:</label>
-          <input type="file" id="vehicle-image" @change="onFileChange">
-  
-          <label for="vehicle-name">Nombre del vehículo + las cuatro letritas:</label>
-          <input type="text" id="vehicle-name" v-model="vehicle.name" >
-  
-          <label for="vehicle-color">Colores:</label>
-          <input type="text" id="vehicle-color" v-model="vehicle.color" >
-  
-          <label for="vehicle-precio">Precio:</label>
-          <input type="number" id="vehicle-precio" v-model="vehicle.precio" placeholder="$">
-  
-          <label for="vehicle-asientos">Asientos:</label>
-          <select id="vehicle-asientos" v-model="vehicle.asientos">
-            <option value="2">2</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="7">7</option>
-          </select>
-  
-          <label for="vehicle-description">Descripción:</label>
-          <textarea id="vehicle-description" v-model="vehicle.description"></textarea>
-  
-          <label for="vehicle-type">Tipo:</label>
-          <input type="text" id="vehicle-type" v-model="vehicle.type">
-  
-          <button type="submit">Ingresar</button>
-        </form>
-      </div>
+  <div class="container">
+    <div class="sidebar">
+      <ul>
+        <img class="image" src="./media/logoalvolante.png">
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a class="botonSubir" href="#">Subir Vehículo</a></li>
+        <li><a href="#" @click="cierreSesion">Cerrar sesión</a></li>
+      </ul>
     </div>
-  </template>
-  
-  <script>
-  import axios from 'axios';
-  export default {
-    data() {
-      return {
-        vehicle: {
-          name: '',
-          color: '',
-          precio: null,
-          asientos: '',
-          description: '',
-          type: '',
-          image: null,
-        },
-      };
+    <div class="main-content">
+      <h1>Subir Vehículo</h1>
+      <form @submit.prevent="submitForm">
+        <label for="patente">Patente:</label>
+        <input type="text" id="patente" v-model="vehicle.patente" required>
+
+        <label for="numeroChasis">Número de Chasis:</label>
+        <input type="text" id="numeroChasis" v-model="vehicle.numeroChasis" required>
+
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" v-model="vehicle.modelo" required>
+
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" v-model="vehicle.marca" required>
+
+        <label for="anio">Año:</label>
+        <input type="number" id="anio" v-model="vehicle.anio" required>
+
+        <label for="fotoVehiculo">Imagen del Vehículo:</label>
+        <input type="file" id="fotoVehiculo" @change="onFileChange" accept="image/*">
+
+        <button type="submit">Ingresar</button>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      vehicle: {
+        patente: "",
+        numeroChasis: "",
+        modelo: "",
+        marca: "",
+        anio: "",
+        fotoVehiculo: null, // Almacenará la imagen en Base64
+      },
+    };
+  },
+  methods: {
+    onFileChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.vehicle.fotoVehiculo = e.target.result.split(",")[1]; // Solo el contenido Base64
+        };
+        reader.readAsDataURL(file);
+      }
     },
-    methods: {
-      onFileChange(event) {
-        const file = event.target.files[0];
-        this.vehicle.image = file;
-      },
-      async submitForm() {
-        const vehiculo = {
-            "name" : this.name,
-            "color" : this.color,
-            "precio" : this.precio,
-            "asientos" : this.asientos,
-            "type" : this.type,
-            "image" : this.image
-        }
-        try {
-            const respuesta = await axios.post(import.meta.env.VITE_BASE_URL + "api/agregarVehiculo" , vehiculo);
-        } catch (error){
-            alert("No se pudo generar conexión con el servidor");
-        } 
-      },
-      cierreSesion(){
-      this.$router.push('/'); // redirecciona a la vista principal
-        }
-      
-    }
-}
-  </script>
-  
-  <style>
+    async submitForm() {
+      try {
+        const response = await axios.post(
+          import.meta.env.VITE_BASE_URL + "api/vehiculos/crear-vehiculo",
+          this.vehicle
+        );
+        console.log(response.data);
+        alert("Vehículo ingresado con éxito");
+      } catch (error) {
+        console.error("Error:", error);
+        alert("No se pudo generar conexión con el servidor");
+      }
+    },
+    cierreSesion() {
+      this.$router.push("/"); // redirecciona a la vista principal
+    },
+  },
+};
+</script>
 
+<style>
 body {
-background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
-  color: #000 
+  background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
+  color: #000;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-  .container {
-    display: flex;
-  }
-  .sidebar {
-    width: 180px;
-    flex-direction: column;
-    background-color: #ff80ab;
-    padding: 25px;
-    border: 1px solid #000;
-    height: 100vh;
-    top: 0;
-    left: -20px;
-    color: #ffffff;
-    position: fixed;
-  }
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-    color: #ffffff 
-  }
-  .sidebar ul li {
-    margin-bottom: 10px;
-    color: #ffffff 
-  }
-  .sidebar ul li a {
-    text-decoration: none;
-    color: #ffffff; 
-    display: block;
-  }
-  .main-content {
-    flex: 0.6;
-    padding: 20px;
-    position: relative;
-    top: -50px;
-    margin-left: 150px; /* Esto mueve el contenido hacia la derecha */
-    
-  }
-  h1 {
-    margin-top: 0;
-  }
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  label {
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  input[type="text"], input[type="file"], input[type="number"], select, textarea {
-    margin-bottom: 15px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  button {
-    background-color: #ff80ab;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  button:hover {
-    background-color: #0056b3;
-  }
-
-  .image {
-    display: block;
-    max-width: 100%; 
-    height: auto; 
-    margin: 0 auto 1rem; 
-    width: 150px; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-left: 10px;
-    
+.container {
+  display: flex;
+  min-height: 100vh;
 }
 
-.botonSubir{
-    background-color: rgb(182, 164, 178);
-    transition: background-color 0.3s ease;
-
+.sidebar {
+  width: 250px;
+  background-color: #ff80ab;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: fixed;
+  height: 100%;
 }
 
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
+.sidebar ul li {
+  margin-bottom: 20px;
+}
 
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  display: block;
+  padding: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
 
-  </style>
-  
+.sidebar ul li a:hover {
+  background-color: #ff4081;
+}
+
+.image {
+  max-width: 100%;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.main-content {
+  margin-left: 270px;
+  padding: 40px;
+  flex: 1;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+button {
+  background-color: #ff80ab;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #ff4081;
+}
+</style>

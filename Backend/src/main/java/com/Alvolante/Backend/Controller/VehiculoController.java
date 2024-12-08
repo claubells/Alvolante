@@ -5,10 +5,9 @@ import com.Alvolante.Backend.Service.VehiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/vehiculos")
@@ -20,13 +19,15 @@ public class VehiculoController {
     public ResponseEntity<?> createVehiculo(@RequestBody VehiculoEntity nuevoVehiculo) {
 
         try {
-            VehiculoEntity vehiculoGuardado = vehiculoService.createVehiculo(nuevoVehiculo);
-            if (vehiculoGuardado.getFotoVehiculo()!= null ) {
-                vehiculoGuardado.setFotoVehiculo(vehiculoGuardado.getFotoVehiculo());
-            }
+            VehiculoEntity vehiculoGuardado = vehiculoService.createVehiculo(nuevoVehiculo.getCodigoACRISS(), nuevoVehiculo.getEstadoVehiculo(), nuevoVehiculo.getMarca(), nuevoVehiculo.getModelo(), nuevoVehiculo.getPatente(), nuevoVehiculo.getNumeroChasis(), nuevoVehiculo.getKilometraje(), nuevoVehiculo.getCosto(), nuevoVehiculo.getAnio(), nuevoVehiculo.getTipo(), nuevoVehiculo.getColor(), nuevoVehiculo.getCapacidadPasajeros(), nuevoVehiculo.getDisponibilidad(), nuevoVehiculo.getFechaUltimoMantenimiento(), nuevoVehiculo.getFotoVehiculo());
             return ResponseEntity.ok(vehiculoGuardado);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
+    }
+
+    @GetMapping("/all")
+    public List<VehiculoEntity> getAllVehiculos() {
+        return vehiculoService.getAllVehiculos();
     }
 }

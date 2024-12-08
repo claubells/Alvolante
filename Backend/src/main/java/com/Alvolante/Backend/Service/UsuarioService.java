@@ -21,6 +21,7 @@ public class UsuarioService {
         if (existenteRut != null) {
             throw new RuntimeException("El RUT "+ rut +" ya está registrado. Por favor intente nuevamente.");
         }
+
         UsuarioEntity user = new UsuarioEntity(rut, name, email, phone, fechaDeNacimiento, password, rol);
         userRepo.save(user);
         return user;

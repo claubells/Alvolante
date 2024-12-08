@@ -19,6 +19,7 @@ public class UsuarioController {
     //Registrar usuario
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UsuarioEntity nuevo) {
+
         try {
             UsuarioEntity user = userservice.register(nuevo.getRut(), nuevo.getName(), nuevo.getEmail(), nuevo.getPhone(), nuevo.getFechaDeNacimiento(), nuevo.getPassword(), nuevo.getRol());
             return ResponseEntity.ok(user); //retorna al usuario si todo salio ok
