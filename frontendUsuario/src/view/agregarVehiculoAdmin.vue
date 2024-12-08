@@ -12,11 +12,17 @@
     <div class="main-content">
       <h1>Subir Vehículo</h1>
       <form @submit.prevent="submitForm">
+
+        <label for="codigoACRISS">Codigo ACRISS:</label>
+        <input type="text" id="codigoACRISS" v-model="vehicle.codigoACRISS" required>
+
         <label for="patente">Patente:</label>
-        <input type="text" id="patente" v-model="vehicle.patente" required>
+        <input type="text" id="patente" v-model="vehicle.patente" ref="patente" required>
+        <span v-if="errors.patente" class="error">{{ errors.patente }}</span>
 
         <label for="numeroChasis">Número de Chasis:</label>
-        <input type="text" id="numeroChasis" v-model="vehicle.numeroChasis" required>
+        <input type="text" id="numeroChasis" v-model="vehicle.numeroChasis" ref="numeroChasis" required>
+        <span v-if="errors.numeroChasis" class="error">{{ errors.numeroChasis }}</span>
 
         <label for="modelo">Modelo:</label>
         <input type="text" id="modelo" v-model="vehicle.modelo" required>
@@ -27,6 +33,27 @@
         <label for="anio">Año:</label>
         <input type="number" id="anio" v-model="vehicle.anio" required>
 
+        <label for="kilometraje">Kilometraje:</label>
+        <input type="text" id="kilometraje" v-model="vehicle.kilometraje" required>
+
+        <label for="costo">Costo:</label>
+        <input type="number" id="costo" v-model="vehicle.costo" required>
+
+        <label for="tipo">Tipo:</label>
+        <input type="text" id="tipo" v-model="vehicle.tipo" required>
+
+        <label for="color">Color:</label>
+        <input type="text" id="color" v-model="vehicle.color" required>
+
+        <label for="capacidadPasajeros">Capacidad de pasajeros:</label>
+        <input type="number" id="capacidadPasajeros" v-model="vehicle.capacidadPasajeros" required>
+
+        <label for="fechaUltimoMantenimiento">Fecha de ultimo mantenimiento:</label>
+        <input type="date" id="fechaUltimoMantenimiento" v-model="vehicle.fechaUltimoMantenimiento" required>
+        
+        <label for="estadoVehiculo">Estado del vehiculo:</label>
+        <input type="text" id="estadoVehiculo" v-model="vehicle.estadoVehiculo" required> 
+        
         <label for="fotoVehiculo">Imagen del Vehículo:</label>
         <input type="file" id="fotoVehiculo" @change="onFileChange" accept="image/*">
 
@@ -43,13 +70,22 @@ export default {
   data() {
     return {
       vehicle: {
+        codigoACRISS: "",
         patente: "",
         numeroChasis: "",
         modelo: "",
         marca: "",
+        kilometraje: "",
         anio: "",
+        costo: "",
+        tipo: "",
+        color: "",
+        capacidadPasajeros: "",
+        fechaUltimoMantenimiento: "",
+        estadoVehiculo: "",
         fotoVehiculo: null, // Almacenará la imagen en Base64
       },
+      errors: {}
     };
   },
   methods: {
@@ -69,12 +105,22 @@ export default {
           import.meta.env.VITE_BASE_URL + "api/vehiculos/crear-vehiculo",
           this.vehicle
         );
-        console.log(response.data);
+
+        const code = response.data.code; 
+
+        if (code === 3) {
+          this.errors.patente = "La patente ya está registrada.";
+          this.$refs.patente.focus(); 
+        } else if (code === 2) {
+          this.errors.numeroChasis = "El número de chasis ya está registrado.";
+          this.$refs.numeroChasis.focus(); 
+        } else {
         alert("Vehículo ingresado con éxito");
-      } catch (error) {
-        console.error("Error:", error);
-        alert("No se pudo generar conexión con el servidor");
-      }
+        }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("No se pudo generar conexión con el servidor");
+        }
     },
     cierreSesion() {
       this.$router.push("/"); // redirecciona a la vista principal
@@ -84,6 +130,7 @@ export default {
 </script>
 
 <style>
+
 body {
   background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
   color: #000;
@@ -91,6 +138,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 
 .container {
   display: flex;
@@ -100,7 +148,7 @@ body {
 .sidebar {
   width: 250px;
   background-color: #ff80ab;
-  padding: 20px;
+  padding: 15px; /* Menos padding en el sidebar */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -115,15 +163,15 @@ body {
 }
 
 .sidebar ul li {
-  margin-bottom: 20px;
+  margin-bottom: 12px; /* Menor espacio entre los enlaces */
 }
 
 .sidebar ul li a {
   text-decoration: none;
   color: white;
-  font-size: 16px;
+  font-size: 15px; /* Font-size ligeramente más pequeño */
   display: block;
-  padding: 10px;
+  padding: 7px; /* Menos padding en los enlaces */
   border-radius: 4px;
   transition: background-color 0.3s;
 }
@@ -134,36 +182,38 @@ body {
 
 .image {
   max-width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* Menos margen debajo de la imagen */
   border-radius: 8px;
 }
 
 .main-content {
   margin-left: 270px;
-  padding: 40px;
+  padding: 10px; /* Menos padding en la sección principal */
   flex: 1;
 }
 
 h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 22px; /* Un poco más pequeño el título */
+  margin-bottom: 10px; /* Menos espacio debajo del título */
 }
 
 form {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Asegura que los campos se apilen verticalmente */
 }
 
 label {
-  font-size: 14px;
-  margin-bottom: 8px;
+  font-size: 12px; /* Un poco más pequeño el texto de las etiquetas */
+  margin-bottom: 3px; /* Menos margen debajo de las etiquetas */
 }
 
 input[type="text"],
 input[type="number"],
-input[type="file"] {
-  margin-bottom: 20px;
-  padding: 10px;
+input[type="file"],
+input[type="date"],
+input[type="checkbox"] {
+  margin-bottom: 8px; /* Menos margen entre los campos */
+  padding: 5px; /* Menos padding en los inputs */
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
@@ -172,15 +222,39 @@ input[type="file"] {
 button {
   background-color: #ff80ab;
   color: white;
-  padding: 10px;
+  padding: 6px 12px; /* Menos padding en el botón */
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 15px; /* Un poco más pequeño el texto del botón */
   transition: background-color 0.3s;
+  width: 100%;
+  margin-top: 10px; /* Agregado un pequeño margen superior para separar del campo previo */
 }
 
 button:hover {
   background-color: #ff4081;
 }
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  .form-column {
+    width: 100%;
+    padding-right: 0;
+  }
+  input[type="text"],
+  input[type="number"],
+  input[type="file"] {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+
+
 </style>
