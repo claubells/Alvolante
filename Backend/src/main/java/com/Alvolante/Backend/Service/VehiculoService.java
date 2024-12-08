@@ -13,14 +13,16 @@ public class VehiculoService {
     @Autowired
     private VehiculoRepository vehiculoRepository;
 
-    public VehiculoEntity createVehiculo(String codigoACRISS, String estadoVehiculo, String marca, String modelo, String patente, String numeroChasis, String kilometraje, float costo, int anio, String tipo, String color, int capacidadPasajeros, boolean disponibilidad, Date fechaUltimoMantenimiento, byte[] fotoVehiculo) {
+    public int createVehiculo(String codigoACRISS, String estadoVehiculo, String marca, String modelo, String patente, String numeroChasis, String kilometraje, float costo, int anio, String tipo, String color, int capacidadPasajeros, boolean disponibilidad, Date fechaUltimoMantenimiento, byte[] fotoVehiculo) {
         VehiculoEntity existentePatente = vehiculoRepository.findByPatente(patente);
         VehiculoEntity existenteChasis = vehiculoRepository.findByNumeroChasis(numeroChasis);
         if(existentePatente != null ) { // si se encuentra una patente ya registrada
-            throw new RuntimeException("La patente '"+ patente +"' ya está registrada. Usa una diferente.");  // es decir, existe retornamos null
+            //throw new RuntimeException("La patente '"+ patente +"' ya está registrada. Usa una diferente.");  // es decir, existe retornamos null
+            return 3; //patente duplicada
         }
         if (existenteChasis != null) {
-            throw new RuntimeException("El número de chasis '"+ numeroChasis +"' ya está registrado. Por favor ingrese uno distinto.");
+            //throw new RuntimeException("El número de chasis '"+ numeroChasis +"' ya está registrado. Por favor ingrese uno distinto.");
+            return 2; //chasis duplicado
         }
 
         /*// es obligatorio poner la patente, el modelo, numero de chasis, marca
@@ -37,10 +39,9 @@ public class VehiculoService {
             throw new RuntimeException("Debe de ingresar la marca del vehículo.");
         }*/
 
-
         VehiculoEntity vehiculoNuevo = new VehiculoEntity(codigoACRISS, estadoVehiculo, marca, modelo, patente, numeroChasis, kilometraje, costo, anio, tipo, color, capacidadPasajeros, disponibilidad, fechaUltimoMantenimiento, fotoVehiculo);
         vehiculoRepository.save(vehiculoNuevo);
-        return vehiculoNuevo;
+        return 0; //exito
     }
     public List<VehiculoEntity> getAllVehiculos() {
         return vehiculoRepository.findAll();

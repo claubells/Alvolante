@@ -19,10 +19,36 @@ public class VehiculoController {
     public ResponseEntity<?> createVehiculo(@RequestBody VehiculoEntity nuevoVehiculo) {
 
         try {
-            VehiculoEntity vehiculoGuardado = vehiculoService.createVehiculo(nuevoVehiculo.getCodigoACRISS(), nuevoVehiculo.getEstadoVehiculo(), nuevoVehiculo.getMarca(), nuevoVehiculo.getModelo(), nuevoVehiculo.getPatente(), nuevoVehiculo.getNumeroChasis(), nuevoVehiculo.getKilometraje(), nuevoVehiculo.getCosto(), nuevoVehiculo.getAnio(), nuevoVehiculo.getTipo(), nuevoVehiculo.getColor(), nuevoVehiculo.getCapacidadPasajeros(), nuevoVehiculo.getDisponibilidad(), nuevoVehiculo.getFechaUltimoMantenimiento(), nuevoVehiculo.getFotoVehiculo());
-            return ResponseEntity.ok(vehiculoGuardado);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            int resultado = vehiculoService.createVehiculo(
+                    nuevoVehiculo.getCodigoACRISS(),
+                    nuevoVehiculo.getEstadoVehiculo(),
+                    nuevoVehiculo.getMarca(),
+                    nuevoVehiculo.getModelo(),
+                    nuevoVehiculo.getPatente(),
+                    nuevoVehiculo.getNumeroChasis(),
+                    nuevoVehiculo.getKilometraje(),
+                    nuevoVehiculo.getCosto(),
+                    nuevoVehiculo.getAnio(),
+                    nuevoVehiculo.getTipo(),
+                    nuevoVehiculo.getColor(),
+                    nuevoVehiculo.getCapacidadPasajeros(),
+                    nuevoVehiculo.getDisponibilidad(),
+                    nuevoVehiculo.getFechaUltimoMantenimiento(),
+                    nuevoVehiculo.getFotoVehiculo()
+            );
+
+            if (resultado == 2) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("El número de chasis ya está registrado.");
+            } else if (resultado == 3) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("La patente ya está registrada.");
+            } else if (resultado == 0) {
+                return ResponseEntity.ok("Vehículo creado con éxito.");
+            }else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error desconocido.");
+            }
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el servidor.");
         }
     }
 
