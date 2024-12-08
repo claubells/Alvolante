@@ -38,11 +38,11 @@ public class VehiculoController {
             );
 
             if (resultado == 2) {
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("El número de chasis ya está registrado.");
+                return ResponseEntity.ok(resultado);
             } else if (resultado == 3) {
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("La patente ya está registrada.");
+                return ResponseEntity.ok(resultado);
             } else if (resultado == 0) {
-                return ResponseEntity.ok("Vehículo creado con éxito.");
+                return ResponseEntity.ok(resultado);
             }else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error desconocido.");
             }

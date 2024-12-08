@@ -17,12 +17,12 @@
         <input type="text" id="codigoACRISS" v-model="vehicle.codigoACRISS" required>
 
         <label for="patente">Patente:</label>
-        <input type="text" id="patente" v-model="vehicle.patente" ref="patente" required>
-        <span v-if="errors.patente" class="error">{{ errors.patente }}</span>
+        <input type="text" id="patente" v-model="vehicle.patente" ref="patente" class="{ 'error-input': patenteError }" required>
+        
 
         <label for="numeroChasis">Número de Chasis:</label>
         <input type="text" id="numeroChasis" v-model="vehicle.numeroChasis" ref="numeroChasis" required>
-        <span v-if="errors.numeroChasis" class="error">{{ errors.numeroChasis }}</span>
+        
 
         <label for="modelo">Modelo:</label>
         <input type="text" id="modelo" v-model="vehicle.modelo" required>
@@ -58,7 +58,7 @@
         <input type="file" id="fotoVehiculo" @change="onFileChange" accept="image/*">
 
         <button type="submit">Ingresar</button>
-      </form>
+      </form>    
     </div>
   </div>
 </template>
@@ -83,9 +83,8 @@ export default {
         capacidadPasajeros: "",
         fechaUltimoMantenimiento: "",
         estadoVehiculo: "",
-        fotoVehiculo: null, // Almacenará la imagen en Base64
+        fotoVehiculo: null, // Almacenará la imagen en Base64  
       },
-      errors: {}
     };
   },
   methods: {
@@ -102,21 +101,20 @@ export default {
     async submitForm() {
       try {
         const response = await axios.post(
-          import.meta.env.VITE_BASE_URL + "api/vehiculos/crear-vehiculo",
-          this.vehicle
-        );
-
-        const code = response.data.code; 
-
-        if (code === 3) {
-          this.errors.patente = "La patente ya está registrada.";
-          this.$refs.patente.focus(); 
-        } else if (code === 2) {
-          this.errors.numeroChasis = "El número de chasis ya está registrado.";
-          this.$refs.numeroChasis.focus(); 
-        } else {
-        alert("Vehículo ingresado con éxito");
+          import.meta.env.VITE_BASE_URL + 'api/vehiculos/crear-vehiculo',
+          this.vehicle)
+          console.log(response.data) 
+        if (response.data == 3) {
+          alert("Patente repetida");
         }
+        if (response.data == 2) {
+          alert("Numero de chasis repetido");
+        } 
+        if (response.data == 0) {
+          alert("Vehículo ingresado con éxito");
+        }
+
+
         } catch (error) {
           console.error("Error:", error);
           alert("No se pudo generar conexión con el servidor");
@@ -234,12 +232,6 @@ button {
 
 button:hover {
   background-color: #ff4081;
-}
-
-.error {
-  color: red;
-  font-size: 12px;
-  margin-top: 4px;
 }
 
 @media (max-width: 768px) {
