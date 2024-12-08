@@ -71,6 +71,12 @@ const router = createRouter({
             component: () => import('../view/perfilCliente.vue'),
             
         },
+        {
+            path: '/loginTrabajador',
+            name: 'loginTrabajador',
+            component: () => import('../view/loginTrabajador.vue'),
+            
+        },
 
     ]
 });

@@ -8,15 +8,14 @@
       <div class="split-container">
         <!-- Mitad Izquierda -->
         <div class="left-container">
-          <h1>Hola Viajero!</h1>
-          <h2>¡Reserva ahora y prepárate para tu viaje!</h2>
+          <h1>Hola Trabajador!</h1>
         </div>
         
         <!-- Mitad Derecha -->
         <div class="right-container">
           <div class="content">
             <img class="image" src="./media/logoalvolante.png">
-            <div class="header">INICIAR SESIÓN</div>
+            <div class="header">INICIAR SESIÓN COMO TRABAJADOR</div>
             <div class="headerDescription" v-if="!register">Completar campos para iniciar sesión</div>
             <div class="headerDescription" v-else="!register">Completar campos para registros</div>
             <div class="inputContainer" v-if="!register">
@@ -31,21 +30,18 @@
               <button class="sessionButton" @click="addUser">Registrar</button>
             </div>
             <div class="alsoButtons">
-                <div class="headerCliente">¿No eres estas registrado?</div>
-              <div class="alsoButton" @click="handleChange" v-if="!register">Crea una cuenta</div>
-              <div class="alsoButton" @click="handleChange" v-else>Iniciar sesión</div>
-              <router-link to="anonimo">
-                <div class="alsoButton" @click="handleChange">Anónimo</div>
-              </router-link>
+                <div class="headerTrabajador">¿No eres trabajador?</div>
+                <div class="alsoButton" @click="toInicio">Volver al inicio</div>
+              
             </div>
           </div>
         </div>
       </div>
     </main>
   </template>
+  
 
 <script>
-
 
 import axios from 'axios';
 
@@ -123,7 +119,9 @@ export default{
             redireccionarASubpaginaUsuarioAnonimo();
             localStorage.setItem('login', JSON.stringify(this.username));
         },
-
+        toInicio(){
+            window.location.href = "/inicio";
+        },
         async addUser(){
             //envio de datos al backend
             if(this.passwordRegister == this.passwordRegisterConfirmation){
@@ -157,8 +155,9 @@ export default{
     }
 }
 </script>
+<style >
 
-<style>
+
 /* Estilos generales */
 body {
   margin: 0;
@@ -190,30 +189,19 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ff80ab; /* Color de fondo para la mitad izquierda */
+  background-color: #ffe6e6; /* Color de fondo para la mitad izquierda */
 }
 
 .left-container h1 {
   font-size: 900%;
-  color: #ffffff;
+  color: #ff4081;
   text-align:left;
   position: absolute;
-  margin-left: 1%;
   margin-bottom: 14%;
-  
-}
-.left-container h2 {
-  font-size: 300%;
-  font-style: italic;
-  color: #ffffff;
-  text-align:bottom;
-  position: absolute;
   margin-left: 1%;
-  margin-top: 40%;
   
 }
-
-.headerCliente{
+.headerTrabajador{
   color: #ff4081;
   margin-top: 1rem;
   font-size: 0.9rem;    
@@ -232,7 +220,7 @@ body {
 
 .content {
     height: 100%;
-  background: #ffffff;
+  background: #fcfcfc;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

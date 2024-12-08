@@ -21,6 +21,9 @@
       chooseRoleC() {
         this.$router.push('/homeviews'); // Redirecciona a la vista de contacto
       },
+      chooseRoleT(){
+        this.$router.push('/loginTrabajador');
+      }
     },
   };
   </script>
