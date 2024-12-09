@@ -83,7 +83,9 @@ export default{
                 "password":this.password
             };
             try{
-                const respuesta = await axios.post(import.meta.env.VITE_BASE_URL + 'api/usuarios/login', usuario)
+                const respuesta = await axios.post(
+                  import.meta.env.VITE_BASE_URL + 'api/usuarios/login',
+                   usuario)
                 if(respuesta.data == 1){
                     return 0;
                 }
