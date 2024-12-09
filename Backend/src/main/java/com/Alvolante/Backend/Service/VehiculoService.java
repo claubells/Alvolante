@@ -18,10 +18,12 @@ public class VehiculoService {
         VehiculoEntity existenteChasis = vehiculoRepository.findByNumeroChasis(numeroChasis);
         if(existentePatente != null ) { // si se encuentra una patente ya registrada
             //throw new RuntimeException("La patente '"+ patente +"' ya está registrada. Usa una diferente.");  // es decir, existe retornamos null
-            return 3; //patente duplicada
+            System.out.println("Patente existente: " + existentePatente);
+            return 4; //patente duplicada
         }
         if (existenteChasis != null) {
             //throw new RuntimeException("El número de chasis '"+ numeroChasis +"' ya está registrado. Por favor ingrese uno distinto.");
+            System.out.println("Chasis existente: " + existenteChasis);
             return 2; //chasis duplicado
         }
 

@@ -3,8 +3,6 @@ package com.Alvolante.Backend.Controller;
 import com.Alvolante.Backend.Entity.VehiculoEntity;
 import com.Alvolante.Backend.Service.VehiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +14,7 @@ public class VehiculoController {
     private VehiculoService vehiculoService;
 
     @PostMapping("/crear-vehiculo")
-    public ResponseEntity<?> createVehiculo(@RequestBody VehiculoEntity nuevoVehiculo) {
+    public int createVehiculo(@RequestBody VehiculoEntity nuevoVehiculo) {
 
         try {
             int resultado = vehiculoService.createVehiculo(
@@ -38,17 +36,23 @@ public class VehiculoController {
             );
 
             if (resultado == 2) {
-                return ResponseEntity.ok(resultado);
-            } else if (resultado == 3) {
-                return ResponseEntity.ok(resultado);
-            } else if (resultado == 0) {
-                return ResponseEntity.ok(resultado);
-            }else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error desconocido.");
+                System.out.println("Resultado enviado al frontend: " + resultado);
+                return 2; //chasis duplicado
+            }
+            if (resultado == 4) {
+                System.out.println("Resultado enviado al frontend: " + resultado);
+                return 4; //patente duplicada
+            }
+            if (resultado == 0) {
+                System.out.println("Resultado enviado al frontend: " + resultado);
+                return 0;
+            } else {
+                System.out.println("Resultado enviado al frontend: " + resultado);
+                return -1;
             }
 
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el servidor.");
+            return -2;
         }
     }
 
