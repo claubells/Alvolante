@@ -104,7 +104,7 @@ export default {
           import.meta.env.VITE_BASE_URL + 'api/vehiculos/crear-vehiculo',
           this.vehicle)
           console.log(response.data) 
-        if (response.data == 3) {
+        if (response.data == 4) {
           alert("Patente repetida");
         }
         if (response.data == 2) {
