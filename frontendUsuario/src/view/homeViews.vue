@@ -71,6 +71,7 @@ export default{
             usernameRegister: '',
             passwordRegister: '',
             passwordRegisterConfirmation: '',
+            register: this.$route.query.register === 'true'
         }
 
     },

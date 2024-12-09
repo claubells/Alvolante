@@ -10,7 +10,7 @@ const goBack = () => {
 
 
 const goToAutos = () => {
-    router.push('/autos');
+    router.push('/vehiculosAnonimo');
 };
 </script>
 
