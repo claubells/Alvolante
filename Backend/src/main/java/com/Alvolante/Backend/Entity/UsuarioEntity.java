@@ -2,8 +2,10 @@ package com.Alvolante.Backend.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.Getter;
 import java.util.Date;
 
+@Getter
 @Entity
 @Table(name = "usuario")
 
