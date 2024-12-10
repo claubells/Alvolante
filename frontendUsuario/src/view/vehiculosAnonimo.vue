@@ -11,21 +11,20 @@
               <a class="nav-link active" aria-current="page" @click.prevent="Intranet" href="#" style="margin-left: 20px;">Inicio</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" @click.prevent="contacto" href="#" style="margin-left: 0px;">Contactanos</a>
+              <a class="nav-link" @click.prevent="contacto" href="#" style="margin-left: 0px;">Contáctanos</a>
           </li>
           <li class="nav-item">
-          <a class="nav-link disabled custom-text" aria-disabled="true">Usted está en la vista anónima</a>
+            <a class="nav-link disabled custom-text" aria-disabled="true">Usted está en la vista anónima</a>
           </li>
         </ul>
-          <li class="d-flex" role="search">
-              <button class="btn btn-custom me-2" @click.prevent="inicioSesion">Iniciar sesión</button>
-              <button class="btn btn-custom" @click.prevent="registrarse">Registrarse</button>
-          </li>
+        <li class="d-flex" role="search">
+          <button class="btn btn-custom me-2" @click.prevent="inicioSesion">Iniciar sesión</button>
+          <button class="btn btn-custom" @click.prevent="registrarse">Registrarse</button>
+        </li>
       </div>
     </div>
   </nav>
 
-  
   <div class="main-content" style="margin-top: 80px;"> 
     <h1>Lista de Vehículos</h1>
     <div class="vehiculos-container" v-if="vehiculos.length">
@@ -40,7 +39,7 @@
         <p><strong>Modelo:</strong> {{ vehiculo.modelo }}</p>
         <p><strong>Marca:</strong> {{ vehiculo.marca }}</p>
         <p><strong>Año:</strong> {{ vehiculo.anio }}</p>
-        <button @click="toSeleccionVehiculo(vehiculo.idVehiculo)">Ver Detalle</button>
+        <button @click="verDetallesVehiculo(vehiculo.idVehiculo)">Seleccionar</button>
       </div>
     </div>
     <p v-else>No hay vehículos disponibles.</p>
@@ -49,8 +48,6 @@
 
 <script>
 import axios from "axios";
-import Intranet from "./intranet.vue";
-import Contacto from "./contacto.vue";
 
 export default {
   data() {
@@ -71,35 +68,27 @@ export default {
       }
     },
     registrarse() {
-      this.$router.push({ path: '/homeviews', query: { register: true } }).then(() => {
-        window.location.reload(); // Recarga completa la página
-    }); // Redirecciona a la vista contacto
+      this.$router.push({ path: '/homeviews', query: { register: true } });
     },
     inicioSesion() {
-      this.$router.push("/homeviews").then(() => {
-  window.location.reload(); // Recarga completa la página
-    }); // Redirecciona a la vista contacto
+      this.$router.push("/homeviews");
     },
     contacto() {
-      this.$router.push('/contactoAnonimo').then(() => {
-  window.location.reload(); // Recarga completa la página
-    }); // Redirecciona a la vista contacto
+      this.$router.push('/contactoAnonimo');
     },
     Intranet() {
-      this.$router.push("/").then(() => {
-  window.location.reload(); 
-    }); 
+      this.$router.push("/");
     },
-    
-    toSeleccionVehiculo(idVehiculo){
-      this.$router.push({ name: 'seleccionVehiculo', params: { id: idVehiculo } });
-          },
+    verDetallesVehiculo(idVehiculo) {
+      this.$router.push({ name: 'seleccionVehiculo', params: { idVehiculo } });
+    },
   },
   mounted() {
     this.fetchVehiculos(); // Llama a la función al cargar el componente
   },
 };
 </script>
+
 
 <style>
 body {

@@ -12,7 +12,7 @@
             <a class="nav-link active" aria-current="page" @click.prevent="Intranet" href="#">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" @click.prevent="contacto" href="#">Contactanos</a>
+            <a class="nav-link" @click.prevent="contacto" href="#">Contáctanos</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled custom-text" aria-disabled="true">Usted está en la vista anónima</a>
@@ -27,109 +27,65 @@
   </nav>
 
   <!-- Contenedor principal con el formulario -->
-  <div class="data-container">
+  <div class="data-container" v-if="vehiculo">
     <div class="data-section">
-      <!--
       <img
-          v-if="vehiculo.fotoVehiculo"
-          :src="'data:image/jpeg;base64,' + vehiculo.fotoVehiculo"
-          alt="Foto del Vehículo"
-          class="vehiculo-imagen"
-        /> -->
-      <h1>MODELO</h1>
-      <p><strong>Tipo:</strong> </p> <!--tipo de vehiculo-->
-      <p><strong>Color:</strong> </p> <!-- Color -->
-      <p><strong>Asientos:</strong> </p> <!-- asientos-->
-      <p><strong>Accesorios:</strong> </p> <!-- accesorios -->
-      <p><strong>FECHAS:</strong> </p> <!-- fechas - cantidada de dias -->
-      <p><strong>Total Vehículo:</strong> </p> <!-- precio vehiculo-->
-      <p><strong>Total:</strong> {{ vehicle.tipo }}</p> <!-- precio vehiculo+accesorios-->
+        v-if="vehiculo.fotoVehiculo"
+        :src="'data:image/jpeg;base64,' + vehiculo.fotoVehiculo"
+        alt="Foto del Vehículo"
+        class="vehiculo-imagen"
+      />
+      <h1>{{ vehiculo.modelo }}</h1>
+      <p><strong>Tipo:</strong> {{ vehiculo.tipo }}</p>
+      <p><strong>Color:</strong> {{ vehiculo.color }}</p>
+      <p><strong>Asientos:</strong> {{ vehiculo.asientos }}</p>
+      <p><strong>Accesorios:</strong> {{ vehiculo.accesorios }}</p>
+      <p><strong>Fechas:</strong> (información por completar)</p>
+      <p><strong>Total Vehículo:</strong> {{ vehiculo.precioVehiculo }}</p>
+      <p><strong>Total:</strong> (vehículo + accesorios)</p>
       <button @click="seleccionarVehiculo" class="select-button">Seleccionar</button>
     </div>
   </div>
+  <p v-else>Cargando datos del vehículo...</p>
 </template>
 
 <script>
 import axios from "axios";
-import vehiculosAnonimo from "./vehiculosAnonimo.vue";
+
 export default {
+  props: ['idVehiculo'], // Recibe el ID del vehículo como una propiedad
   data() {
     return {
-      vehiculos: [], // Lista para almacenar los vehículos
-    };
-  },
-  data() {
-    return {
-      vehicle: {
-        codigoACRISS: "",
-        patente: "",
-        numeroChasis: "",
-        modelo: "",
-        marca: "",
-        kilometraje: "",
-        anio: "",
-        costo: "",
-        tipo: "",
-        color: "",
-        capacidadPasajeros: "",
-        fechaUltimoMantenimiento: "",
-        estadoVehiculo: "",
-        fotoVehiculo: null, // Almacenará la imagen en Base64  
-      },
+      vehiculo: null, // Para almacenar los detalles del vehículo
     };
   },
   methods: {
-    // para la foto
-    onFileChange(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.vehicle.fotoVehiculo = e.target.result.split(",")[1]; // Solo el contenido Base64
-        };
-        reader.readAsDataURL(file);
-      }
-    },
-    // enviar datos al backend
-    async submitForm() {
-      try {
-        // agrupa los datos y los manda al backend
-        const response = await axios.post(
-          import.meta.env.VITE_BASE_URL + 'api/vehiculos/crear-vehiculo',
-          this.vehicle)
-          console.log(response.data) // respuesta del backend
-          //imprimir alertas enviadas por backend
-        if (response.data == 4) {
-          alert("Patente repetida");
-        }
-        if (response.data == 2) {
-          alert("Numero de chasis repetido");
-        } 
-        if (response.data == 0) {
-          alert("Vehículo ingresado con éxito");
-        }
-
-        // error de la bd 
-        } catch (error) {
-          console.error("Error:", error);
-          alert("No se pudo generar conexión con el servidor");
-        }
-    },
-    Intranet() {
-      // Lógica para navegar al inicio
-    },
-    contacto() {
-      // Lógica para navegar a la página de contacto
-    },
-    inicioSesion() {
-      // Lógica para manejar el inicio de sesión
-    },
-    registrarse() {
-      // Lógica para manejar el registro
+    async fetchVehiculo() {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_BASE_URL}api/vehiculos/${this.idVehiculo}`
+    );
+    this.vehiculo = response.data;
+    if (!this.vehiculo) {
+      throw new Error("No se encontró el vehículo con el ID proporcionado.");
     }
+  } catch (error) {
+    console.error("Error al cargar los detalles del vehículo:", error);
+    alert("No se pudo cargar la información del vehículo.");
   }
+},
+
+    seleccionarVehiculo() {
+      // Implementar la lógica de selección de vehículo, por ejemplo, redirigir o guardar datos
+      console.log("Vehículo seleccionado:", this.vehiculo);
+    },
+  },
+  mounted() {
+    this.fetchVehiculo(); // Carga los datos del vehículo al montar el componente
+  },
 };
 </script>
+
 
 <style>
 body {

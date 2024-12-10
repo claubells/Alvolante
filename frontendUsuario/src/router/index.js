@@ -88,11 +88,13 @@ const router = createRouter({
             
         },
         {
-            path: '/seleccionVehiculo',
+            path: '/seleccionVehiculo/:idVehiculo',
             name: 'seleccionVehiculo',
             component: () => import('../view/seleccionVehiculo.vue'),
-            
+            props: true, // Pasar el parámetro como prop al componente
         },
+        
+        
 
     ]
 });
