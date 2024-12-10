@@ -11,7 +11,7 @@
                 <a class="nav-link active" aria-current="page" @click.prevent="Intranet" href="#" style="margin-left: 20px;">Inicio</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" @click.prevent="contacto" href="#" style="margin-left: 0px;">Contactanos</a>
+                <a class="nav-link" @click.prevent="verVehiculos" href="#" style="margin-left: 0px;">Ver Vehículos</a>
             </li>
             <li class="nav-item">
             <a class="nav-link disabled custom-text" aria-disabled="true">Usted está en la vista anónima</a>
@@ -77,8 +77,8 @@
     window.location.reload(); // Recarga completa la página
       }); // Redirecciona a la vista contacto
       },
-      contacto() {
-        this.$router.push('/contactoAnonimo').then(() => {
+      verVehiculos() {
+        this.$router.push('/vehiculosAnonimo').then(() => {
     window.location.reload(); // Recarga completa la página
       }); // Redirecciona a la vista contacto
       },
