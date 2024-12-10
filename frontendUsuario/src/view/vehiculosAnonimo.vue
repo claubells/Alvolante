@@ -19,7 +19,7 @@
         </ul>
           <li class="d-flex" role="search">
               <button class="btn btn-custom me-2" @click.prevent="inicioSesion">Iniciar sesión</button>
-              <button class="btn btn-custom"@click.prevent="registrarse">Registrarse</button>
+              <button class="btn btn-custom" @click.prevent="registrarse">Registrarse</button>
           </li>
       </div>
     </div>
@@ -40,6 +40,7 @@
         <p><strong>Modelo:</strong> {{ vehiculo.modelo }}</p>
         <p><strong>Marca:</strong> {{ vehiculo.marca }}</p>
         <p><strong>Año:</strong> {{ vehiculo.anio }}</p>
+        <button @click="toSeleccionVehiculo(vehiculo.idVehiculo)">Ver Detalle</button>
       </div>
     </div>
     <p v-else>No hay vehículos disponibles.</p>
@@ -89,6 +90,10 @@ export default {
   window.location.reload(); 
     }); 
     },
+    
+    toSeleccionVehiculo(idVehiculo){
+      this.$router.push({ name: 'seleccionVehiculo', params: { id: idVehiculo } });
+          },
   },
   mounted() {
     this.fetchVehiculos(); // Llama a la función al cargar el componente

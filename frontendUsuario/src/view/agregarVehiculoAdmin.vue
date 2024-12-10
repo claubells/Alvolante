@@ -88,6 +88,7 @@ export default {
     };
   },
   methods: {
+    // para la foto
     onFileChange(event) {
       const file = event.target.files[0];
       if (file) {
@@ -98,12 +99,15 @@ export default {
         reader.readAsDataURL(file);
       }
     },
+    // enviar datos al backend
     async submitForm() {
       try {
+        // agrupa los datos y los manda al backend
         const response = await axios.post(
           import.meta.env.VITE_BASE_URL + 'api/vehiculos/crear-vehiculo',
           this.vehicle)
-          console.log(response.data) 
+          console.log(response.data) // respuesta del backend
+          //imprimir alertas enviadas por backend
         if (response.data == 4) {
           alert("Patente repetida");
         }
@@ -114,7 +118,7 @@ export default {
           alert("Vehículo ingresado con éxito");
         }
 
-
+        // error de la bd 
         } catch (error) {
           console.error("Error:", error);
           alert("No se pudo generar conexión con el servidor");
