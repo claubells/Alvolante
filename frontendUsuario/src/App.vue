@@ -1,13 +1,27 @@
 <script setup>
 
-
-
 import{RouterView} from 'vue-router'
 
 </script>
 
   <template>
     <RouterView/>
+
+    <v-app toolbar footer>
+
+      <v-toolbar class="blue darken-3" dark>
+      </v-toolbar>
+
+      <v-navigation-drawer permanent clipped light absolute>
+      </v-navigation-drawer>
+
+      <main>
+      <v-container>
+          <p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p><p>hi</p>
+      </v-container>
+      </main>
+  </v-app>
+    
   </template>
 
 <style>
@@ -31,4 +45,6 @@ body{
   flex-direction: column;
 }
 
-</style>  
+html { overflow-y: auto }
+
+</style> 
