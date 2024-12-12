@@ -19,7 +19,7 @@
           </ul>
             <li class="d-flex" role="search">
                 <button class="btn btn-custom me-2" @click.prevent="inicioSesion">Iniciar sesión</button>
-                <button class="btn btn-custom"@click.prevent="registrarse">Registrarse</button>
+                <button class="btn btn-custom" @click.prevent="registrarse">Registrarse</button>
             </li>
         </div>
       </div>

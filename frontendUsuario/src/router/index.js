@@ -81,14 +81,20 @@ const router = createRouter({
             component: () => import('../view/loginTrabajador.vue'),
             
         },
-
-
         {
             path: '/contactoAnonimo',
             name: 'contactoAnonimo',
             component: () => import('../view/contactoAnonimo.vue'),
             
         },
+        {
+            path: '/seleccionVehiculo/:idVehiculo',
+            name: 'seleccionVehiculo',
+            component: () => import('../view/seleccionVehiculo.vue'),
+            props: true, // Pasar el parámetro como prop al componente
+        },
+        
+        
 
     ]
 });

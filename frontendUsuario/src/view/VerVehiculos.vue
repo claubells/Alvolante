@@ -23,6 +23,7 @@
             <p><strong>Modelo:</strong> {{ vehiculo.modelo }}</p>
             <p><strong>Marca:</strong> {{ vehiculo.marca }}</p>
             <p><strong>Año:</strong> {{ vehiculo.anio }}</p>
+            
           </div>
         </div>
         <p v-else>No hay vehículos disponibles.</p>
@@ -54,6 +55,7 @@
       cierreSesion() {
         this.$router.push("/"); // Redirecciona a la vista principal
       },
+      
     },
     mounted() {
       this.fetchVehiculos(); // Llama a la función al cargar el componente
