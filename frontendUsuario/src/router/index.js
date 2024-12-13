@@ -113,13 +113,6 @@ const router = createRouter({
             
         },
              
-        {
-            path: '/pruebas',
-            name: 'pruebas',
-            component: () => import('../view/pruebas.vue'),
-            
-        },
-
         
         
 
