@@ -19,40 +19,30 @@ const userName = ref("Usuario");
       </div>
     </nav>
 
-    <!-- Contenido principal -->
     <section class="welcome-section">
-      <h1>¡Bienvenido, {{ userName }}!</h1>
-      <p>Explora nuestras funcionalidades y descubre cómo podemos ayudarte.</p>
+      <div class="welcome-text">
+        <h1>¡Bienvenido, {{ userName }}!</h1>
+        <p>Explora nuestras funcionalidades y descubre cómo podemos ayudarte.</p>
+      </div>
+      <div class="welcome-image">
+        <img src="./media/logoAV.png" alt="Al Volante" class="al-volante-img" />
+      </div>
     </section>
 
     <!-- Secciones adicionales -->
     <section class="content-section">
       <div class="card">
         <h2>Arriendo</h2>
-        <p>Accede para arrendar vehículos fácilmente.</p>
-        <button class="card-button">Ir</button>
+        <p>¡Entra ya y arriendaaa ! meo korte</p>
+        <button class="card-button" @click.prevent="toCalendario">Ir</button>
       </div>
-      <div class="card">
-        <h2>Ver Autos</h2>
-        <p>Consulta nuestra lista de autos disponibles.</p>
-        <button class="card-button" @click.prevent="toAutosClientes">Ir</button>
-      </div>
-      <div class="card">
-        <h2>Pagos</h2>
-        <p>Revisa y gestiona tus pagos pendientes.</p>
-        <button class="card-button">Ir</button>
-      </div>
+
     </section>
   </main>
 </template>
 
 <script>
 import axios from 'axios';
-
-// Redireccionamientos
-function redireccionarASubpaginaContacto() {
-  window.location.href = '/contacto';
-}
 
 export default {
   methods: {
@@ -61,23 +51,20 @@ export default {
       window.location.href = "/"; // Redirige al login
     },
     toContact() {
-      redireccionarASubpaginaContacto();
+      window.location.href = "/contacto";
     },
-    toAutosClientes(){
-      window.location.href = "/vistaAutos"; // Redirige al login
-
+    toCalendario(){
+      window.location.href = "/calendarioCliente"; 
+      
     },
     toPerfilCliente(){
-      window.location.href = "/perfilCliente"; // Redirige al login
-
+      window.location.href = "/perfilCliente";
     },
-
   },
 };
 </script>
 
 <style>
-/* Estilos generales */
 body {
   margin: 0;
   font-family: "Arial", sans-serif;
@@ -93,11 +80,12 @@ body {
   background-color: #ff80ab;
   color: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: fixed; /* Hace que la barra se quede fija en la parte superior */
-  top: 0; /* La coloca exactamente en la parte superior */
-  left: 0; /* Alinea al inicio del contenido horizontal */
-  width: 100%; /* Se asegura de que ocupe todo el ancho */
-  z-index: 1000; /* Asegura que quede encima de otros elementos */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  
 }
 
 .logo {
@@ -107,7 +95,7 @@ body {
 
 .nav-links {
   display: flex;
-  gap: 1.5rem;  /* Espacio entre los links */
+  gap: 1.5rem;
 }
 
 .nav-links a {
@@ -121,20 +109,45 @@ body {
   color: #ffd1dc;
 }
 
-/* Sección de bienvenida */
+
 .welcome-section {
-  text-align: center;
-  margin: 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  margin-top: -100px;
+  margin-left: 0px;
+  height: 1200px;
+  
 }
 
-.welcome-section h1 {
+.welcome-text {
+  max-width: 50%;
+  
+}
+
+.welcome-text h1 {
   font-size: 2rem;
   color: #ff4081;
+  margin-top: -360px;
+  
 }
 
-.welcome-section p {
+.welcome-text p {
   font-size: 1.2rem;
   color: #ff6f61;
+}
+
+.welcome-image {
+  max-width: 40%;
+}
+
+.al-volante-img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
 }
 
 /* Sección de tarjetas */
@@ -152,8 +165,13 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  width: 300px;
+  width: 450px;
+  height: 230px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: -800px;
+  margin-left: -590px;
+  border: 2px solid black;
+  
 }
 
 .card h2 {
@@ -177,6 +195,8 @@ body {
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width:  400px;
+  height: 60px;
 }
 
 .card-button:hover {

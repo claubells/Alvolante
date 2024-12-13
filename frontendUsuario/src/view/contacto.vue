@@ -13,7 +13,6 @@ const router = useRouter(); // Usar el router
       <div class="nav-links">
         <a href="#" @click.prevent="toInicio">Inicio</a>
         <a href="#" @click.prevent="toPerfilCliente">Perfil</a>
-        <a href="#">Opciones</a>
         <a href="#" @click.prevent="toContact">Contacto</a>
         <a href="#" @click.prevent="logout">Cerrar Sesión</a>
       </div>

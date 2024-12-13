@@ -44,7 +44,6 @@ onMounted(() => {
       <div class="nav-links">
         <a href="#" @click.prevent="toInicio">Inicio</a>
         <a href="#" @click.prevent="toPerfilCliente">Perfil</a>
-        <a href="#">Opciones</a>
         <a href="#" @click.prevent="toContact">Contacto</a>
         <a href="#" @click.prevent="logout">Cerrar Sesión</a>
       </div>
@@ -112,11 +111,6 @@ onMounted(() => {
 
 <script>
 
-
-// Redireccionamientos
-function redireccionarASubpaginaContacto() {
-  window.location.href = '/contacto';
-}
 export default {
   methods: {
     logout() {
@@ -124,19 +118,19 @@ export default {
       window.location.href = "/"; // Redirige al login
     },
     toContact() {
-      redireccionarASubpaginaContacto();
+      window.location.href = "/contacto";
     },
     toInicio() {
-      this.$router.push('/user'); // Redirecciona a la vista de inicio
+      window.location.href = "/user"; // Redirecciona a la vista de inicio
     },
     toPerfilCliente() {
-      this.$router.push('/perfilCliente'); // Redirecciona a perfil de cliente
+      window.location.href = "/perfilCliente"; // Redirecciona a perfil de cliente
     },
     toHistorialArriendo() {
-      this.$router.push('/historialArriendo'); // Redirecciona a historial de arriendo
+      window.location.href = "/historialArriendo"; // Redirecciona a historial de arriendo
     },
     toComprobantesPago() {
-      this.$router.push('/comprobantesPago'); // Redirecciona a comprobantes de pago
+      window.location.href = "/comprobantesPago"; // Redirecciona a comprobantes de pago
     },
     editProfile() {
       // Lógica para editar el perfil
