@@ -11,4 +11,6 @@ public interface VehiculoRepository extends JpaRepository<VehiculoEntity, Long> 
     VehiculoEntity findByPatente(String patente);
 
     List<VehiculoEntity> findAll();
+
+    List<VehiculoEntity> findByDisponibilidadTrue();
 }

@@ -41,7 +41,7 @@ public class VehiculoService {
         if (marca == null){
             throw new RuntimeException("Debe de ingresar la marca del vehículo.");
         }*/
-
+        disponibilidad = true;
         VehiculoEntity vehiculoNuevo = new VehiculoEntity(codigoACRISS, estadoVehiculo, marca, modelo, patente, numeroChasis, kilometraje, costo, anio, tipo, color, capacidadPasajeros, disponibilidad, fechaUltimoMantenimiento, fotoVehiculo);
         vehiculoRepository.save(vehiculoNuevo);
         return 0; //exito
@@ -57,6 +57,11 @@ public class VehiculoService {
         }else {
             return null;
         }
+    }
+
+    public List<VehiculoEntity> getVehiculosByDisponible(){
+        return vehiculoRepository.findByDisponibilidadTrue();
+
     }
 
 }
