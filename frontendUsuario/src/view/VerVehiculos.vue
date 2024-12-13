@@ -41,7 +41,7 @@
       };
     },
     methods: {
-      async fetchVehiculos() {
+      async fetchVehiculosDispo() {
         try {
           const response = await axios.get(
             import.meta.env.VITE_BASE_URL + "api/vehiculos/all" //ruta para obtener los autos
@@ -58,7 +58,7 @@
       
     },
     mounted() {
-      this.fetchVehiculos(); // Llama a la función al cargar el componente
+      this.fetchVehiculosDispo(); // Llama a la función al cargar el componente
     },
   };
   </script>

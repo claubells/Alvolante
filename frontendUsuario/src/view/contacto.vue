@@ -44,13 +44,13 @@ export default {
       window.location.href = "/"; // Redirige al login
     },
     toContact(){
-      this.$router.push('/contacto'); // Redirecciona a la vista de contacto
+      window.location.href = "/contacto"; // Redirecciona a la vista de contacto
     },
     toInicio(){
-      this.$router.push('/user'); // donde esta la vista inicio?????????
+      window.location.href = "/user"; // donde esta la vista inicio?????????
     },
     toPerfilCliente(){
-      this.$router.push('/perfilCliente'); // Redireccina a perfil clinete
+      window.location.href = "/perfilCliente"; // Redireccina a perfil clinete
     }
   },
 };
