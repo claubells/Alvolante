@@ -9,5 +9,6 @@ import java.util.List;
 public interface VehiculoRepository extends JpaRepository<VehiculoEntity, Long> {
     VehiculoEntity findByNumeroChasis(String chasis);
     VehiculoEntity findByPatente(String patente);
+
     List<VehiculoEntity> findAll();
 }

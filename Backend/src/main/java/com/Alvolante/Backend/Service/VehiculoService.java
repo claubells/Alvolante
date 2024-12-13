@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VehiculoService {
@@ -48,4 +49,14 @@ public class VehiculoService {
     public List<VehiculoEntity> getAllVehiculos() {
         return vehiculoRepository.findAll();
     }
+
+    public VehiculoEntity getVehiculoById(Long id) {
+        Optional<VehiculoEntity> getVehiculo = vehiculoRepository.findById(id);
+        if (getVehiculo.isPresent()) {
+            return getVehiculo.get();
+        }else {
+            return null;
+        }
+    }
+
 }
