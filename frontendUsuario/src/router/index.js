@@ -93,6 +93,12 @@ const router = createRouter({
             component: () => import('../view/seleccionVehiculo.vue'),
             props: true, // Pasar el parámetro como prop al componente
         },
+        {
+            path: '/pago',
+            name: 'pago',
+            component: () => import('../view/pago.vue'),
+            
+        },   
 
         {
             path: '/calendarioCliente',
@@ -106,10 +112,7 @@ const router = createRouter({
             component: () => import('../view/verAutosSegunCalendario.vue'),
             
         },
-        
-
-
-        
+             
         {
             path: '/pruebas',
             name: 'pruebas',
