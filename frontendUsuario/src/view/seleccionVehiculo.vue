@@ -30,18 +30,19 @@
   <div class="data-container" v-if="vehiculo">
     <div class="data-section">
       <img
-        v-if="vehiculo.fotoVehiculo"
-        :src="'data:image/jpeg;base64,' + vehiculo.fotoVehiculo"
-        alt="Foto del Vehículo"
-        class="vehiculo-imagen"
-      />
+          v-if="vehiculo.fotoVehiculo"
+          :src="'data:image/jpeg;base64,' + vehiculo.fotoVehiculo"
+          alt="Foto del Vehículo"
+          class="vehiculo-imagen"
+        />
       <h1>{{ vehiculo.modelo }}</h1>
+      <p><strong>Total Vehículo:</strong> {{ vehiculo.idVehiculo }}</p>
       <p><strong>Tipo:</strong> {{ vehiculo.tipo }}</p>
-      <p><strong>Color:</strong> {{ vehiculo.color }}</p>
-      <p><strong>Asientos:</strong> {{ vehiculo.asientos }}</p>
-      <p><strong>Accesorios:</strong> {{ vehiculo.accesorios }}</p>
+      <p><strong>Color:</strong> {{ vehiculo.color}}</p>
+      <p><strong>Asientos:</strong> {{ vehiculo.capacidadPasajeros}}</p>
+      <p><strong>Accesorios:</strong> {{ vehiculo.idVehiculo }}</p>
       <p><strong>Fechas:</strong> (información por completar)</p>
-      <p><strong>Total Vehículo:</strong> {{ vehiculo.precioVehiculo }}</p>
+      <p><strong>Total Vehículo:</strong> {{ vehiculo.costo }}</p>
       <p><strong>Total:</strong> (vehículo + accesorios)</p>
       <button @click="seleccionarVehiculo" class="select-button">Seleccionar</button>
     </div>
@@ -63,7 +64,7 @@ export default {
     async fetchVehiculo() {
   try {
     const response = await axios.get(
-      `${import.meta.env.VITE_BASE_URL}api/vehiculos/${this.idVehiculo}`
+      `${import.meta.env.VITE_BASE_URL}api/vehiculos/obtenerVehiculoPorId/${this.idVehiculo}`
     );
     this.vehiculo = response.data;
     if (!this.vehiculo) {
@@ -75,13 +76,17 @@ export default {
   }
 },
 
-    seleccionarVehiculo() {
-      // Implementar la lógica de selección de vehículo, por ejemplo, redirigir o guardar datos
-      console.log("Vehículo seleccionado:", this.vehiculo);
-    },
+seleccionarVehiculo() {
+// Implementar la lógica de selección de vehículo, por ejemplo, redirigir o guardar datos
+  console.log("Vehículo seleccionado:", this.vehiculo);
+},
+
+
+
+    
   },
   mounted() {
-    this.fetchVehiculo(); // Carga los datos del vehículo al montar el componente
+    this.fetchVehiculo(this.idVehiculo); // Carga los datos del vehículo al montar el componente
   },
 };
 </script>

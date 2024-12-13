@@ -61,7 +61,7 @@ public class VehiculoController {
         return vehiculoService.getAllVehiculos();
     }
 
-    @GetMapping("/obtenerVehiculoPorId")
+    @GetMapping("/obtenerVehiculoPorId/{id}")
     public VehiculoEntity obtenerVehiculoPorId(@PathVariable Long id) {
         return vehiculoService.getVehiculoById(id);
     }
