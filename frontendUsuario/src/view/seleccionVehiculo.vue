@@ -1,7 +1,7 @@
 <template>
   <!-- NavBar -->
   <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
       <img class="image" src="./media/logoalvolante.png" alt="Logo">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -29,7 +29,7 @@
   <!-- Contenedor principal con el formulario -->
   <div class="data-container" v-if="vehiculo">
     <div class="data-section">
-      <img
+      <img 
           v-if="vehiculo.fotoVehiculo"
           :src="'data:image/jpeg;base64,' + vehiculo.fotoVehiculo"
           alt="Foto del Vehículo"
@@ -44,13 +44,14 @@
       <p><strong>Fechas:</strong> (información por completar)</p>
       <p><strong>Total Vehículo:</strong> {{ vehiculo.costo }}</p>
       <p><strong>Total:</strong> (vehículo + accesorios)</p>
-      <button @click="seleccionarVehiculo" class="select-button">Seleccionar</button>
+      <button @click="seleccionarVehiculoAnonimo" class="select-button">  Arrendar  </button>
     </div>
   </div>
   <p v-else>Cargando datos del vehículo...</p>
 </template>
 
 <script>
+
 import axios from "axios";
 
 export default {
@@ -76,9 +77,9 @@ export default {
   }
 },
 
-seleccionarVehiculo() {
+seleccionarVehiculoAnonimo() {
 // Implementar la lógica de selección de vehículo, por ejemplo, redirigir o guardar datos
-  console.log("Vehículo seleccionado:", this.vehiculo);
+  this.$router.push('/homeViews');
 },
 
 
@@ -95,7 +96,7 @@ seleccionarVehiculo() {
 <style>
 body {
   background: #8b8b8b;
-  color: #000;
+  color: #020000;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -108,15 +109,14 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
-
+.container-fluid{
+  display: flex;
+}
 .image {
   max-height: 60px;
   max-width: 55px;
   margin-left: -20px;
   margin-top: auto;
-  
-
-  
 }
 
 .main-content {
@@ -124,51 +124,69 @@ body {
   padding: 40px;
   flex: 1;
 }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  position: fixed; /* Hace que la barra se quede fija en la parte superior */
+  top: 0; /* La coloca exactamente en la parte superior */
+  left: 0; /* Alinea al inicio del contenido horizontal */
+  width: 100%; /* Se asegura de que ocupe todo el ancho */
+  z-index: 1000;
+  
+}
+.navbar { margin: 0; width: 100%; }
+
 
 .nav-link {
-color: #ffffff !important; 
+  color: #ffffff !important; 
 }
 
 .navbar-brand {
-color: #ffffff !important; 
+  color: #ffffff !important; 
 }
 
 .navbar-text {
-color: #ffffff !important; 
+  color: #ffffff !important; 
 }
 
 .custom-text {
-font-size: 1.2rem; 
-color: #999999 !important; 
-margin-left: 500px;
- 
+  font-size: 1.2rem; 
+  color: #999999 !important; 
+  margin-left: 500px;
 }
+
 h1 {
   color: #202020;
   font-size: 24px;
   margin-bottom: 20px;
+  text-align: center;
 }
+
 .btn-custom {
-background-color: #868686; /* Color de fondo personalizado */
-color: rgb(255, 255, 255); 
-border: none; 
+  background-color: #868686; /* Color de fondo personalizado */
+  color: rgb(255, 255, 255); 
+  border: none; 
 }
 
 .btn-custom:hover {
-background-color: #707070; /* Color al pasar el mouse por encima */
+  background-color: #707070; /* Color al pasar el mouse por encima */
 }
 
 .nav-link:hover {
-background-color: #707070;
+  background-color: #707070;
 }
 
 /* Estilos para el Contenedor Principal y el Formulario */
 .data-container {
+  margin-top: -10%;
+  position: relative;
+  margin-left: 5%;
   padding: 20%;
   height: 90%;
   width: 90%;
   justify-content: center;
-  
 }
 
 .data-title {
@@ -223,6 +241,7 @@ background-color: #707070;
 
 .select-button {
   margin-top: 0%;
+  width: 10%;
   padding: 10px;
   border: none;
   position: absolute;
@@ -238,4 +257,12 @@ background-color: #707070;
 .edit-button:hover {
   background-color: #218838;
 }
+
+.vehiculo-imagen {
+  width: 25%; /* Ajustar el ancho de la imagen del perfil según sea necesario */ 
+  display: block; /* Asegura que el margen automático funcione */ 
+  margin-left: auto; 
+  margin-right: auto;
+}
+
 </style>

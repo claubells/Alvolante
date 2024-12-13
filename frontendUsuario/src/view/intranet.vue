@@ -30,12 +30,18 @@ export default {
 
 <style>
 .general {
+  position: fixed; /* Hace que la barra se quede fija en la parte superior */
+  top: 0; /* La coloca exactamente en la parte superior */
+  left: 0; /* Alinea al inicio del contenido horizontal */
+  width: 100%; /* Se asegura de que ocupe todo el ancho */
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   background: linear-gradient(135deg, #f8bbd0, #fce4ec);
   font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .content {
@@ -46,7 +52,10 @@ export default {
   text-align: center;
   max-width: 400px;
   width: 100%;
+  margin: 0;
+  box-sizing: border-box; /* Asegura que el padding y el border se incluyan en el tamaño total */
 }
+
 
 .image {
   display: block;

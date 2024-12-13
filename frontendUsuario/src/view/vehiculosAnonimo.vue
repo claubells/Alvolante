@@ -39,7 +39,7 @@
         <p><strong>Modelo:</strong> {{ vehiculo.modelo }}</p>
         <p><strong>Marca:</strong> {{ vehiculo.marca }}</p>
         <p><strong>Año:</strong> {{ vehiculo.anio }}</p>
-        <button @click="verDetallesVehiculo(vehiculo.idVehiculo)">Seleccionar</button>
+        <button @click="verDetallesVehiculo(vehiculo.idVehiculo)" class="select-button">Seleccionar</button>
       </div>
     </div>
     <p v-else>No hay vehículos disponibles.</p>
@@ -98,6 +98,20 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  justify-content: center;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  position: fixed; /* Hace que la barra se quede fija en la parte superior */
+  top: 0; /* La coloca exactamente en la parte superior */
+  left: 0; /* Alinea al inicio del contenido horizontal */
+  width: 100%; /* Se asegura de que ocupe todo el ancho */
+  z-index: 1000;
+  
 }
 
 .container {
@@ -109,7 +123,6 @@ body {
 .image {
   max-height: 60px;
   max-width: 55px;
-  margin-left: -20px;
   margin-top: auto;
   
 
@@ -151,6 +164,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  align-items: center;
 }
 
 .vehiculo-card {
@@ -161,6 +175,7 @@ h1 {
   background-color: #ffffff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
+  align-items: center;
 }
 
 .vehiculo-card img {
@@ -187,4 +202,22 @@ background-color: #707070; /* Color al pasar el mouse por encima */
 .nav-link:hover {
 background-color: #707070;
 }
+.select-button {
+  margin-top: 0%;
+  padding: 10px;
+  border: none;
+  position: flex;
+  align-items: center;
+  border-radius: 4px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  justify-content: center;
+  font-size:14px;
+}
+
+.edit-button:hover {
+  background-color: #218838;
+}
+
 </style>
