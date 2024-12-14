@@ -43,7 +43,8 @@ public class UsuarioService {
     }
 
     public UsuarioEntity getUserById(long id) {
-        return userRepo.findById(id).get();
+        return userRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + id));
     }
 
 

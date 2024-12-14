@@ -7,8 +7,7 @@ import java.util.Date;
 
 @Getter
 @Entity
-@Table(name = "vehiculo")
-
+@Table(name = "Vehiculo")
 public class VehiculoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +32,6 @@ public class VehiculoEntity {
 
 
     public VehiculoEntity(String codigoACRISS, String estadoVehiculo, String marca, String modelo, String patente, String numeroChasis, String kilometraje, float costo, int anio, String tipo, String color, int capacidadPasajeros, boolean disponibilidad, Date fechaUltimoMantenimiento, byte[] fotoVehiculo) {
-        this.idVehiculo = idVehiculo;
         this.codigoACRISS = codigoACRISS;
         this.estadoVehiculo = estadoVehiculo;
         this.marca = marca;
@@ -55,9 +53,7 @@ public class VehiculoEntity {
 
     }
 
-    public boolean getDisponibilidad() {
-        return disponibilidad;
-    }
+
 
 }
 

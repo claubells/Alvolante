@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Entity
@@ -26,7 +27,6 @@ public class UsuarioEntity {
     //Constructor de usuario
 
     public UsuarioEntity(String rut, String name, String email, String phone, Date fechaDeNacimiento, String password, String rol) {
-        this.idUsuario = idUsuario;
         this.rut = rut;
         this.name = name;
         this.email = email;

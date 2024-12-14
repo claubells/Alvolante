@@ -1,51 +1,46 @@
 package com.Alvolante.Backend.Service;
 
-import com.Alvolante.Backend.Entity.VehiculoEntity;
-import com.Alvolante.Backend.Repository.VehiculoRepository;
+import com.Alvolante.Backend.Entity.ExtraEntity;
+import com.Alvolante.Backend.Entity.ReservaEntity;
+import com.Alvolante.Backend.Repository.ExtraRepository;
+import com.Alvolante.Backend.Repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-
 @Service
-public class VehiculoService {
+public class ExtraService {
     @Autowired
-    private VehiculoRepository vehiculoRepository;
+    private ReservaRepository reservaRepository;
+    @Autowired
+    private ExtraRepository extraRepository;
 
-    public int createVehiculo(String codigoACRISS, String estadoVehiculo, String marca, String modelo, String patente, String numeroChasis, String kilometraje, float costo, int anio, String tipo, String color, int capacidadPasajeros, boolean disponibilidad, Date fechaUltimoMantenimiento, byte[] fotoVehiculo) {
-        VehiculoEntity existentePatente = vehiculoRepository.findByPatente(patente);
-        VehiculoEntity existenteChasis = vehiculoRepository.findByNumeroChasis(numeroChasis);
-        if(existentePatente != null ) { // si se encuentra una patente ya registrada
-            //throw new RuntimeException("La patente '"+ patente +"' ya está registrada. Usa una diferente.");  // es decir, existe retornamos null
-            System.out.println("Patente existente: " + existentePatente);
-            return 4; //patente duplicada
-        }
-        if (existenteChasis != null) {
-            //throw new RuntimeException("El número de chasis '"+ numeroChasis +"' ya está registrado. Por favor ingrese uno distinto.");
-            System.out.println("Chasis existente: " + existenteChasis);
-            return 2; //chasis duplicado
-        }
 
-        /*// es obligatorio poner la patente, el modelo, numero de chasis, marca
-        if (patente == null) {
-            throw new RuntimeException("Debe de ingresar la patente del vehículo.");
-        }
-        if (modelo == null){
-            throw new RuntimeException("Debe de ingresar el modelo del vehículo.");
-        }
-        if (numeroChasis == null){
-            throw new RuntimeException("Debe de ingresar el Número de chasis del vehículo.");
-         }
-        if (marca == null){
-            throw new RuntimeException("Debe de ingresar la marca del vehículo.");
-        }*/
-
-        VehiculoEntity vehiculoNuevo = new VehiculoEntity(codigoACRISS, estadoVehiculo, marca, modelo, patente, numeroChasis, kilometraje, costo, anio, tipo, color, capacidadPasajeros, disponibilidad, fechaUltimoMantenimiento, fotoVehiculo);
-        vehiculoRepository.save(vehiculoNuevo);
+    public int createExtra(int tipoExtra, int maxCantidadExtra, int cantidadSeleccionada, String nombreExtra, String descripcionExtra, String costoExtra, boolean disponibilidadExtra, byte[] fotoExtra) {
+        ExtraEntity extraEntity = new ExtraEntity(tipoExtra, maxCantidadExtra, cantidadSeleccionada, nombreExtra, descripcionExtra, costoExtra, disponibilidadExtra, fotoExtra);
+        extraRepository.save(extraEntity);
         return 0; //exito
     }
-    public List<VehiculoEntity> getAllVehiculos() {
-        return vehiculoRepository.findAll();
+
+    /*
+    public boolean quiereReservar(Long userId){
+        // vemos si quiere una reserva o no
+        if(reservaRepository.findActiveReservationByUserId(userId)){
+            return false;
+        }
+        return true; //si quiere reserva
+    }*/
+
+    public ReservaEntity obtenerReservaPendiente(Long userId){
+        return reservaRepository.findPendingReservationByUserId(userId);
     }
+
+    public ExtraEntity obtenerExtraPorId(Long id){
+        return extraRepository.findExtraById(id);
+    }
+
+    public void actualizarReserva(ReservaEntity reserva){
+        reservaRepository.save(reserva);
+    }
+
+
 }

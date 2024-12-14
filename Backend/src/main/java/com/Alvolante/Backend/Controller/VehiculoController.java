@@ -30,7 +30,7 @@ public class VehiculoController {
                     nuevoVehiculo.getTipo(),
                     nuevoVehiculo.getColor(),
                     nuevoVehiculo.getCapacidadPasajeros(),
-                    nuevoVehiculo.getDisponibilidad(),
+                    nuevoVehiculo.isDisponibilidad(),
                     nuevoVehiculo.getFechaUltimoMantenimiento(),
                     nuevoVehiculo.getFotoVehiculo()
             );
