@@ -18,9 +18,6 @@ public class UsuarioService {
         if(existenteEmail != null ) { // si el usuarioEmail es distinto de vacio
             throw new RuntimeException("El correo "+ email +" ya está registrado. Usa uno diferente.");  // es decir, existe retornamos null
         }
-        if (existenteRut != null) {
-            throw new RuntimeException("El RUT "+ rut +" ya está registrado. Por favor intente nuevamente.");
-        }
 
         UsuarioEntity user = new UsuarioEntity(rut, name, email, phone, fechaDeNacimiento, password, rol);
         userRepo.save(user);

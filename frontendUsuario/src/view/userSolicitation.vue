@@ -13,7 +13,6 @@ const userName = ref("Usuario");
       <div class="nav-links">
         <a href="#">Inicio</a>
         <a href="#" @click="toPerfilCliente">Perfil</a>
-        <a href="#">Opciones</a>
         <a href="#" @click="toContact">Contacto</a>
         <a href="#" @click="logout">Cerrar Sesión</a>
       </div>
@@ -170,7 +169,7 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin-top: -800px;
   margin-left: -590px;
-  border: 2px solid black;
+  
   
 }
 

@@ -112,6 +112,14 @@ const router = createRouter({
             component: () => import('../view/verAutosSegunCalendario.vue'),
             
         },
+
+        {
+            path: '/seleccionVehiculoCliente/:idVehiculo',
+            name: 'seleccionVehiculoCliente',
+            component: () => import('../view/seleccionVehiculoCliente.vue'),
+            props: true,
+            
+        },
              
         
         

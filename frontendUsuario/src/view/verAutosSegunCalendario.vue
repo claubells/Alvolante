@@ -44,20 +44,17 @@ export default {
   methods: {
     async fetchVehiculos() {
       try {
-        const response = await axios.get(import.meta.env.VITE_BASE_URL + 'api/vehiculos/vehiculosDisponible');
-        this.vehiculos = response.data; // Guardamos los vehículos
-      } catch (error) {
-        console.error("Error al obtener vehículos disponibles:", error);
-      }
-    },
-    cierreSesion() {
-      console.log("Cerrar sesión clickeado");
-    },
-    mounted() {
-    this.fetchVehiculos(); // Llamamos a la API al cargar
-  },
+          const response = await axios.get(
+            import.meta.env.VITE_BASE_URL + "api/vehiculos/all" //ruta para obtener los autos
+          );
+          this.vehiculos = response.data;
+        } catch (error) {
+          console.error("Error al obtener los vehículos:", error);
+          alert("No se pudo cargar la lista de vehículos");
+        }
+      },
   verDetallesVehiculo(idVehiculo) {
-      this.$router.push({ name: 'seleccionVehiculo', params: { idVehiculo } });
+      this.$router.push({ name: 'seleccionVehiculoCliente', params: { idVehiculo } });
     },
     logout() {
       localStorage.removeItem("login"); // Limpia el almacenamiento local
@@ -76,6 +73,9 @@ export default {
     toInicio(){
       window.location.href = "/user"; // donde esta la vista inicio?????????
     },
+  },
+  mounted() {
+    this.fetchVehiculos(); // Llamamos a la API al cargar
   },
   
     
