@@ -45,17 +45,7 @@
 
 import axios from 'axios';
 
-//rediccionamientos
-//usuario
-function redireccionarASubpaginaUsuario(){
-    window.location.href = '/user';
 
-}
-
-function redireccionarASubpaginaUsuarioAnonimo(){
-    window.location.href = '/anonimo';
-
-} 
 
 export default{
     data(){
@@ -77,21 +67,25 @@ export default{
             const usuario = {
                 "email":this.username,
                 "password":this.password
+                
             };
             try{
                 const respuesta = await axios.post(import.meta.env.VITE_BASE_URL + 'api/usuarios/login', usuario)
+                //tipo admin
                 if(respuesta.data == 1){
-                    return 0;
+                  localStorage.setItem('login', JSON.stringify(this.username));
+                  window.location.href = "/agregarvehiculo";
                 }
-
+                //tipo trabajador
                 if(respuesta.data == 2){
-                    return 0;
+                  localStorage.setItem('login', JSON.stringify(this.username));
+                  window.location.href = "/trabajador";
                 }
 
                 //tipo usuario
                 if(respuesta.data == 3){
-                    localStorage.setItem('login', JSON.stringify(this.username));
-                    redireccionarASubpaginaUsuario();
+                  localStorage.setItem('login', JSON.stringify(this.username));
+                  window.location.href = "/user";
                 }
 
                 if(respuesta.data == 0){

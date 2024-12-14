@@ -52,12 +52,6 @@
 
 import axios from 'axios';
 
-//rediccionamientos
-//usuario
-function redireccionarASubpaginaUsuario(){
-    window.location.href = '/user';
-
-}
 
 function redireccionarASubpaginaUsuarioAnonimo(){
     window.location.href = '/anonimo';
@@ -104,8 +98,10 @@ export default{
 
                 //tipo usuario
                 if(respuesta.data == 3){
-                    localStorage.setItem('login', JSON.stringify(this.username));
-                    redireccionarASubpaginaUsuario();
+                    localStorage.setItem('login1', JSON.stringify(this.name));
+                    localStorage.setItem('fechaLogin', JSON.stringify(this.fechaDeNacimiento));
+                    localStorage.setItem('correoLogin', JSON.stringify(this.username));
+                    window.location.href = '/user';
                 }
 
                 if(respuesta.data == 0){

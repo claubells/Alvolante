@@ -57,6 +57,20 @@
         <label for="fotoVehiculo">Imagen del Vehículo:</label>
         <input type="file" id="fotoVehiculo" @change="onFileChange" accept="image/*">
 
+        <label for="sucursal">Sucursal:</label>
+          <select id="sucursal" v-model="vehicle.sucursal">
+            <option value="">Seleccione un lugar</option>
+            <option value="PICHILEMU">PICHILEMU</option>
+            <option value="OSORNO">OSORNO</option>
+            <option value="PUTUE">PUTUE</option>
+            <option value="JORDAN">JORDAN</option>
+            <option value="CASA123">CASA123</option>
+            <option value="ITHAN NY">ITHAN NY</option>
+            <option value="COSCULLUELA">COSCULLUELA</option>
+            <option value="TUNECHIKIDD">TUNECHIKIDD</option>
+            <option value="RONALDONAZARIO">RONALDONAZARIO</option>
+          </select>
+
         <button type="submit">Ingresar</button>
       </form>    
     </div>

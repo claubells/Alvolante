@@ -1,61 +1,14 @@
-<script setup>
-import { useRouter } from 'vue-router'; // Importar el router
-import axios from 'axios'; // Importar axios
-import { ref, onMounted } from 'vue'; // Importar ref y onMounted para la reactividad
-
-const router = useRouter(); // Usar el router
-const nombreCliente = ref(''); // Declarar una variable reactiva para el nombre del cliente
-import NavbarComp from '@/components/navbarComp.vue'; // Importa el componente
-// Obtener el userId desde el almacenamiento local
-const userId = localStorage.getItem('userId');
-
-// Función para obtener los detalles del usuario
-const obtenerDetallesUsuario = async () => {
-  try {
-    const response = await axios.get(`http://localhost:8080/api/usuarios/id`, {
-      params: {
-        id: userId
-      }
-    });
-    nombreCliente.value = response.data.name; // Asumimos que la respuesta contiene el nombre del usuario
-  } catch (error) {
-    console.error("Error al obtener los detalles del usuario:", error);
-  }
-};
-
-// Obtener los detalles del usuario al montar el componente
-onMounted(() => {
-  if (userId) {
-    obtenerDetallesUsuario();
-  } else {
-    nombreCliente.value = 'Nombre Usuario'; // Valor por defecto si no hay userId
-  }
-});
-</script>
-
-
-
-
 <template>
   <main class="main-container">
-    <!-- Barra de navegación -->
-    <!-- <nav class="navbar">
-      <div class="logo">Al Volante</div>
-      <div class="nav-links">
-        <a href="#" @click.prevent="toInicio">Inicio</a>
-        <a href="#" @click.prevent="toPerfilCliente">Perfil</a>
-        <a href="#" @click.prevent="toContact">Contacto</a>
-        <a href="#" @click.prevent="logout">Cerrar Sesión</a>
-      </div>
-    </nav> -->
-    <NavbarComp /> 
+
+    <navbarComp /> 
     <!-- Contenedor principal que incluye la barra lateral y el contenido central -->
     <div class="content-container">
       <!-- Rectángulo a la izquierda -->
       <div class="profile-container">
         <img src="./media/profilePic.png" alt="Foto de Persona" class="profile-img" /> <!-- Imagen de persona -->
         <div class="button-container">
-          <div class="nombre-cliente">{{ nombreCliente }}</div> <!-- Mostrar el nombre del cliente -->
+          <div class="nombre-cliente"> {{ nombreGuardado }}</div> 
           <button @click="toPerfilCliente">Perfil</button>
           <button @click="toHistorialArriendo">Historial de Arriendo</button>
           <button @click="toComprobantesPago">Comprobantes de Pago</button>
@@ -70,8 +23,7 @@ onMounted(() => {
           <h2 class="data-title">Datos Cliente</h2>
           <div class="data-section">
             <h3>Datos Personales</h3>
-            <p><strong>Correo:</strong> goku@usach.cl</p>
-            <p><strong>Fecha de Nacimiento:</strong> 07/08/1958</p>
+            <p><strong>Correo:</strong> {{ correoGuardado }}</p>
             <button @click="editProfile" class="edit-button">Editar Perfil</button>
           </div>
         </div>
@@ -110,46 +62,55 @@ onMounted(() => {
 
 
 <script>
+import { useRouter } from 'vue-router'; // Importar el router
+import axios from 'axios'; // Importar axios
+import { ref, onMounted } from 'vue'; // Importar ref y onMounted para la reactividad
+import NavbarComp from '@/components/navbarComp.vue'; 
 
 export default {
-  methods: {
-    logout() {
-      localStorage.removeItem("login"); // Limpia el almacenamiento local
-      window.location.href = "/"; // Redirige al login
+  
+    data() {
+        return {
+            nombreGuardado: '',
+            correoGuardado: ''
+
+
+        };
     },
-    /* toContact() {
-      window.location.href = "/contacto";
+    
+    mounted() {
+        this.nombreGuardado = localStorage.getItem('login1');
+        this.correoGuardado = localStorage.getItem('correoLogin');
     },
-    toInicio() {
-      window.location.href = "/user"; // Redirecciona a la vista de inicio
-    },
-    toPerfilCliente() {
-      window.location.href = "/perfilCliente"; // Redirecciona a perfil de cliente
-    }, */
-    toHistorialArriendo() {
-      window.location.href = "/historialArriendo"; // Redirecciona a historial de arriendo
-    },
-    toComprobantesPago() {
-      window.location.href = "/comprobantesPago"; // Redirecciona a comprobantes de pago
-    },
-    editProfile() {
-      // Lógica para editar el perfil
-    },
-    editDocuments() {
-      // Lógica para agregar documentos
-    },
-    viewDetails() {
-      // Lógica para ver detalles
+    methods: {
+        logout() { 
+            localStorage.clear();
+            window.location.href = "/";
+        },
+
+        toHistorialArriendo() {
+            window.location.href = "/historialArriendo";
+        },
+
+        toComprobantesPago() {
+            window.location.href = "/comprobantesPago";
+        },
+
+        editProfile() {
+            // Lógica para editar el perfil
+        },
+
+        editDocuments() {
+            // Lógica para agregar documentos
+        },
+
+        viewDetails() {
+            // Lógica para ver detalles
+        }
     }
-  }
-};
+}
 
-import axios from 'axios'; // Importar axios
 </script>
-
-
-
-
 
 <style>
 /* Estilos generales */

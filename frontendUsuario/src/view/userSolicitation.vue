@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import NavbarComp from '@/components/navbarComp.vue';
 
 // Puedes usar variables para datos dinámicos.
 const userName = ref("Usuario");
@@ -8,16 +9,8 @@ const userName = ref("Usuario");
 <template>
   <main class="main-container">
     <!-- Barra de navegación -->
-    <nav class="navbar">
-      <div class="logo">Al Volante</div>
-      <div class="nav-links">
-        <a href="#">Inicio</a>
-        <a href="#" @click="toPerfilCliente">Perfil</a>
-        <a href="#" @click="toContact">Contacto</a>
-        <a href="#" @click="logout">Cerrar Sesión</a>
-      </div>
-    </nav>
-
+    
+    <NavbarComp />
     
 
     <section class="welcome-section">
@@ -33,12 +26,12 @@ const userName = ref("Usuario");
     <!-- Secciones adicionales -->
     <section class="content-section">
       <div class="card">
-        <h2>Arriendo</h2>
-        <p>¡Entra ya y arriendaaa ! meo korte</p>
+        <h2>Reserva</h2>
+        <p>¡Entra ya y reserva!</p>
         <button class="card-button" @click.prevent="toCalendario">Ir</button>
       </div>
-
     </section>
+
   </main>
 </template>
 
@@ -71,45 +64,6 @@ body {
   font-family: "Arial", sans-serif;
   background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
 }
-
-/* Barra de navegación */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #ff80ab;
-  color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  
-}
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.nav-links {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.nav-links a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-  color: #ffd1dc;
-}
-
 
 .welcome-section {
   display: flex;
@@ -167,13 +121,15 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   width: 450px;
-  height: 230px;
+  height: 220px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin-top: -800px;
-  margin-left: -590px;
-  
-  
+  margin-top: -45%;
+  margin-left: -40%;
 }
+
+
+
+
 
 .card h2 {
   font-size: 1.5rem;
