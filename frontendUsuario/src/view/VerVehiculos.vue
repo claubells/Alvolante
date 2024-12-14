@@ -3,9 +3,8 @@
       <div class="sidebar">
         <ul>
           <img class="image" src="./media/logoalvolante.png">
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Profile</a></li>
-          <li><a class="botonSubir" href="#">Subir Vehículo</a></li>
+          <li><a href="#" @click="toInicio">Inicio</a></li>
+          <li><a class="botonSubir" href="#" @click="AgregarVehiculoAdmin">Subir Vehículo</a></li>
           <li><a href="#" @click="cierreSesion">Cerrar sesión</a></li>
         </ul>
       </div>
@@ -53,7 +52,16 @@
         }
       },
       cierreSesion() {
-        this.$router.push("/"); // Redirecciona a la vista principal
+        window.location.href = "/"; // Redirecciona a la vista principal
+      },
+      AgregarVehiculoAdmin() {
+        window.location.href = "/agregarvehiculo"; 
+      },
+      toInicio() {
+        window.location.href = "/admin"; 
+      },
+      VerVehiculos() {
+        window.location.href = "/vervehiculos"; 
       },
       
     },

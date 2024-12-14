@@ -121,6 +121,34 @@ const router = createRouter({
             props: true,
             
         },
+
+        {
+            path: '/trabajador',
+            name: 'trabajador',
+            component: () => import('../view/trabajador.vue'),   
+            
+        },
+
+        {
+            path: '/admin',
+            name: 'admin',
+            component: () => import('../view/admin.vue'),   
+            
+        },
+             
+        {
+            path: '/finanzas',
+            name: 'finanzas',
+            component: () => import('../view/finanzas.vue'),   
+            
+        },
+
+        {
+            path: '/comprobante',
+            name: 'comprobante',
+            component: () => import('../view/comprobante.vue'),   
+            
+        },
              
         
         

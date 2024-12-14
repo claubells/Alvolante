@@ -3,9 +3,8 @@
     <div class="sidebar">
       <ul>
         <img class="image" src="./media/logoalvolante.png">
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Profile</a></li>
-        <li><a class="botonSubir" href="#">Subir Vehículo</a></li>
+        <li><a href="#"@click="toInicio">Inicio</a></li>
+        <li><a class="botonSubir" href="#"@click="AgregarVehiculoAdmin">Subir Vehículo</a></li>
         <li><a href="#" @click="cierreSesion">Cerrar sesión</a></li>
       </ul>
     </div>
@@ -139,8 +138,15 @@ export default {
         }
     },
     cierreSesion() {
-      this.$router.push("/"); // redirecciona a la vista principal
+      window.location.href = "/"; // redirecciona a la vista principal
     },
+    AgregarVehiculoAdmin() {
+        window.location.href = "/agregarvehiculo"; 
+      },
+    toInicio() {
+        window.location.href = "/admin"; 
+      },
+    
   },
 };
 </script>
@@ -221,18 +227,6 @@ form {
 label {
   font-size: 12px; /* Un poco más pequeño el texto de las etiquetas */
   margin-bottom: 3px; /* Menos margen debajo de las etiquetas */
-}
-
-input[type="text"],
-input[type="number"],
-input[type="file"],
-input[type="date"],
-input[type="checkbox"] {
-  margin-bottom: 8px; /* Menos margen entre los campos */
-  padding: 5px; /* Menos padding en los inputs */
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 100%;
 }
 
 button {

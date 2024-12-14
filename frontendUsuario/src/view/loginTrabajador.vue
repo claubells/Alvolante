@@ -74,7 +74,7 @@ export default{
                 //tipo admin
                 if(respuesta.data == 1){
                   localStorage.setItem('login', JSON.stringify(this.username));
-                  window.location.href = "/agregarvehiculo";
+                  window.location.href = "/admin";
                 }
                 //tipo trabajador
                 if(respuesta.data == 2){

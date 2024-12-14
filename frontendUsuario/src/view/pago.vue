@@ -67,7 +67,7 @@ const expiryDate = ref('');
               <p>Precio: $3,000.00</p>
               <p>Envío: $820.00</p>
               <p>Total (impuestos incl.): $3,820.00</p>
-              <button class="btn btn-primary btn-block mt-3">$1,000.00 Pagar</button>
+              <button class="btn btn-primary btn-block mt-3"@click="toComprobante">$1,000.00 Pagar</button>
             </div>
           </div>
         </div>
@@ -102,8 +102,11 @@ export default {
       }
     },
     verDetallesVehiculoPago(idVehiculo) {
-window.location.href = `/pago/${idVehiculo}`;
+    window.location.href = `/pago/${idVehiculo}`;
     },
+    toComprobante() {  
+        window.location.href = "/comprobante"; 
+      },
     Volver() {
   // Implementar la lógica de selección de vehículo, por ejemplo, redirigir o guardar datos
     window.location.href = "/verAutosSegunCalendario";
