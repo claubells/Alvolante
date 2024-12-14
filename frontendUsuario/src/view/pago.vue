@@ -40,7 +40,7 @@ const expiryDate = ref('');
                 class="vehiculo-imagen"
               />
               <div class="vehiculo-datos">
-                <p>{{ vehiculo.modelo }}</p>
+                <h5>{{ vehiculo.modelo }}</h5>
                 <p>{{ vehiculo.tipo }}</p>
               </div> 
               <div class="vehiculo-precio ml-auto">
@@ -58,16 +58,18 @@ const expiryDate = ref('');
               <div class="card-type d-flex justify-content-between">
                 <!-- Aquí puedes añadir los logos de las tarjetas -->
               </div>
-              <input type="text" class="form-control mt-3" placeholder="Nombre en la tarjeta" value="Elvis Teck">
-              <input type="text" class="form-control mt-3" placeholder="Número de tarjeta" value="1111 2222 3333 4444">
+              <p>Nombre en la tarjeta</p>
+              <input type="text" class="form-control mt-3" placeholder="Nombre en la tarjeta">
+              <p>Número de tarjeta</p>
+              <input type="text" class="form-control mt-3" placeholder="Número de tarjeta">
+              <p>Fecha de expiración</p>
               <input type="month" class="form-control mt-3" placeholder="Fecha de expiración" :min="minDate" :max="maxDate" v-model="expiryDate">
-              <input type="text" class="form-control mt-3" placeholder="CVV" value="123">
+              <p>CVV</p>
+              <input type="text" class="form-control mt-3" placeholder="CVV">
             </div>
-            <div class="total mt-3">
-              <p>Precio: $3,000.00</p>
-              <p>Envío: $820.00</p>
-              <p>Total (impuestos incl.): $3,820.00</p>
-              <button class="btn btn-primary btn-block mt-3">$1,000.00 Pagar</button>
+            <div class="total">
+              <p>Precio: ${{ vehiculo.costo }}</p>
+              <button class="btn btn-primary btn-block mt-3">Pagar</button>
             </div>
           </div>
         </div>
@@ -154,6 +156,15 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
+.container-custom h2{
+  font-weight: bold;
+  font-size: 180%;
+}
+.container-custom h3{
+  font-weight: bold;
+  font-size: 130%;
+  margin-left: 2%;
+}
 
 /* Estilos para Resumen de Compra */
 .vehiculo-resumen {
@@ -177,10 +188,20 @@ body {
   margin-left: auto;
   text-align: right;
 }
-
-.vehiculo-datos p, .vehiculo-precio h4 {
+.vehiculo-datos h5 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
+}
+.vehiculo-datos p {
   margin: 0;
   font-size: 16px;
+  color: #333;
+}
+.vehiculo-precio h4{
+  font-weight: bold;
+  font-size: 20px;
   color: #333;
 }
 
@@ -200,6 +221,14 @@ body {
     justify-content: center;
     border: 2px solid black;
   }
-
+  .card-details p {
+    margin-top: 2%;
+    font-weight: bold;
+  }
+  .total{
+    margin-top: 2%;
+    font-size: 20px;
+    font-weight: bold;
+  }
 
 </style>
