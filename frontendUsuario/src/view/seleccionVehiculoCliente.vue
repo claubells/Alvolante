@@ -28,11 +28,12 @@
         <p><strong>Tipo:</strong> {{ vehiculo.tipo }}</p>
         <p><strong>Color:</strong> {{ vehiculo.color}}</p>
         <p><strong>Asientos:</strong> {{ vehiculo.capacidadPasajeros}}</p>
+        <p><strong>Costo:</strong> {{ vehiculo.costo }}</p>
         <p><strong>Accesorios:</strong> {{ vehiculo.idVehiculo }}</p>
         <p><strong>Fechas:</strong> (información por completar)</p>
-        <p><strong>Total Vehículo:</strong> {{ vehiculo.costo }}</p>
+        
         <p><strong>Total:</strong> (vehículo + accesorios)</p>
-        <button @click="seleccionarVehiculoCliente" class="select-button">  Arrendar  </button>
+        <button @click="verDetallesVehiculoPago(vehiculo.idVehiculo)" class="select-button">  Arrendar  </button>
       </div>
     </div>
     <p v-else>Cargando datos del vehículo...</p>
@@ -50,25 +51,25 @@
       };
     },
     methods: {
-      async fetchVehiculo() {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}api/vehiculos/obtenerVehiculoPorId/${this.idVehiculo}`
-      );
+        async fetchVehiculo() {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_BASE_URL}api/vehiculos/obtenerVehiculoPorId/${this.idVehiculo}`
+    );
+    if (response.data) {
       this.vehiculo = response.data;
-      if (!this.vehiculo) {
-        throw new Error("No se encontró el vehículo con el ID proporcionado.");
-      }
-    } catch (error) {
-      console.error("Error al cargar los detalles del vehículo:", error);
-      alert("No se pudo cargar la información del vehículo.");
+    } else {
+      console.error("No se encontraron datos del vehículo.");
     }
-  },
+  } catch (error) {
+    console.error("Error al cargar los detalles del vehículo:", error);
+    alert("No se pudo cargar la información del vehículo.");
+  }
+},
   
-  seleccionarVehiculoCliente() {
-  // Implementar la lógica de selección de vehículo, por ejemplo, redirigir o guardar datos
-  window.location.href = "/pago";
-  },
+  verDetallesVehiculoPago(idVehiculo) {
+      this.$router.push({ name: 'pago', params: { idVehiculo } });
+    },
 
   Volver() {
   // Implementar la lógica de selección de vehículo, por ejemplo, redirigir o guardar datos

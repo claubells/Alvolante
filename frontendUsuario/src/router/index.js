@@ -94,9 +94,10 @@ const router = createRouter({
             props: true, // Pasar el parámetro como prop al componente
         },
         {
-            path: '/pago',
+            path: '/pago/:idVehiculo',
             name: 'pago',
             component: () => import('../view/pago.vue'),
+            props: true,
             
         },   
 
