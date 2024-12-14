@@ -10,6 +10,7 @@
       </div>
     </nav>
     
+    
   
     <!-- Contenedor principal con el formulario -->
     <div class="data-container" v-if="vehiculo">
@@ -75,6 +76,24 @@
   // Implementar la lógica de selección de vehículo, por ejemplo, redirigir o guardar datos
   window.location.href = "/verAutosSegunCalendario";
   },
+
+  logout() {
+      localStorage.removeItem("login"); // Limpia el almacenamiento local
+      window.location.href = "/"; // Redirige al login
+    },
+    toContact() {
+      window.location.href = "/contacto";
+    },
+    toCalendario(){
+      window.location.href = "/calendarioCliente"; 
+      
+    },
+    toPerfilCliente(){
+      window.location.href = "/perfilCliente";
+    },
+    toInicio(){
+      window.location.href = "/user"; // donde esta la vista inicio?????????
+    },
   
 
       
@@ -88,7 +107,7 @@
   
   <style>
   body {
-    background: linear-gradient(135deg, #f8bbd0, #fce4ec);
+    background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
     color: #020000;
     font-family: Arial, sans-serif;
     margin: 0;

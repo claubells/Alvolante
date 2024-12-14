@@ -18,6 +18,8 @@ const userName = ref("Usuario");
       </div>
     </nav>
 
+    
+
     <section class="welcome-section">
       <div class="welcome-text">
         <h1>¡Bienvenido, {{ userName }}!</h1>

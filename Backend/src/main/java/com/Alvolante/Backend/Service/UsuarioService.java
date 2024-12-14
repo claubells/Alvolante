@@ -14,7 +14,6 @@ public class UsuarioService {
 
     public UsuarioEntity register(String rut, String name, String email, String phone, Date fechaDeNacimiento, String password, String rol) {
         UsuarioEntity existenteEmail = userRepo.findByEmail(email);
-        UsuarioEntity existenteRut = userRepo.findByRut(rut);
         if(existenteEmail != null ) { // si el usuarioEmail es distinto de vacio
             throw new RuntimeException("El correo "+ email +" ya está registrado. Usa uno diferente.");  // es decir, existe retornamos null
         }

@@ -101,12 +101,29 @@ export default {
       }
     },
     verDetallesVehiculoPago(idVehiculo) {
-      this.$router.push({ name: 'pago', params: { idVehiculo } });
+window.location.href = `/pago/${idVehiculo}`;
     },
     Volver() {
   // Implementar la lógica de selección de vehículo, por ejemplo, redirigir o guardar datos
     window.location.href = "/verAutosSegunCalendario";
   },
+  logout() {
+      localStorage.removeItem("login"); // Limpia el almacenamiento local
+      window.location.href = "/"; // Redirige al login
+    },
+    toContact() {
+      window.location.href = "/contacto";
+    },
+    toCalendario(){
+      window.location.href = "/calendarioCliente"; 
+      
+    },
+    toPerfilCliente(){
+      window.location.href = "/perfilCliente";
+    },
+    toInicio(){
+      window.location.href = "/user"; // donde esta la vista inicio?????????
+    },
   },
   mounted() {
     this.fetchVehiculo(this.idVehiculo);
@@ -172,6 +189,7 @@ body {
 .vehiculo-resumen {
   display: flex;
   align-items: center;
+  
 }
 
 .vehiculo-imagen {
@@ -195,4 +213,23 @@ body {
   font-size: 16px;
   color: #333;
 }
+
+.select-button2 {
+    margin-top: 0%;
+    width: 10%;
+    padding: 10px;
+    border: none;
+    position: absolute;
+    align-items: center;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    cursor: pointer;    
+    margin-left: -13%;
+    margin-top: 0%;
+    justify-content: center;
+    border: 2px solid black;
+  }
+
+
 </style>

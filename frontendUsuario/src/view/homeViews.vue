@@ -25,9 +25,12 @@
               <button class="sessionButton" @click="login">Iniciar sesión</button>
             </div>
             <div class="inputContainer" v-else>
+              <input type="name" v-model="name" placeholder="Ingrese nombre y apellido">
               <input type="email" v-model="usernameRegister" placeholder="Ingrese correo">
               <input type="password" v-model="passwordRegister" placeholder="Ingrese contraseña">
               <input type="password" v-model="passwordRegisterConfirmation" placeholder="Repita contraseña">
+              <h3 class="fechaText">Ingresa tu fecha de nacimiento:</h3>
+              <input type="date" v-model="fechaDeNacimiento"/>
               <button class="sessionButton" @click="addUser">Registrar</button>
             </div>
             <div class="alsoButtons">
@@ -64,6 +67,7 @@ function redireccionarASubpaginaUsuarioAnonimo(){
 export default{
     data(){
         return{
+            name: '',
             username: '',
             password: '',
             loggedIn: false,
@@ -81,7 +85,10 @@ export default{
             //envio de datos al backend
             const usuario = {
                 "email":this.username,
-                "password":this.password
+                "password":this.password,
+                "name":this.name,
+                "fechaDeNacimiento":this.fechaDeNacimiento
+                
             };
             try{
                 const respuesta = await axios.post(
@@ -134,6 +141,8 @@ export default{
                     const nuevo_usuario = {
                         'email': this.usernameRegister,
                         'password': this.passwordRegister,
+                        'name': this.name,
+                        'fechaDeNacimiento': this.fechaDeNacimiento,
                         'rol': 'usuario'
                     }
                     try{
@@ -214,6 +223,11 @@ body {
   margin-left: 1%;
   margin-top: 40%;
   
+}
+
+.fechaText{
+  margin-left: -75%;
+  font-size: 100%;
 }
 
 .headerCliente{
