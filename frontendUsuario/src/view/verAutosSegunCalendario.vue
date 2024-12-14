@@ -1,6 +1,12 @@
+<script setup>
+import { useRouter } from 'vue-router'; 
+import NavbarComp from '@/components/navbarComp.vue'; // Importa el componente
+
+const router = useRouter();
+</script>
 <template>
     <div>
-    <nav class="navbar">
+    <!-- <nav class="navbar">
       <div class="logo">Al Volante</div>
       <div class="nav-links">
         <a href="#" @click="toInicio">Inicio</a>
@@ -8,7 +14,8 @@
         <a href="#" @click="toContact">Contacto</a>
         <a href="#" @click="logout">Cerrar Sesión</a>
       </div>
-    </nav>
+    </nav> -->
+    <NavbarComp /> 
       <div class="main-content">
         <h1>Lista de Vehículos</h1>
         <div class="vehiculos-container" v-if="vehiculos.length">
@@ -56,7 +63,7 @@ export default {
   verDetallesVehiculo(idVehiculo) {
       this.$router.push({ name: 'seleccionVehiculoCliente', params: { idVehiculo } });
     },
-    logout() {
+    /* logout() {
       localStorage.removeItem("login"); // Limpia el almacenamiento local
       window.location.href = "/"; // Redirige al login
     },
@@ -72,7 +79,7 @@ export default {
     },
     toInicio(){
       window.location.href = "/user"; // donde esta la vista inicio?????????
-    },
+    }, */
   },
   mounted() {
     this.fetchVehiculos(); // Llamamos a la API al cargar
@@ -95,42 +102,7 @@ body {
     min-height: 100vh;
   }
 
-  .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #ff80ab;
-  color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  
-}
 
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.nav-links {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.nav-links a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-  color: #ffd1dc;
-}
 
   .image {
     max-width: 100%;

@@ -5,7 +5,7 @@ import { ref, onMounted } from 'vue'; // Importar ref y onMounted para la reacti
 
 const router = useRouter(); // Usar el router
 const nombreCliente = ref(''); // Declarar una variable reactiva para el nombre del cliente
-
+import NavbarComp from '@/components/navbarComp.vue'; // Importa el componente
 // Obtener el userId desde el almacenamiento local
 const userId = localStorage.getItem('userId');
 
@@ -39,7 +39,7 @@ onMounted(() => {
 <template>
   <main class="main-container">
     <!-- Barra de navegación -->
-    <nav class="navbar">
+    <!-- <nav class="navbar">
       <div class="logo">Al Volante</div>
       <div class="nav-links">
         <a href="#" @click.prevent="toInicio">Inicio</a>
@@ -47,8 +47,8 @@ onMounted(() => {
         <a href="#" @click.prevent="toContact">Contacto</a>
         <a href="#" @click.prevent="logout">Cerrar Sesión</a>
       </div>
-    </nav>
-    
+    </nav> -->
+    <NavbarComp /> 
     <!-- Contenedor principal que incluye la barra lateral y el contenido central -->
     <div class="content-container">
       <!-- Rectángulo a la izquierda -->
@@ -117,7 +117,7 @@ export default {
       localStorage.removeItem("login"); // Limpia el almacenamiento local
       window.location.href = "/"; // Redirige al login
     },
-    toContact() {
+    /* toContact() {
       window.location.href = "/contacto";
     },
     toInicio() {
@@ -125,7 +125,7 @@ export default {
     },
     toPerfilCliente() {
       window.location.href = "/perfilCliente"; // Redirecciona a perfil de cliente
-    },
+    }, */
     toHistorialArriendo() {
       window.location.href = "/historialArriendo"; // Redirecciona a historial de arriendo
     },
@@ -164,38 +164,6 @@ body {
   margin-top: 80px; /* Ajustar según la altura de la barra de navegación */
 }
 
-/* Barra de navegación */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #ff80ab;
-  color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: fixed; /* Hace que la barra se quede fija en la parte superior */
-  top: 0; /* La coloca exactamente en la parte superior */
-  left: 0; /* Alinea al inicio del contenido horizontal */
-  width: 100%; /* Se asegura de que ocupe todo el ancho */
-  z-index: 1000;
-}
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.nav-links a {
-  color: #fff;
-  margin-left: 1.5rem;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-  color: #ffd1dc;
-}
 
 /* Contenedor principal */
 .content-container {

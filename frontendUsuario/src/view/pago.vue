@@ -1,7 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
-
+import NavbarComp from '@/components/navbarComp.vue'; // Importa el componente
 const router = useRouter();
 const currentYear = new Date().getFullYear();
 const currentMonth = String(new Date().getMonth() + 1).padStart(2, '0'); // Obtiene el mes actual en formato "MM"
@@ -13,7 +13,7 @@ const expiryDate = ref('');
 <template>
   <main class="main-container">
     <!-- Barra de navegación -->
-    <nav class="navbar">
+    <!-- <nav class="navbar">
       <div class="logo">Al Volante</div>
       <div class="nav-links">
         <a href="#" @click.prevent="toInicio">Inicio</a>
@@ -21,7 +21,8 @@ const expiryDate = ref('');
         <a href="#" @click.prevent="toContact">Contacto</a>
         <a href="#" @click.prevent="logout">Cerrar Sesión</a>
       </div>
-    </nav>
+    </nav> -->
+    <NavbarComp /> 
     <!-- Sección de contenido principal -->
     <div class="container mt-5">
       <div class="row">
@@ -107,7 +108,7 @@ window.location.href = `/pago/${idVehiculo}`;
   // Implementar la lógica de selección de vehículo, por ejemplo, redirigir o guardar datos
     window.location.href = "/verAutosSegunCalendario";
   },
-  logout() {
+  /* logout() {
       localStorage.removeItem("login"); // Limpia el almacenamiento local
       window.location.href = "/"; // Redirige al login
     },
@@ -123,7 +124,7 @@ window.location.href = `/pago/${idVehiculo}`;
     },
     toInicio(){
       window.location.href = "/user"; // donde esta la vista inicio?????????
-    },
+    }, */
   },
   mounted() {
     this.fetchVehiculo(this.idVehiculo);
@@ -143,38 +144,7 @@ body {
   padding-top: 56px; /* Espacio para el navbar fijo */
 }
 
-/* Barra de navegación */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #ff80ab;
-  color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-}
 
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.nav-links a {
-  color: #fff;
-  margin-left: 1.5rem;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-  color: #ffd1dc;
-}
 
 /* Contenedor personalizado */
 .container-custom {

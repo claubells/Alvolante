@@ -1,15 +1,15 @@
+<script setup>
+import { useRouter } from 'vue-router'; 
+import NavbarComp from '@/components/navbarComp.vue'; // Importa el componente
+
+const router = useRouter();
+</script>
+
 <template>
     <main class="main-container">
       <!-- Barra de navegación -->
-      <nav class="navbar">
-        <div class="logo">Al Volante</div>
-        <div class="nav-links">
-          <a href="#"@click="toInicio">Inicio</a>
-          <a href="#" @click="toPerfilCliente">Perfil</a>
-          <a href="#" @click="toContact">Contacto</a>
-          <a href="#" @click="logout">Cerrar Sesión</a>
-        </div>
-      </nav>
+      
+      <NavbarComp /> 
   
       <!-- Sección del calendario -->
       <section class="calendar-section">
@@ -51,6 +51,7 @@
   </template>
   
   <script>
+  
   export default {
   data() {
     return {
@@ -74,7 +75,7 @@
 
       window.location.href = "/verAutosSegunCalendario";
     },
-    logout() {
+    /* logout() {
       localStorage.removeItem("login");
       window.location.href = "/";
     },
@@ -93,8 +94,9 @@
     },
     toPerfilCliente() {
       window.location.href = "/perfilCliente"; // Redirecciona a perfil de cliente
-  },
+  }, */
 }
+
 };
   </script>
   
@@ -105,42 +107,7 @@
     background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
   }
   
-  /* Barra de navegación */
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #ff80ab;
-    color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-  }
   
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .nav-links {
-    display: flex;
-    gap: 1.5rem;
-  }
-  
-  .nav-links a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-  }
-  
-  .nav-links a:hover {
-    color: #ffd1dc;
-  }
   
   /* Sección del calendario */
   .calendar-section {

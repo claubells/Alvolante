@@ -1,14 +1,14 @@
 <script setup>
-import { useRouter } from 'vue-router'; // Importar el router
+import { useRouter } from 'vue-router'; 
+import NavbarComp from '@/components/navbarComp.vue'; // Importa el componente
 
-const router = useRouter(); // Usar el router
-
+const router = useRouter();
 </script>
 
 <template>
   <main class="main-container">
     <!-- Barra de navegación -->
-    <nav class="navbar">
+    <!-- <nav class="navbar">
       <div class="logo">Al Volante</div>
       <div class="nav-links">
         <a href="#" @click.prevent="toInicio">Inicio</a>
@@ -16,7 +16,10 @@ const router = useRouter(); // Usar el router
         <a href="#" @click.prevent="toContact">Contacto</a>
         <a href="#" @click.prevent="logout">Cerrar Sesión</a>
       </div>
-    </nav>
+    </nav> -->
+    <div>  <!-- Usar el componente global --> 
+      <NavbarComp /> 
+    </div>
     <div class="contacto_titulo">Contáctenos</div>
     <!-- Sección de contacto -->
     <section class="contact-section">
@@ -38,7 +41,8 @@ const router = useRouter(); // Usar el router
 
 <script>
 export default {
-  methods: {
+  
+  /* methods: {
     logout() {
       localStorage.removeItem("login"); // Limpia el almacenamiento local
       window.location.href = "/"; // Redirige al login
@@ -52,10 +56,11 @@ export default {
     toPerfilCliente(){
       window.location.href = "/perfilCliente"; // Redireccina a perfil clinete
     }
-  },
+  }, */
 };
 
 import axios from 'axios';
+import NavbarComp from '@/components/navbarComp.vue';
 
 //rediccionamientos
 //usuario
@@ -87,39 +92,7 @@ body {
   padding: 1rem;
 }
 
-/* Barra de navegación */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #ff80ab;
-  color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: fixed; /* Hace que la barra se quede fija en la parte superior */
-  top: 0; /* La coloca exactamente en la parte superior */
-  left: 0; /* Alinea al inicio del contenido horizontal */
-  width: 100%; /* Se asegura de que ocupe todo el ancho */
-  z-index: 1000;
-  
-}
 
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.nav-links a {
-  color: #fff;
-  margin-left: 1.5rem;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-  color: #ffd1dc;
-}
 .contacto_titulo {
   position: relative; /* Cambiar la posición a relativa */ 
   top: 100px; /* Ajustar la posición vertical hacia arriba */
