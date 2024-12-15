@@ -104,5 +104,8 @@ public class ReservaController {
         }
     }
 
+    @GetMapping("/reservaPorId/{id}")
+    public ReservaEntity findReservaById(@PathVariable Long id){return reservaService.getReservaById(id);}
+
 
 }

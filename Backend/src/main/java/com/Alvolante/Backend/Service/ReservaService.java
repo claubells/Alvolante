@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReservaService {
@@ -65,5 +66,14 @@ public class ReservaService {
             return false; // no encotro, esta vacio
         }
         return true; // tiene reservas, no esta vacio
+    }
+
+    public ReservaEntity getReservaById(Long id) {
+        Optional<ReservaEntity> getReserva = reservaRepository.findById(id);
+        if (getReserva.isPresent()) {
+            return getReserva.get();
+        }else {
+            return null;
+        }
     }
 }
