@@ -144,9 +144,10 @@ const router = createRouter({
         },
 
         {
-            path: '/comprobante',
+            path: '/comprobante:idReserva',
             name: 'comprobante',
-            component: () => import('../view/comprobante.vue'),   
+            component: () => import('../view/comprobante.vue'), 
+            props:true,  
             
         },
              
