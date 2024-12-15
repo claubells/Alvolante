@@ -1,3 +1,11 @@
+<script setup>
+import { useRouter } from 'vue-router'; 
+import Swal from 'sweetalert2';
+
+const router = useRouter();
+</script>
+
+
 <template>
   <div class="container">
     <div class="sidebar">
@@ -120,21 +128,54 @@ export default {
           import.meta.env.VITE_BASE_URL + 'api/vehiculos/crear-vehiculo',
           this.vehicle)
           console.log(response.data) // respuesta del backend
-          //imprimir alertas enviadas por backend
         if (response.data == 4) {
-          alert("Patente repetida");
+          Swal.fire({
+            title: '¡Cuidado!',
+            text: 'Patente repetida',
+            icon: 'warning',
+            confirmButtonText: 'OK',
+            customClass: {
+              confirmButton: 'custom-confirm-button'
+      }
+    });
         }
         if (response.data == 2) {
-          alert("Numero de chasis repetido");
+          Swal.fire({
+            title: '¡Cuidado!',
+            text: 'Numero de chasis repetido',
+            icon: 'warning',
+            confirmButtonText: 'OK',
+            customClass: {
+              confirmButton: 'custom-confirm-button'
+      }
+    });
+          
+          
         } 
-        if (response.data == 0) {
-          alert("Vehículo ingresado con éxito");
+        if (response.data == 0) {  
+          Swal.fire({
+            title: '¡Excelente!',
+            text: 'Vehículo ingresado con éxito',
+            icon: 'warning',
+            confirmButtonText: 'OK',
+            customClass: {
+              confirmButton: 'custom-confirm-button'
+      }
+    });
         }
 
         // error de la bd 
         } catch (error) {
-          console.error("Error:", error);
-          alert("No se pudo generar conexión con el servidor");
+          Swal.fire({
+            title: '¡Cuidado!',
+            text: 'Numero de chasis repetido o patente repetida',
+            icon: 'warning',
+            confirmButtonText: 'OK',
+            customClass: {
+              confirmButton: 'custom-confirm-button'
+      }
+    });
+          
         }
     },
     cierreSesion() {
@@ -257,6 +298,19 @@ button:hover {
     width: 100%;
     margin-right: 0;
   }
+}
+
+.custom-confirm-button {
+  background-color: #ff80ab !important; 
+  color: white !important;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+}
+
+.custom-confirm-button:hover {
+  background-color: #ff80ab !important; 
 }
 
 

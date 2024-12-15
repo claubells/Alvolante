@@ -4,7 +4,7 @@
       <div class="content">
         <img class="image" src="./media/logoalvolante.png" alt="Logo">
         <div class="header">BIENVENIDO A LA INTRANET</div>
-        <div class="headerDescription">Selecciona tu rol para continuar</div>
+        <div class="headerDescription">Seleccione su rol para continuar</div>
 
         <div class="roleButtons">
           <button class="roleButton" @click="chooseRoleC('cliente')">Soy Cliente</button>

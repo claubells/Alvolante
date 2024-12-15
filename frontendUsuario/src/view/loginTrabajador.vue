@@ -16,8 +16,8 @@
           <div class="content">
             <img class="image" src="./media/logoalvolante.png">
             <div class="header">INICIAR SESIÓN COMO TRABAJADOR</div>
-            <div class="headerDescription" v-if="!register">Completar campos para iniciar sesión</div>
-            <div class="headerDescription" v-else="!register">Completar campos para registros</div>
+            <div class="headerDescription" v-if="!register">Complete los campos para iniciar sesión</div>
+            <div class="headerDescription" v-else="!register">Complete los campos para registros</div>
             <div class="inputContainer" v-if="!register">
               <input type="email" v-model="username" placeholder="Ingrese correo">
               <input type="password" v-model="password" placeholder="Ingrese contraseña">
@@ -30,7 +30,7 @@
               <button class="sessionButton" @click="addUser">Registrar</button>
             </div>
             <div class="alsoButtons">
-                <div class="headerTrabajador">¿No eres trabajador?</div>
+                <div class="headerTrabajador">¿Usted no es trabajador?</div>
                 <div class="alsoButton" @click="toInicio">Volver al inicio</div>
               
             </div>

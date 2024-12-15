@@ -96,7 +96,7 @@ body {
 .contacto_titulo {
   position: relative; /* Cambiar la posición a relativa */ 
   top: 100px; /* Ajustar la posición vertical hacia arriba */
-  left: 1%;
+  left: 14%;
   font-size: 2.5rem;
   font-weight: bold;
   color: #633434;
@@ -118,7 +118,7 @@ body {
 .support-img {
   width: 700px; /* Ajustar el ancho de la imagen de soporte según sea necesario */
   position: relative; /* Cambiar la posición a relativa */ 
-  left: 10%; /* Ajustar la posición vertical hacia arriba */
+  left: -15%; /* Ajustar la posición vertical hacia arriba */
   margin-right: 12rem; /* Ajustar el margen derecho según sea necesario */ 
   margin-left: -15rem; /* Ajustar el margen izquierdo para mover la imagen a la izquierda */
   margin-top: 3rem; /* Ajustar el margen superior para mover la imagen hacia arriba */
@@ -127,7 +127,7 @@ body {
 .contact-box {
   background: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
   position: relative; /* Cambiar la posición a relativa */ 
-  left: -5%; /* Ajustar la posición vertical hacia arriba */
+  left: -25%; /* Ajustar la posición vertical hacia arriba */
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

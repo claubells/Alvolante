@@ -1,4 +1,5 @@
 <script setup>
+import Swal from 'sweetalert2';
 
 </script>
 
@@ -9,7 +10,7 @@
         <!-- Mitad Izquierda -->
         <div class="left-container">
           <h1>Hola Viajero!</h1>
-          <h2>¡Reserva ahora y prepárate para tu viaje!</h2>
+          <h2>¡Reserve ahora y prepárate para tu viaje!</h2>
         </div>
         
         <!-- Mitad Derecha -->
@@ -17,8 +18,8 @@
           <div class="content">
             <img class="image" src="./media/logoalvolante.png">
             <div class="header">INICIAR SESIÓN</div>
-            <div class="headerDescription" v-if="!register">Completar campos para iniciar sesión</div>
-            <div class="headerDescription" v-else="!register">Completar campos para registros</div>
+            <div class="headerDescription" v-if="!register">Complete los campos para iniciar sesión</div>
+            <div class="headerDescription" v-else="!register">Complete los campos para registros</div>
             <div class="inputContainer" v-if="!register">
               <input type="email" v-model="username" placeholder="Ingrese correo">
               <input type="password" v-model="password" placeholder="Ingrese contraseña">
@@ -34,8 +35,8 @@
               <button class="sessionButton" @click="addUser">Registrar</button>
             </div>
             <div class="alsoButtons">
-                <div class="headerCliente">¿No estas registrado?</div>
-              <div class="alsoButton" @click="handleChange" v-if="!register">Crea una cuenta</div>
+                <div class="headerCliente">¿No esta registrado?</div>
+              <div class="alsoButton" @click="handleChange" v-if="!register">Cree una cuenta</div>
               <div class="alsoButton" @click="handleChange" v-else>Iniciar sesión</div>
               <router-link to="anonimo">
                 <div class="alsoButton" @click="handleChange">Anónimo</div>
@@ -105,14 +106,30 @@ export default{
                 }
 
                 if(respuesta.data == 0){
-                    alert('Credenciales invalidas!!');
+                    Swal.fire({
+                      title: '¡Cuidado!',
+                      text: 'Credenciales invalidas!!',
+                      icon: 'warning',
+                      confirmButtonText: 'OK',
+                      customClass: {
+                        confirmButton: 'custom-confirm-button'
+                      }
+                    });
                 }
 
                 respuesta.data = 0;
                 console.log(respuesta.data)
 
             }catch(error){
-                alert('No se genera conexión con el servidor')
+              Swal.fire({
+                      title: '¡Cuidado!',
+                      text: 'No se pudo generar conexion con el servidor',
+                      icon: 'warning',
+                      confirmButtonText: 'OK',
+                      customClass: {
+                        confirmButton: 'custom-confirm-button'
+                      }
+                    });
 
             }
         },
@@ -144,19 +161,51 @@ export default{
                     try{
                         const registro = await axios.post(import.meta.env.VITE_BASE_URL + 'api/usuarios/register', nuevo_usuario);
                         console.log(registro)
-                        alert('Usuario se creo con exito')
+                        Swal.fire({
+                      title: '¡Excelente!',
+                      text: 'Usuario creado con exito',
+                      icon: 'warning',
+                      confirmButtonText: 'OK',
+                      customClass: {
+                        confirmButton: 'custom-confirm-button'
+                      }
+                    });
 
                     }catch(error){
-                        alert('No se pudo registrar')
+                      Swal.fire({
+                      title: '¡Cuidado!',
+                      text: 'No se pudo registrar',
+                      icon: 'warning',
+                      confirmButtonText: 'OK',
+                      customClass: {
+                        confirmButton: 'custom-confirm-button'
+                      }
+                    });
 
                     }
                 }
                 else{
-                    alert('No se ingresaron datos')
+                  Swal.fire({
+                      title: '¡Cuidado!',
+                      text: 'No se ingresaron datos',
+                      icon: 'warning',
+                      confirmButtonText: 'OK',
+                      customClass: {
+                        confirmButton: 'custom-confirm-button'
+                      }
+                    });
                 }
             }
             else{
-                alert('Las contraseñas no son iguales')
+              Swal.fire({
+                      title: '¡Cuidado!',
+                      text: 'Las contraseñas no son iguales',
+                      icon: 'warning',
+                      confirmButtonText: 'OK',
+                      customClass: {
+                        confirmButton: 'custom-confirm-button'
+                      }
+                    });
             }
         }
 
@@ -326,6 +375,19 @@ input:focus {
 .alsoButton:hover {
   color: #ff6f61;
   text-decoration: none;
+}
+
+.custom-confirm-button {
+  background-color: #ff80ab !important; 
+  color: white !important;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+}
+
+.custom-confirm-button:hover {
+  background-color: #ff80ab !important; 
 }
 
 </style>

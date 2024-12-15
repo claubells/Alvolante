@@ -1,19 +1,22 @@
 <script setup>
 import { useRouter } from 'vue-router'; 
 import NavbarComp from '@/components/navbarComp.vue'; // Importa el componente
+import Swal from 'sweetalert2';
 
 const router = useRouter();
 </script>
 
 <template>
     <main class="main-container">
+
       <!-- Barra de navegación -->
+       
       
       <NavbarComp /> 
-  
+      
       <!-- Sección del calendario -->
       <section class="calendar-section">
-        <h2>Arriendo de Vehículos</h2>
+        <h2>Reserva de vehículos</h2>
         <p>Seleccione las fechas y lugares de retiro y entrega del vehículo:</p>
   
         <div class="form-container">
@@ -44,7 +47,7 @@ const router = useRouter();
             </select>
           </div>
         </div>
-  
+                        
         <button class="submit-button" @click="handleSubmit">Confirmar Datos</button>
       </section>
     </main>
@@ -52,6 +55,7 @@ const router = useRouter();
   
   <script>
   
+
   export default {
   data() {
     return {
@@ -63,40 +67,67 @@ const router = useRouter();
   },
   methods: {
     handleSubmit() {
-      if (!this.fechaRetiro || !this.fechaEntrega || !this.lugarRetiro || !this.lugarEntrega) {
-        alert("Por favor complete todos los campos.");
-        return;
-      }
+  const hoy = new Date(); // Fecha actual
+  const fechaRetiro = new Date(this.fechaRetiro);
+  const fechaEntrega = new Date(this.fechaEntrega);
 
-      if (new Date(this.fechaRetiro) > new Date(this.fechaEntrega)) {
-        alert("La fecha de retiro no puede ser posterior a la fecha de entrega.");
-        return;
+  if (!this.fechaRetiro || !this.fechaEntrega || !this.lugarRetiro || !this.lugarEntrega) {
+    Swal.fire({
+      title: '¡Cuidado!',
+      text: 'Por favor complete todos los campos',
+      icon: 'warning',
+      confirmButtonText: 'OK',
+      customClass: {
+        confirmButton: 'custom-confirm-button'
       }
+    });
+    return;
+  }
 
-      window.location.href = "/verAutosSegunCalendario";
-    },
-    /* logout() {
-      localStorage.removeItem("login");
-      window.location.href = "/";
-    },
-    toContact() {
-        window.location.href = "/contacto";
-    },
-    toPerfilCliente() {
-      window.location.href = "/perfilCliente";
-    },
-    logout() {
-      localStorage.removeItem("login"); // Limpia el almacenamiento local
-      window.location.href = "/"; // Redirige al login
-    },
-    toInicio() {
-      window.location.href = "/user"; // Redirecciona a la vista de inicio
-    },
-    toPerfilCliente() {
-      window.location.href = "/perfilCliente"; // Redirecciona a perfil de cliente
-  }, */
+  if (fechaRetiro > fechaEntrega) {
+    Swal.fire({
+      title: '¡Cuidado!',
+      text: 'La fecha de retiro no puede ser posterior a la fecha de entrega',
+      icon: 'warning',
+      confirmButtonText: 'OK',
+      customClass: {
+        confirmButton: 'custom-confirm-button'
+      }
+    });
+    return;
+  }
+
+  const diferenciaDias = (fechaEntrega - fechaRetiro) / (1000 * 60 * 60 * 24);
+  if (diferenciaDias > 30) {
+    Swal.fire({
+      title: '¡Cuidado!',
+      text: 'El arriendo no puede ser por más de 30 días',
+      icon: 'warning',
+      confirmButtonText: 'OK',
+      customClass: {
+        confirmButton: 'custom-confirm-button'
+      }
+    });
+    return;
+  }
+
+  const hoySinHora = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+  if (fechaRetiro <= hoySinHora) {
+    Swal.fire({
+      title: '¡Cuidado!',
+      text: 'La fecha de retiro debe ser al menos un día después de hoy',
+      icon: 'warning',
+      confirmButtonText: 'OK',
+      customClass: {
+        confirmButton: 'custom-confirm-button'
+      }
+    });
+    return;
+  }
+
+  window.location.href = "/verAutosSegunCalendario";
+}   
 }
-
 };
   </script>
   
@@ -157,4 +188,18 @@ const router = useRouter();
   .submit-button:hover {
     background: #ff4081;
   }
+
+  .custom-confirm-button {
+  background-color: #ff80ab !important; 
+  color: white !important;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+}
+
+.custom-confirm-button:hover {
+  background-color: #ff80ab !important; 
+}
+  
   </style>
