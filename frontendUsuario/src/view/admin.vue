@@ -16,6 +16,7 @@
           <button @click="AgregarVehiculoAdmin" class="action-btn">Agregar Vehículo a alguna sucursal</button>
           <button @click="arrendarVehiculo" class="action-btn">Realizar arriendo de vehículo</button>
           <button @click="VerVehiculos" class="action-btn">Ver vehículos</button>
+          <button @click="Verestadisticas" class="action-btn">Ver estadisticas</button>
         </div>
       </div>
     </div>
@@ -37,6 +38,12 @@ import VerVehiculos from './VerVehiculos.vue';
       },
       VerVehiculos() {
         window.location.href = "/vervehiculos"; 
+      },
+      Verestadisticas() {
+        window.location.href = "/estadisticasAdmin"; 
+      },
+      arrendarVehiculo() {
+        window.location.href = "/calendarioAdmin"; 
       },
       //arrendarVehiculo() {
         //window.location.href = "/arrendar"; 

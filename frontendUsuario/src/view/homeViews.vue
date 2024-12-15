@@ -90,10 +90,28 @@ export default{
                   import.meta.env.VITE_BASE_URL + 'api/usuarios/login',
                    usuario)
                 if(respuesta.data == 1){
+                  Swal.fire({
+                      title: '¡Cuidado!',
+                      text: 'Usted es admin, ingrese por su ventana correspondiente',
+                      icon: 'warning',
+                      confirmButtonText: 'OK',
+                      customClass: {
+                        confirmButton: 'custom-confirm-button'
+                      }
+                    });
                     return 0;
                 }
 
                 if(respuesta.data == 2){
+                  Swal.fire({
+                      title: '¡Cuidado!',
+                      text: 'Usted es trabajador, ingrese por su ventana correspondiente',
+                      icon: 'warning',
+                      confirmButtonText: 'OK',
+                      customClass: {
+                        confirmButton: 'custom-confirm-button'
+                      }
+                    });
                     return 0;
                 }
 

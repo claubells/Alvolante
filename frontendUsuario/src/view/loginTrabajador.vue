@@ -1,5 +1,7 @@
 <script setup>
 
+import Swal from 'sweetalert2';
+
 </script>
 
 
@@ -295,6 +297,19 @@ input:focus {
 .alsoButton:hover {
   color: #ff6f61;
   text-decoration: none;
+}
+
+.custom-confirm-button {
+  background-color: #ff80ab !important; 
+  color: white !important;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+}
+
+.custom-confirm-button:hover {
+  background-color: #ff80ab !important; 
 }
 
 </style>

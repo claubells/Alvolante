@@ -65,17 +65,23 @@ const router = useRouter();
         <input type="file" id="fotoVehiculo" @change="onFileChange" accept="image/*">
 
         <label for="sucursal">Sucursal:</label>
-          <select id="sucursal" v-model="vehicle.sucursal">
-            <option value="">Seleccione un lugar</option>
-            <option value="PICHILEMU">PICHILEMU</option>
-            <option value="OSORNO">OSORNO</option>
-            <option value="PUTUE">PUTUE</option>
-            <option value="JORDAN">JORDAN</option>
-            <option value="CASA123">CASA123</option>
-            <option value="ITHAN NY">ITHAN NY</option>
-            <option value="COSCULLUELA">COSCULLUELA</option>
-            <option value="TUNECHIKIDD">TUNECHIKIDD</option>
-            <option value="RONALDONAZARIO">RONALDONAZARIO</option>
+          <select type="text" id="sucursal" v-model="vehicle.sucursal">
+            <option value="">Seleccione una sucursal</option>
+            <option value="Sucursal Arica">Sucursal Arica</option>
+            <option value="Sucursal Iquique">Sucursal Iquique</option>
+            <option value="Sucursal Antofagasta">Sucursal Antofagasta</option>
+            <option value="Sucursal Copiapó">Sucursal Copiapó</option>
+            <option value="Sucursal La Serena">Sucursal La Serena</option>
+            <option value="Sucursal Valparaíso">Sucursal Valparaíso</option>
+            <option value="Sucursal Santiago">Sucursal Santiago</option>
+            <option value="Sucursal Rancagua">Sucursal Rancagua</option>
+            <option value="Sucursal Talca">Sucursal Talca</option>
+            <option value="Sucursal Chillán">Sucursal Chillán</option>
+            <option value="Sucursal Concepción">Sucursal Concepción</option>
+            <option value="Sucursal Puerto Montt">Sucursal Puerto Montt</option>
+            <option value="Sucursal Coyhaique">Sucursal Coyhaique</option>
+            <option value="Sucursal Punta Arenas">Sucursal Punta Arenas</option>
+            <option value="Sucursal Valdivia">Sucursal Valdivia</option>
           </select>
 
         <button type="submit">Ingresar</button>
@@ -104,6 +110,7 @@ export default {
         capacidadPasajeros: "",
         fechaUltimoMantenimiento: "",
         estadoVehiculo: "",
+        sucursal: "",
         fotoVehiculo: null, // Almacenará la imagen en Base64  
       },
     };

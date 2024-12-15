@@ -30,11 +30,11 @@
         window.location.href = "/finanzas"; 
       },
       toInicio() {
-        window.location.href = "/admin"; 
+        window.location.href = "/trabajador"; 
       },
-      //arrendarVehiculo() {
-        //window.location.href = "/arrendar"; 
-      //},
+      arrendarVehiculo() {
+        window.location.href = "/calendarioTrabajador"; 
+      },
     },
   };
   </script>

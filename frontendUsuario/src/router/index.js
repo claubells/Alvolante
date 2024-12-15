@@ -150,6 +150,42 @@ const router = createRouter({
             props:true,  
             
         },
+
+        {
+            path: '/estadisticasAdmin',
+            name: 'estadisticasAdmin',
+            component: () => import('../view/estadisticasAdmin.vue'), 
+ 
+        },
+
+        {
+            path: '/calendarioAdmin',
+            name: 'calendarioAdmin',
+            component: () => import('../view/calendarioAdmin.vue'), 
+ 
+        },
+
+        {
+            path: '/verAutosSegunCalendarioAdmin',
+            name: 'verAutosSegunCalendarioAdmin',
+            component: () => import('../view/verAutosSegunCalendarioAdmin.vue'), 
+ 
+        },
+
+        {
+            path: '/calendarioTrabajador',
+            name: 'calendarioTrabajador',
+            component: () => import('../view/calendarioTrabajador.vue'), 
+ 
+        },
+
+        {
+            path: '/verAutosSegunCalendarioTrabajador',
+            name: 'verAutosSegunCalendarioAdminTrabajador',
+            component: () => import('../view/verAutosSegunCalendarioTrabajador.vue'), 
+ 
+        },
+
              
         
         
