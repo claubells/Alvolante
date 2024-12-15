@@ -34,7 +34,7 @@
               <button class="sessionButton" @click="addUser">Registrar</button>
             </div>
             <div class="alsoButtons">
-                <div class="headerCliente">¿No eres estas registrado?</div>
+                <div class="headerCliente">¿No estas registrado?</div>
               <div class="alsoButton" @click="handleChange" v-if="!register">Crea una cuenta</div>
               <div class="alsoButton" @click="handleChange" v-else>Iniciar sesión</div>
               <router-link to="anonimo">

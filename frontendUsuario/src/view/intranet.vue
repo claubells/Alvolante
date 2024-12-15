@@ -19,10 +19,10 @@
 export default {
   methods: {
     chooseRoleC() {
-      this.$router.push('/homeviews'); // Redirecciona a la vista de contacto
+      window.location.href = '/homeviews'; // Redirecciona a la vista de contacto
     },
     chooseRoleT(){
-      this.$router.push('/loginTrabajador');
+      window.location.href = '/logintrabajador';
     }
   },
 };
