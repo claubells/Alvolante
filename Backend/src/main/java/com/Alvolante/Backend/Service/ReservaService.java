@@ -69,7 +69,7 @@ public class ReservaService {
     }
 
     public ReservaEntity getReservaById(Long id) {
-        Optional<ReservaEntity> getReserva = reservaRepository.findById(id);
+        Optional<ReservaEntity> getReserva = reservaRepository.findByUsuarioReserva_IdUsuario(id);
         if (getReserva.isPresent()) {
             return getReserva.get();
         }else {

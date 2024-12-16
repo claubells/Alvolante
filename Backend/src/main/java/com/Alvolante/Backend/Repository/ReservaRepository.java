@@ -27,6 +27,6 @@ public interface ReservaRepository extends JpaRepository<ReservaEntity, Long> {
             "WHERE r.idReserva = : idReserva")
     int StateReservationByIdReservation(@Param("idReserva")Long idReserva);
 
-    Optional<ReservaEntity> findByid_usuario(Long idUsuario);
+    Optional<ReservaEntity> findByUsuarioReserva_IdUsuario(Long idUsuario);
 
 }
