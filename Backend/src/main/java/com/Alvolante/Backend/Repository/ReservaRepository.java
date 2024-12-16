@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface ReservaRepository extends JpaRepository<ReservaEntity, Long> {
@@ -25,4 +26,7 @@ public interface ReservaRepository extends JpaRepository<ReservaEntity, Long> {
             "FROM ReservaEntity r " +
             "WHERE r.idReserva = : idReserva")
     int StateReservationByIdReservation(@Param("idReserva")Long idReserva);
+
+    Optional<ReservaEntity> findByid_usuario(Long idUsuario);
+
 }

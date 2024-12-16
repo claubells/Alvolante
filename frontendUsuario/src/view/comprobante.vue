@@ -14,18 +14,43 @@ import navbarComp from '@/components/navbarComp.vue';
           
           
           <h2>comprobante de reserva</h2>
-          
-          <p>Vehículo: </p>
-          <p>Fecha retiro: </p>
-          <p>Persona que retira: </p>
-          <p>Codigo reserva: </p>
+          <!-- Verifica si la reserva existe antes de mostrar los datos -->
+          <p v-if="reserva">Fecha de retiro: {{ reserva.fechaInicioReserva }}</p>
+          <p v-if="reserva">Código de reserva: {{ reserva.idReserva }}</p>
+          <p v-else>Cargando datos de la reserva...</p>
         </div>
       </div>
     </section>
     <h3>Debe mostrar este comprobante al momento de retirar el vehiculo</h3>
 </template>
 <script>
+import { useRoute } from 'vue-router';
+import axios from 'axios';
 
+export default {
+  data() {
+    return {
+      reserva: null,  // Aquí almacenaremos los datos de la reserva
+    };
+  },
+  methods: {
+    async getReservaIdUsuario(idUsuario) {
+      try {
+        // Solicita la reserva correspondiente al idUsuario
+        const response = await axios.get(`api/reserva/usuario/${idUsuario}`);
+        this.reserva = response.data;  // Guarda la reserva en el estado
+      } catch (error) {
+        console.error("Error al obtener la reserva:", error);
+      }
+    }
+  },
+  mounted() {
+    // Obtén el idUsuario de los parámetros de la ruta
+    const route = useRoute();
+    const idUsuario = route.params.idUsuario;  // Obtén el idUsuario desde la URL
+    this.getReservaIdUsuario(idUsuario);  // Llama a la API con el idUsuario
+  }
+};
 </script>
 
 <style>

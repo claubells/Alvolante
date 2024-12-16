@@ -144,7 +144,7 @@ const router = createRouter({
         },
 
         {
-            path: '/comprobante:idReserva',
+            path: '/comprobante:idUsuario',
             name: 'comprobante',
             component: () => import('../view/comprobante.vue'), 
             props:true,  

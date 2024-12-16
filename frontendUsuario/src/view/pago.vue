@@ -53,7 +53,8 @@ const expiryDate = ref('');
               <p>Precio: $3,000.00</p>
               <p>Envío: $820.00</p>
               <p>Total (impuestos incl.): $3,820.00</p>
-              <button class="btn btn-primary btn-block mt-3" @click="toComprobante(idReserva)">Pagar</button>
+              <button class="btn btn-primary btn-block mt-3" @click="enviarReserva()">Pagar</button>
+              <button class="btn btn-primary btn-block mt-3" @click="toComprobante(idUsuario)">comporabte</button>
             </div>
           </div>
         </div>
@@ -78,7 +79,7 @@ export default {
         horaReserva: null,
         costoReserva: "",
       },
-      idUsuario: 5 // Supongamos que este es el ID del usuario
+      idUsuario: 24 // Supongamos que este es el ID del usuario
     };
   },
   methods: {
@@ -109,7 +110,6 @@ export default {
           alert("Error en fechas");
         } else if (response.data >= 0) {
           alert("Reserva realizada con éxito");
-          this.toComprobante(response.data.idReserva); // Redirigir al comprobante con idReserva
         } else {
           alert("Error inesperado");
         }
@@ -118,8 +118,8 @@ export default {
         alert("No se pudo generar conexión con el servidor");
       }
     },
-    toComprobante(idReserva) {
-      this.$router.push({ path: `/comprobante/${idReserva}` });
+    toComprobante(idUsuario) {
+      this.$router.push({ path: `/comprobante/${idUsuario}` });
     },
     async fetchVehiculo() {
       try {
