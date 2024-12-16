@@ -29,7 +29,7 @@ const router = useRouter();
             <p><strong>Modelo:</strong> {{ vehiculo.modelo }}</p>
             <p><strong>Marca:</strong> {{ vehiculo.marca }}</p>
             <p><strong>Año:</strong> {{ vehiculo.anio }}</p>
-            <button @click="verDetallesVehiculo(vehiculo.idVehiculo)" class="select-button">Seleccionar</button> 
+            <button @click="verDetallesVehiculoTrabajador(vehiculo.idVehiculo)" class="select-button">Seleccionar</button> 
           </div>
         </div>
         <p v-else>No hay vehículos disponibles.</p>

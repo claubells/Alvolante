@@ -186,6 +186,21 @@ const router = createRouter({
  
         },
 
+        {
+            path: '/seleccionVehiculoAdmin/:idVehiculo',
+            name: 'seleccionVehiculoAdmin',
+            component: () => import('../view/seleccionVehiculoAdmin.vue'), 
+            props: true,
+ 
+        },
+
+        {
+            path: '/rellenarDatosClienteAdmin',
+            name: 'rellenarDatosClienteAdmin',
+            component: () => import('../view/rellenarDatosClienteAdmin.vue'), 
+ 
+        },
+
              
         
         

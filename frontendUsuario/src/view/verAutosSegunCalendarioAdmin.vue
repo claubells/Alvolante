@@ -68,7 +68,7 @@ export default {
         }
       },
   verDetallesVehiculo(idVehiculo) {
-      this.$router.push({ name: 'seleccionVehiculoCliente', params: { idVehiculo } });
+      this.$router.push({ name: 'seleccionVehiculoAdmin', params: { idVehiculo } });
     },
   },
   mounted() {
