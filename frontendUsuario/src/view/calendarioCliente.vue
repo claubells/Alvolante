@@ -32,18 +32,42 @@ const router = useRouter();
             <label for="lugar-retiro">Lugar de Retiro:</label>
             <select id="lugar-retiro" v-model="lugarRetiro">
               <option value="">Seleccione un lugar</option>
-              <option value="PICHILEMU">PICHILEMU</option>
-              <option value="OSORNO">OSORNO</option>
-              <option value="PUTUE">PUTUE</option>
+              <option value="Sucursal Arica">Sucursal Arica</option>
+            <option value="Sucursal Iquique">Sucursal Iquique</option>
+            <option value="Sucursal Antofagasta">Sucursal Antofagasta</option>
+            <option value="Sucursal Copiapó">Sucursal Copiapó</option>
+            <option value="Sucursal La Serena">Sucursal La Serena</option>
+            <option value="Sucursal Valparaíso">Sucursal Valparaíso</option>
+            <option value="Sucursal Santiago">Sucursal Santiago</option>
+            <option value="Sucursal Rancagua">Sucursal Rancagua</option>
+            <option value="Sucursal Talca">Sucursal Talca</option>
+            <option value="Sucursal Chillán">Sucursal Chillán</option>
+            <option value="Sucursal Concepción">Sucursal Concepción</option>
+            <option value="Sucursal Puerto Montt">Sucursal Puerto Montt</option>
+            <option value="Sucursal Coyhaique">Sucursal Coyhaique</option>
+            <option value="Sucursal Punta Arenas">Sucursal Punta Arenas</option>
+            <option value="Sucursal Valdivia">Sucursal Valdivia</option>
             </select>
           </div>
           <div class="form-input">
             <label for="lugar-entrega">Lugar de Entrega:</label>
             <select id="lugar-entrega" v-model="lugarEntrega">
               <option value="">Seleccione un lugar</option>
-              <option value="Santiago">PICHILEMU</option>
-              <option value="OSORNO">OSORNO</option>
-              <option value="PUTUE">PUTUE</option>
+              <option value="Sucursal Arica">Sucursal Arica</option>
+            <option value="Sucursal Iquique">Sucursal Iquique</option>
+            <option value="Sucursal Antofagasta">Sucursal Antofagasta</option>
+            <option value="Sucursal Copiapó">Sucursal Copiapó</option>
+            <option value="Sucursal La Serena">Sucursal La Serena</option>
+            <option value="Sucursal Valparaíso">Sucursal Valparaíso</option>
+            <option value="Sucursal Santiago">Sucursal Santiago</option>
+            <option value="Sucursal Rancagua">Sucursal Rancagua</option>
+            <option value="Sucursal Talca">Sucursal Talca</option>
+            <option value="Sucursal Chillán">Sucursal Chillán</option>
+            <option value="Sucursal Concepción">Sucursal Concepción</option>
+            <option value="Sucursal Puerto Montt">Sucursal Puerto Montt</option>
+            <option value="Sucursal Coyhaique">Sucursal Coyhaique</option>
+            <option value="Sucursal Punta Arenas">Sucursal Punta Arenas</option>
+            <option value="Sucursal Valdivia">Sucursal Valdivia</option>
             </select>
           </div>
         </div>
