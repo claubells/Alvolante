@@ -25,19 +25,19 @@ public class UsuarioService {
 
     public int login(String email, String password) {
         UsuarioEntity user = userRepo.findByEmail(email);
-        if(user != null) { // si el usuarioEmail o tur es distinto de vacio, existe, le pedimos la contraseña
-            if (password.equals(user.getPassword())) { // Se le aplican diferentes roles, por lo que se retorna un valor distinto para cada uno
-                // Cambiar el valor de retorno si es necesario
-                if(user.getRol().equals("admin")){ 
-                    return 1;
-                }
-                else if(user.getRol().equals("trabajador")){
-                    return 2;
-                }
-                else if(user.getRol().equals("usuario")){ // El retorno de usuario sigue siendo el mismo, por lo que no deberia generar problemas
-                    return 3;
-                }
+        if(user != null & password.equals(user.getPassword())) { // si el usuarioEmail o rut es distinto de vacio, existe, le pedimos la contraseña
+            // Se le aplican diferentes roles, por lo que se retorna un valor distinto para cada uno
+            // Cambiar el valor de retorno si es necesario
+            if(user.getRol().equals("admin")){
+                return 1;
             }
+            else if(user.getRol().equals("trabajador")){
+                return 2;
+            }
+            else if(user.getRol().equals("usuario")){ // El retorno de usuario sigue siendo el mismo, por lo que no deberia generar problemas
+                return 3;
+            }
+
         }
         return 0;
     }

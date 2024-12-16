@@ -4,12 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Entity
 @Table(name = "usuario")
-
 public class UsuarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
