@@ -23,7 +23,7 @@ const goToAutos = () => {
                 <div class="headerDescription">{{ anonymousMessage }}</div>
                 <div class="actionsContainer">
                     <button class="sessionButton" @click="goBack">Volver al Inicio</button>
-                    <button class="exploreButton" @click="goToAutos">Explorar Automóviles <br> (Experiencia limitada)</button>
+                    <button class="exploreButton" @click="goToAutos">Explorar Automóviles </button>
                 </div>
             </div>
         </div>
@@ -82,8 +82,8 @@ const goToAutos = () => {
     gap: 1rem;
 }
 
-.sessionButton, .exploreButton {
-    background: #f48fb1; 
+.sessionButton {
+    background: #eba3bb; 
     color: #ffffff;
     border: none;
     padding: 0.75rem;
@@ -93,7 +93,23 @@ const goToAutos = () => {
     transition: background-color 0.3s ease;
 }
 
-.sessionButton:hover, .exploreButton:hover {
-    background: #d81b60; 
+.sessionButton:hover{
+    background: #ee6f9d; 
 }
+
+.exploreButton {
+    background: #60eda2; 
+    color: #ffffff;
+    border: none;
+    padding: 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.exploreButton:hover{
+    background: #0de639; 
+}
+
 </style>

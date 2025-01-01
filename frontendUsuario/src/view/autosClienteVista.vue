@@ -1,15 +1,5 @@
 <template>
     <div class="container">
-        <nav class="navbar">
-      <div class="logo">Al Volante</div>
-      <div class="nav-links">
-        <a href="#" @click.prevent="toInicio">Inicio</a>
-        <a href="#" @click.prevent="toPerfilCliente">Perfil</a>
-        <a href="#">Opciones</a>
-        <a href="#" @click.prevent="toContact">Contacto</a>
-        <a href="#" @click.prevent="logout">Cerrar Sesión</a>
-      </div>
-    </nav>
       <div class="main-content">
         <h1>Lista de Vehículos</h1>
         <div class="vehiculos-container" v-if="vehiculos.length">

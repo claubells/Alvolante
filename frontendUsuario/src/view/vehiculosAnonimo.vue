@@ -68,10 +68,10 @@ export default {
       }
     },
     registrarse() {
-      this.$router.push({ path: '/homeviews', query: { register: true } });
+      this.$router.push({ path: '/register', query: { register: true } });
     },
     inicioSesion() {
-      this.$router.push("/homeviews");
+      this.$router.push("/login");
     },
     contacto() {
       this.$router.push('/contactoAnonimo');

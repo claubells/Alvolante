@@ -87,7 +87,7 @@ export default{
             };
             try{
                 const respuesta = await axios.post(
-                  import.meta.env.VITE_BASE_URL + 'api/usuarios/login',
+                  import.meta.env.VITE_BASE_URL + 'auth/login',
                    usuario)
                 if(respuesta.data == 1){
                   Swal.fire({

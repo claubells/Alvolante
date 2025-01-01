@@ -78,8 +78,33 @@ export default {
 },
 
 seleccionarVehiculoAnonimo() {
-// Implementar la lógica de selección de vehículo, por ejemplo, redirigir o guardar datos
-  this.$router.push('/homeViews');
+  Swal.fire({
+    title: '¡Error!',
+    text: 'Para seleccionar un vehículo, primero inicie sesión o regístrese.',
+    icon: 'warning',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: 'Iniciar sesión',
+    denyButtonText: 'Registrarse',
+    cancelButtonText: 'Cancelar',
+    customClass: {
+      confirmButton: 'custom-confirm-button',
+      denyButton: 'custom-deny-button',
+      cancelButton: 'custom-cancel-button'
+    }
+    }).then ((result) => {
+      if (result.isConfirmed) {
+        // Redirigir a la página de inicio de sesión
+        window.location.href = '/login'; // Redirige y recarga la página en '/login'
+      } else if (result.isDenied) {
+        // Redirigir a la página de registro
+        window.location.href = '/register';
+      }else if (result.isDismissed) {
+        // No hacer nada si el usuario cancela la acción
+        console.log('El usuario canceló la acción');
+      }
+    });
+
 },
 
 

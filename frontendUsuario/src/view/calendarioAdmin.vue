@@ -1,6 +1,5 @@
 <script setup>
 import { useRouter } from 'vue-router'; 
-import NavbarComp from '@/components/navbarComp.vue'; // Importa el componente
 import Swal from 'sweetalert2';
 
 const router = useRouter();
@@ -46,7 +45,7 @@ const router = useRouter();
           </div>
         </div>
                         
-        <button class="submit-button" @click="handleSubmit">Confirmar Datos</button>
+        <button class="btn btn-block mt-3" style="background-color: #ff80ab; color: white;" @click="handleSubmit">Confirmar Datos</button>
       </section>
       
     </div>
@@ -120,7 +119,7 @@ import VerVehiculos from './VerVehiculos.vue';
     return;
   }
 
-  // Redirigir al calendario de selección
+  localStorage.setItem('fechaEntregaAdmin', JSON.stringify(this.fechaEntrega));
   window.location.href = "/verAutosSegunCalendarioAdmin";
 }
       

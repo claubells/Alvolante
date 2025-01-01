@@ -1,6 +1,5 @@
 <script setup>
-import { useRouter } from 'vue-router'; 
-import NavbarComp from '@/components/navbarComp.vue'; // Importa el componente
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
 </script>

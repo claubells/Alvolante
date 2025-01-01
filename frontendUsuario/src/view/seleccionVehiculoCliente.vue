@@ -36,8 +36,14 @@ const router = useRouter();
         <p><strong>Color:</strong> {{ vehiculo.color}}</p>
         <p><strong>Asientos:</strong> {{ vehiculo.capacidadPasajeros}}</p>
         <p><strong>Costo:</strong> {{ vehiculo.costo }}</p>
-        <p><strong>Accesorios:</strong> {{ vehiculo.idVehiculo }}</p>
-        <p><strong>Fechas:</strong> (información por completar)</p>
+        <p><strong>Seleccione un accesorio:</strong> <select>
+              <option value="Silla de bebes">Silla de bebes</option>
+                <option value="Alzador">Alzador</option>
+                <option value="Porta bicicleta">Porta bicicleta</option>
+            </select></p>
+
+        <p><strong>Fechas de retiro:</strong> {{ fechaRetiro}} </p>
+        <p><strong>Fechas de entrega:</strong> {{ fechaEntrega}} </p>
         
         <p><strong>Total:</strong> (vehículo + accesorios)</p>
         <button @click="verDetallesVehiculoPago(vehiculo.idVehiculo)" class="select-button">  Arrendar  </button>
@@ -106,6 +112,8 @@ const router = useRouter();
     },
     mounted() {
       this.fetchVehiculo(this.idVehiculo); // Carga los datos del vehículo al montar el componente
+      this.fechaEntrega = localStorage.getItem('fechaEntrega');
+      this.fechaRetiro = localStorage.getItem('fechaRetiro');
     },
   };
   </script>

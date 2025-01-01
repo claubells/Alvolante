@@ -1,21 +1,9 @@
 <script setup>
 import { useRouter } from 'vue-router'; 
-import NavbarComp from '@/components/navbarComp.vue'; // Importa el componente
-
 const router = useRouter();
 </script>
 <template>
     <div>
-    <!-- <nav class="navbar">
-      <div class="logo">Al Volante</div>
-      <div class="nav-links">
-        <a href="#" @click="toInicio">Inicio</a>
-        <a href="#" @click="toPerfilCliente">Perfil</a>
-        <a href="#" @click="toContact">Contacto</a>
-        <a href="#" @click="logout">Cerrar Sesión</a>
-      </div>
-    </nav> -->
-    <NavbarComp /> 
       <div class="main-content">
         <h1>Lista de Vehículos</h1>
         <div class="vehiculos-container" v-if="vehiculos.length">

@@ -18,20 +18,20 @@ public class UsuarioEntity {
     private String email;
     private String phone;
     @JsonFormat
-    private Date fechaDeNacimiento;
+    private Date birthdate;
     private String password;
-    private String rol;
+    private String role;
 
     //Constructor de usuario
 
-    public UsuarioEntity(String rut, String name, String email, String phone, Date fechaDeNacimiento, String password, String rol) {
+    public UsuarioEntity(String rut, String name, String email, String phone, Date birthdate, String password, String role) {
         this.rut = rut;
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.fechaDeNacimiento = fechaDeNacimiento;
+        this.birthdate = birthdate;
         this.password = password;
-        this.rol = rol;
+        this.role = role;
     }
 
     public UsuarioEntity() {

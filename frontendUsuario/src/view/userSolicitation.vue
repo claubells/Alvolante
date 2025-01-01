@@ -1,18 +1,12 @@
 <script setup>
 import { ref } from "vue";
-import NavbarComp from '@/components/navbarComp.vue';
 
 // Puedes usar variables para datos dinámicos.
 const userName = ref("Usuario");
 </script>
 
 <template>
-  <main class="main-container">
-    <!-- Barra de navegación -->
-    
-    <NavbarComp />
-    
-
+  <main class="main-container"> 
     <section class="welcome-section">
       <div class="welcome-text">
         <h1>¡Bienvenido, {{ userName }}!</h1>

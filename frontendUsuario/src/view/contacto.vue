@@ -1,25 +1,11 @@
 <script setup>
 import { useRouter } from 'vue-router'; 
-import NavbarComp from '@/components/navbarComp.vue'; // Importa el componente
 
 const router = useRouter();
 </script>
 
 <template>
   <main class="main-container">
-    <!-- Barra de navegación -->
-    <!-- <nav class="navbar">
-      <div class="logo">Al Volante</div>
-      <div class="nav-links">
-        <a href="#" @click.prevent="toInicio">Inicio</a>
-        <a href="#" @click.prevent="toPerfilCliente">Perfil</a>
-        <a href="#" @click.prevent="toContact">Contacto</a>
-        <a href="#" @click.prevent="logout">Cerrar Sesión</a>
-      </div>
-    </nav> -->
-    <div>  <!-- Usar el componente global --> 
-      <NavbarComp /> 
-    </div>
     <div class="contacto_titulo">Contáctenos</div>
     <!-- Sección de contacto -->
     <section class="contact-section">
@@ -60,7 +46,6 @@ export default {
 };
 
 import axios from 'axios';
-import NavbarComp from '@/components/navbarComp.vue';
 
 //rediccionamientos
 //usuario
@@ -102,13 +87,6 @@ body {
   color: #633434;
 }
 
-/* Sección de contacto */
-.contact-section {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: calc(100vh - 80px); /* Ajustar según la altura de la barra de navegación */
-}
 
 .contact-content {
   display: flex;
@@ -151,24 +129,5 @@ body {
   position: relative; /* Cambiar la posición a relativa */ 
   top: -1px; /* Ajustar la posición vertical hacia arriba */
 }
-.contact-section h1 {
-  font-size: 5rem;
-  color: #ff4081;
-}
 
-.contact-section h2 {
-  font-size: 1,9rem;
-  color: #ff6f61;
-  margin-bottom: 1rem;
-  position: relative; /* Cambiar la posición a relativa */ 
-  top: -45px; /* Ajustar la posición vertical hacia arriba */
-}
-
-.contact-section p {
-  font-size: 1.2rem;
-  color: #757575;
-  margin-bottom: 1rem;
-  position: relative; /* Cambiar la posición a relativa */ 
-  top: -40px; /* Ajustar la posición vertical hacia arriba */
-}
 </style>

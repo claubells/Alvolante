@@ -3,7 +3,7 @@
     <div class="general">
       <div class="content">
         <img class="image" src="./media/logoalvolante.png" alt="Logo">
-        <div class="header">BIENVENIDO A LA INTRANET</div>
+        <div class="header">BIENVENIDO/A A LA INTRANET</div>
         <div class="headerDescription">Seleccione su rol para continuar</div>
 
         <div class="roleButtons">
@@ -19,10 +19,10 @@
 export default {
   methods: {
     chooseRoleC() {
-      window.location.href = '/homeviews'; // Redirecciona a la vista de contacto
+      window.location.href = '/login'; 
     },
     chooseRoleT(){
-      window.location.href = '/logintrabajador';
+      window.location.href = '/loginTrabajador';
     }
   },
 };

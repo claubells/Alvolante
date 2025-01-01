@@ -18,12 +18,19 @@ public class JwtUtil {
 
     // Método para crear un JWT
     public String createToken(String username) {
-        return JWT.create()
-                .withSubject(username)
-                .withIssuer("tbd")
-                .withIssuedAt(new Date())
-                .withExpiresAt(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(15))) // Duración del token
-                .sign(ALGORITHM);
+        System.out.println("En la funcin creatoToken para crear el token.");
+        try{
+            return JWT.create()
+                    .withSubject(username)
+                    .withIssuer("tbd")
+                    .withIssuedAt(new Date())
+                    .withExpiresAt(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(666))) // Duración del token
+                    .sign(ALGORITHM);
+        } catch (Exception e) {
+            System.out.println("Error al generar el token JWT: " + e.getMessage());
+            throw new RuntimeException("Error al generar el token JWT.", e);
+        }
+
     }
 
     // Método para validar un JWT
@@ -36,19 +43,6 @@ public class JwtUtil {
         } catch (JWTVerificationException e) {
             System.out.println("Token inválido: " + e.getMessage());
             return false;
-        }
-    }
-
-    // Verifica si el token ha expirado
-    public boolean isTokenExpired(String token) {
-        try {
-            Date expiration = JWT.require(Algorithm.HMAC256(SECRET_KEY))
-                    .build()
-                    .verify(token)
-                    .getExpiresAt();
-            return expiration.before(new Date());
-        } catch (Exception e) {
-            return true; // Si hay algun error, consideramos que el token no es valido
         }
     }
 

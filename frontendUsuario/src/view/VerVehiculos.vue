@@ -1,3 +1,7 @@
+<script setup>
+import Swal from 'sweetalert2';
+
+</script>
 <template>
     <div class="container">
       <div class="sidebar">
@@ -42,13 +46,20 @@
     methods: {
       async fetchVehiculosDispo() {
         try {
-          const response = await axios.get(
-            import.meta.env.VITE_BASE_URL + "api/vehiculos/all" //ruta para obtener los autos
-          );
-          this.vehiculos = response.data;
+          const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
+          const response = await axios.get("http://localhost:8080/api/vehiculos/all", {
+            headers: {
+              Authorization: `Bearer ${token}`, // Añade el token al encabezado
+            },
+          });
+          this.vehiculosDisponibles = response.data; // Asigna los vehículos a la variable
         } catch (error) {
           console.error("Error al obtener los vehículos:", error);
-          alert("No se pudo cargar la lista de vehículos");
+          Swal.fire({
+            title: "Error",
+            text: "No se pudieron cargar los vehículos disponibles.",
+            icon: "error",
+          });
         }
       },
       cierreSesion() {

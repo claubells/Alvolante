@@ -10,7 +10,7 @@ public class RegisterDto {
     private String name;
     private String email;
     private String phone;
-    private Date fechaDeNacimiento;
+    private Date birthdate;
     private String password;
-    private String rol;
+    private String role;
 }

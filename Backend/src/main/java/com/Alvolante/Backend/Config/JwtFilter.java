@@ -1,13 +1,14 @@
 package com.Alvolante.Backend.Config;
 
+import com.Alvolante.Backend.Entity.UsuarioEntity;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
+
 import org.springframework.http.HttpHeaders;
 
 @Component
@@ -56,16 +59,28 @@ public class JwtFilter extends OncePerRequestFilter {
         String email = this.jwtUtil.getEmail(jwt);
 
         // se busca por email
-        UserDetails user = userDetailsService.loadUserByUsername(email);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
-        // 4. Cargar al usuario en el contexto de seguridad
+        // 4 se obtiene el rol
+        UsuarioEntity userEntity = (UsuarioEntity) userDetails; // se realiza el casteo
+        String userRole = userEntity.getRole(); // Extraer el rol desde tu entidad UsuarioEntity
+
+
+        // Crear la lista de roles (autoridades)
+        List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(userRole));
+
+
+        // 5. Cargar al usuario en el contexto de seguridad
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(
-                user.getUsername(), user.getPassword(), user.getAuthorities());
+                        userDetails.getUsername(),
+                        userDetails.getPassword(),
+                        // se añade el rol
+                        authorities);
 
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        System.out.println(authenticationToken);
+        System.out.println("Autenticación exitosa: " +authenticationToken);
         filterChain.doFilter(request, response);
     }
 }

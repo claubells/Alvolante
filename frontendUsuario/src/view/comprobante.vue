@@ -1,39 +1,17 @@
-<script>
-import NavbarComp from '@/components/navbarComp.vue';
-import axios from "axios";
+<script setup>
+import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 
-export default {
-  props: ['idUsuario'],
-  data() {
-    return {
-      reserva: null,
-    };
-  },
-  methods: {
-    async fetchReservaById(idUsuario) {
-      try {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BASE_URL}api/reserva/reservaPorId/${this.idUsuario}`
-    );
-    if (response.data) {
-      this.reserva = response.data;
-    } else {
-      console.error("No se encontraron datos del vehículo.");
-    }
-  } catch (error) {
-    console.error("Error al cargar los detalles del vehículo:", error);
-    alert("No se pudo cargar la información del vehículo.");
-  }
-  },
-  },
-  mounted() {
-    this.fetchReservaById(this.idUsuario);
-  }
-};
+const router = useRouter();
+const currentYear = new Date().getFullYear();
+const currentMonth = String(new Date().getMonth() + 1).padStart(2, '0');
+const minDate = `${currentYear}-${currentMonth}`;
+const maxDate = `${currentYear + 10}-12`;
+const expiryDate = ref('');
 </script>
 
+
 <template>
-  <NavbarComp />
   <section class="contact-section">
     <h1>¡Reserva realizada con éxito!</h1>
     <div class="contact-content">
@@ -47,6 +25,44 @@ export default {
   </section>
   <h3>Debe mostrar este comprobante al momento de retirar el vehículo</h3>
 </template>
+
+<script>
+import axios from "axios";
+
+export default {
+  props: ['idUsuario'],
+  data() {
+    return {
+      reserva: null,
+    };
+  },
+  methods: {
+    async fetchReservaById(idUsuario) {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}api/reserva/idReservaByUserId`, {
+          params: { idUsuario }
+        });
+        if (response.data) {
+          console.log("Detalles de la reserva encontrados:", response.data);
+          this.reserva = response.data;
+        } else {
+          console.error("No se encontraron detalles de la reserva.");
+        }
+      } catch (error) {
+        console.error("Error al cargar los detalles de la reserva:", error);
+        alert("No se pudo cargar la información de la reserva.");
+      }
+    },
+  
+  },
+  mounted() {
+    console.log(`Mounted with idUsuario: ${this.idUsuario}`);
+    this.fetchReservaById(this.idUsuario);
+  }
+};
+</script>
+
+
 
 
 <style>

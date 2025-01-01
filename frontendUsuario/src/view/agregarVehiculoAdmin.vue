@@ -5,84 +5,111 @@ import Swal from 'sweetalert2';
 const router = useRouter();
 </script>
 
-
 <template>
   <div class="container">
     <div class="sidebar">
       <ul>
         <img class="image" src="./media/logoalvolante.png">
         <li><a href="#"@click="toInicio">Inicio</a></li>
-        <li><a class="botonSubir" href="#"@click="AgregarVehiculoAdmin">Subir Vehículo</a></li>
+        <li><a class="botonSubir" href="#"@click="AgregarVehiculoAdmin">Añadir un vehículo</a></li>
         <li><a href="#" @click="cierreSesion">Cerrar sesión</a></li>
       </ul>
     </div>
     <div class="main-content">
-      <h1>Subir Vehículo</h1>
+      <h1>Añadir un vehículo al sistema</h1>
       <form @submit.prevent="submitForm">
 
-        <label for="codigoACRISS">Codigo ACRISS:</label>
-        <input type="text" id="codigoACRISS" v-model="vehicle.codigoACRISS" required>
+        <div class="mb-3">
+          <label for="codigoACRISS" class="form-label">Codigo ACRISS:</label>
+          <input type="text" class="form-control" id="codigoACRISS" v-model = "vehicle.codigoACRISS" ref = "codigoACRISS" required>
+        </div>
 
-        <label for="patente">Patente:</label>
-        <input type="text" id="patente" v-model="vehicle.patente" ref="patente" class="{ 'error-input': patenteError }" required>
+        <div class="mb-3">
+          <label for="patente" class="form-label">Patente:</label>
+          <input type="text" class="form-control" id="patente" v-model = "vehicle.patente" ref = "patente" required>
+        </div>
         
+        <div class="mb-3">
+          <label for="numeroChasis" class="form-label">Numero de Chasis:</label>
+          <input type="text" class="form-control" id="numeroChasis" v-model = "vehicle.numeroChasis" ref = "numeroChasis" required>
+        </div>
 
-        <label for="numeroChasis">Número de Chasis:</label>
-        <input type="text" id="numeroChasis" v-model="vehicle.numeroChasis" ref="numeroChasis" required>
+        <div class="mb-3">
+          <label for="modelo" class="form-label">Modelo:</label>
+          <input type="text" class="form-control" id="modelo" v-model = "vehicle.modelo" ref = "modelo" required>
+        </div>
         
+        <div class="mb-3">
+          <label for="marca" class="form-label">Marca:</label>
+          <input type="text" class="form-control" id="marca" v-model = "vehicle.marca" ref = "marca" required>
+        </div>
 
-        <label for="modelo">Modelo:</label>
-        <input type="text" id="modelo" v-model="vehicle.modelo" required>
+        <div class="mb-3">
+          <label for="anio" class="form-label">Año:</label>
+          <input type="number" class="form-control" id="anio" v-model = "vehicle.anio" ref = "anio" required>
+        </div>
 
-        <label for="marca">Marca:</label>
-        <input type="text" id="marca" v-model="vehicle.marca" required>
+        <div class="mb-3">
+          <label for="kilometraje" class="form-label">Kilometraje:</label>
+          <input type="text" class="form-control" id="kilometraje" v-model = "vehicle.kilometraje" ref = "kilometraje" required>
+        </div>
 
-        <label for="anio">Año:</label>
-        <input type="number" id="anio" v-model="vehicle.anio" required>
+        <div class="mb-3">
+          <label for="costo" class="form-label">Costo:</label>
+          <input type="number" class="form-control" id="costo" v-model = "vehicle.costo" ref = "costo" required>
+        </div>
 
-        <label for="kilometraje">Kilometraje:</label>
-        <input type="text" id="kilometraje" v-model="vehicle.kilometraje" required>
+        <div class="mb-3">
+          <label for="tipo" class="form-label">Tipo:</label>
+          <input type="text" class="form-control" id="tipo" v-model = "vehicle.tipo" ref = "tipo" required>
+        </div>
 
-        <label for="costo">Costo:</label>
-        <input type="number" id="costo" v-model="vehicle.costo" required>
+        <div class="mb-3">
+          <label for="color" class="form-label">Color:</label>
+          <input type="text" class="form-control" id="color" v-model = "vehicle.color" ref = "color" required>
+        </div>
 
-        <label for="tipo">Tipo:</label>
-        <input type="text" id="tipo" v-model="vehicle.tipo" required>
+        <div class="mb-3">
+          <label for="capacidadPasajeros" class="form-label">Capacidad de pasajeros:</label>
+          <input type="number" class="form-control" id="capacidadPasajeros" v-model = "vehicle.capacidadPasajeros" ref = "capacidadPasajeros" required>
+        </div>
 
-        <label for="color">Color:</label>
-        <input type="text" id="color" v-model="vehicle.color" required>
+        <div class="mb-3">
+          <label for="fechaUltimoMantenimiento" class="form-label">Fecha de ultimo mantenimiento:</label>
+          <input type="date" class="form-control" id="fechaUltimoMantenimiento" v-model="vehicle.fechaUltimoMantenimiento" ref = "fechaUltimoMantenimiento" required>
+        </div>
 
-        <label for="capacidadPasajeros">Capacidad de pasajeros:</label>
-        <input type="number" id="capacidadPasajeros" v-model="vehicle.capacidadPasajeros" required>
+        <div class="mb-3">
+          <label for="estadoVehiculo" class="form-label">Estado del vehiculo:</label>
+          <input type="text" class="form-control" id="estadoVehiculo" v-model="vehicle.estadoVehiculo" ref= "estadoVehiculo" required> 
+        </div>
 
-        <label for="fechaUltimoMantenimiento">Fecha de ultimo mantenimiento:</label>
-        <input type="date" id="fechaUltimoMantenimiento" v-model="vehicle.fechaUltimoMantenimiento" required>
-        
-        <label for="estadoVehiculo">Estado del vehiculo:</label>
-        <input type="text" id="estadoVehiculo" v-model="vehicle.estadoVehiculo" required> 
-        
-        <label for="fotoVehiculo">Imagen del Vehículo:</label>
-        <input type="file" id="fotoVehiculo" @change="onFileChange" accept="image/*">
+        <div class="mb-3">
+          <label for="fotoVehiculo" class="form-label">Imagen del Vehículo:</label>
+          <input class="form-control" type="file" id="fotoVehiculo" @change="onFileChange" accept="image/*">
+        </div>
 
-        <label for="sucursal">Sucursal:</label>
-          <select type="text" id="sucursal" v-model="vehicle.sucursal">
-            <option value="">Seleccione una sucursal</option>
-            <option value="Sucursal Arica">Sucursal Arica</option>
-            <option value="Sucursal Iquique">Sucursal Iquique</option>
-            <option value="Sucursal Antofagasta">Sucursal Antofagasta</option>
-            <option value="Sucursal Copiapó">Sucursal Copiapó</option>
-            <option value="Sucursal La Serena">Sucursal La Serena</option>
-            <option value="Sucursal Valparaíso">Sucursal Valparaíso</option>
-            <option value="Sucursal Santiago">Sucursal Santiago</option>
-            <option value="Sucursal Rancagua">Sucursal Rancagua</option>
-            <option value="Sucursal Talca">Sucursal Talca</option>
-            <option value="Sucursal Chillán">Sucursal Chillán</option>
-            <option value="Sucursal Concepción">Sucursal Concepción</option>
-            <option value="Sucursal Puerto Montt">Sucursal Puerto Montt</option>
-            <option value="Sucursal Coyhaique">Sucursal Coyhaique</option>
-            <option value="Sucursal Punta Arenas">Sucursal Punta Arenas</option>
-            <option value="Sucursal Valdivia">Sucursal Valdivia</option>
+        <div class="mb-3">
+          <label for="sucursal" class="form-label">Sucursal:</label>
+          <select class="form-select" id="sucursal" v-model="vehicle.sucursal">
+            <option selected>Seleccione la Sucursal</option>
+            <option value="1">Sucursal Arica</option>
+            <option value="2">Sucursal Iquique</option>
+            <option value="3">Sucursal Antofagasta</option>
+            <option value="4">Sucursal Copiapó</option>
+            <option value="5">Sucursal La Serena</option>
+            <option value="6">Sucursal Valparaíso</option>
+            <option value="7">Sucursal Santiago</option>
+            <option value="8">Sucursal Rancagua</option>
+            <option value="9">Sucursal Talca</option>
+            <option value="10">Sucursal Chillán</option>
+            <option value="11">Sucursal Concepción</option>
+            <option value="12">Sucursal Puerto Montt</option>
+            <option value="13">Sucursal Coyhaique</option>
+            <option value="14">Sucursal Punta Arenas</option>
+            <option value="15">Sucursal Valdivia</option>
           </select>
+        </div>
 
         <button type="submit">Ingresar</button>
       </form>    
@@ -91,9 +118,9 @@ const router = useRouter();
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
+  name: "AgregarVehiculoAdmin",
   data() {
     return {
       vehicle: {
@@ -130,11 +157,10 @@ export default {
     // enviar datos al backend
     async submitForm() {
       try {
-        // agrupa los datos y los manda al backend
-        const response = await axios.post(
-          import.meta.env.VITE_BASE_URL + 'api/vehiculos/crear-vehiculo',
-          this.vehicle)
-          console.log(response.data) // respuesta del backend
+        // llama al servicio de crear un vehiculo
+        const response = await 
+
+        console.log('Sesión iniciada', response);
         if (response.data == 4) {
           Swal.fire({
             title: '¡Cuidado!',
@@ -163,7 +189,7 @@ export default {
           Swal.fire({
             title: '¡Excelente!',
             text: 'Vehículo ingresado con éxito',
-            icon: 'warning',
+            icon: 'success',
             confirmButtonText: 'OK',
             customClass: {
               confirmButton: 'custom-confirm-button'
@@ -174,8 +200,8 @@ export default {
         // error de la bd 
         } catch (error) {
           Swal.fire({
-            title: '¡Cuidado!',
-            text: 'Numero de chasis repetido o patente repetida',
+            title: '¡Error!',
+            text: 'Error en la base de datos',
             icon: 'warning',
             confirmButtonText: 'OK',
             customClass: {
@@ -209,6 +235,12 @@ body {
   padding: 0;
 }
 
+.form-label {
+  font-size: 1rem; /* Tamaño de fuente */
+  font-weight: 500; /* Peso de fuente */
+  margin-bottom: 0.5rem; /* Espaciado inferior */
+  color: #333; /* Color del texto */
+}
 
 .container {
   display: flex;

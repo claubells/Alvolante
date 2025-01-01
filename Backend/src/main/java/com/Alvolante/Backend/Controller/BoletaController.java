@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.Alvolante.Backend.Service.BoletaService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping ("api/boleta")
 @CrossOrigin
@@ -38,6 +40,16 @@ public class BoletaController {
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
+    }
+
+    @GetMapping("/obtenerBoletaPorId")
+    public BoletaEntity getBoletaPorId(@PathVariable String NombreCliente) {
+        return boletaService.getBoletaByNombreCliente(NombreCliente);
+    }
+
+    @GetMapping("/all")
+    public List<BoletaEntity> getAllBoletas() {
+        return boletaService.getAllBoletas();
     }
 
 

@@ -27,6 +27,7 @@ public class SecurityConfig {
     @Bean
     //define las reglas de seguridad, endpoints publicos y cuales necesitan autenticación
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        System.out.println("Configurando seguridad...");
         http
                 // Deshabilitar CSRF porque es una API
                 .csrf(csrf -> csrf.disable())
@@ -37,13 +38,11 @@ public class SecurityConfig {
                 // Configuración de rutas
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/**").permitAll() // Permite acceso sin autenticación a /auth/**
+                        .requestMatchers("/usuario/**").hasRole("CLIENTE")//Acceso exclusivo para clientes
                         .anyRequest().authenticated() // Requiere autenticación para las demás rutas
                 )
-
-
                 // Configurar política de sesiones stateless
                 .sessionManagement(session -> session.sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS))
-
 
                 // Agregar el filtro JWT antes del filtro de autenticación
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

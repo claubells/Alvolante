@@ -1,6 +1,5 @@
 <script setup>
 import { useRouter } from 'vue-router'; 
-import NavbarComp from '@/components/navbarComp.vue'; // Importa el componente
 import Swal from 'sweetalert2';
 
 const router = useRouter();
@@ -8,12 +7,6 @@ const router = useRouter();
 
 <template>
     <main class="main-container">
-
-      <!-- Barra de navegación -->
-       
-      
-      <NavbarComp /> 
-      
       <!-- Sección del calendario -->
       <section class="calendar-section">
         <h2>Reserva de vehículos</h2>
@@ -149,6 +142,8 @@ const router = useRouter();
     return;
   }
 
+  localStorage.setItem('fechaRetiro', JSON.stringify(this.fechaRetiro));
+  localStorage.setItem('fechaEntrega', JSON.stringify(this.fechaEntrega));
   window.location.href = "/verAutosSegunCalendario";
 }   
 }

@@ -9,7 +9,7 @@ public class SucursalEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idSucursal;
-    
+
     private String nombre;
     private String telefono;
     private String direccion;

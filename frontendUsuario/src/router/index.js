@@ -5,28 +5,30 @@ const router = createRouter({
     routes: [
         {
             path: '/',
+            redirect: '/inicio', // Redirige automáticamente 
+        },
+        {
+            path: '/',
             name: 'intranet',
             component: () => import('../view/intranet.vue'),
             alias: '/inicio',
 
-
         },
-
         {
-            path: '/homeviews',
-            name: 'homeviews',
-            component: () => import('../view/homeViews.vue'),
-            
-
-
+            path: '/login',
+            name: 'Login',
+            component: () => import('../view/LoginView.vue'),
+        },
+        {
+            path: '/register',
+            name: 'Register',
+            component: () => import('../view/RegisterView.vue'),
         },
         {
             path: '/user',
             name: 'user',
             component: () => import('../view/userSolicitation.vue'),
-            alias: '/inicio',
-
-
+            meta: { showHeader: true },
         },
 
         {
@@ -34,24 +36,16 @@ const router = createRouter({
             name: 'agregarVehiculo',
             component: () => import('../view/agregarVehiculoAdmin.vue')
         },
-
-
         {
             path: '/contacto',
             name: 'contacto',
             component: () => import('../view/contacto.vue')
         },
-
-
         {
             path: '/anonimo',
             name: 'anonimo',
             component: () => import('../view/anonimo.vue'),
-            
-
-
         },
-
         {
             path: '/vehiculosAnonimo',
             name: 'vehiculosAnonimo',
@@ -77,7 +71,7 @@ const router = createRouter({
         },
         {
             path: '/loginTrabajador',
-            name: 'loginTrabajador',
+            name: 'LoginTrabajador',
             component: () => import('../view/loginTrabajador.vue'),
             
         },
@@ -100,7 +94,6 @@ const router = createRouter({
             props: true,
             
         },   
-
         {
             path: '/calendarioCliente',
             name: 'calendarioCliente',
@@ -113,7 +106,6 @@ const router = createRouter({
             component: () => import('../view/verAutosSegunCalendario.vue'),
             
         },
-
         {
             path: '/seleccionVehiculoCliente/:idVehiculo',
             name: 'seleccionVehiculoCliente',
@@ -121,28 +113,24 @@ const router = createRouter({
             props: true,
             
         },
-
         {
             path: '/trabajador',
             name: 'trabajador',
             component: () => import('../view/trabajador.vue'),   
             
         },
-
         {
             path: '/admin',
             name: 'admin',
             component: () => import('../view/admin.vue'),   
             
-        },
-             
+        },   
         {
             path: '/finanzas',
             name: 'finanzas',
             component: () => import('../view/finanzas.vue'),   
             
         },
-
         {
             path: '/comprobante/:idUsuario',
             name: 'comprobante',
@@ -150,42 +138,36 @@ const router = createRouter({
             props:true,  
             
         },
-
         {
             path: '/estadisticasAdmin',
             name: 'estadisticasAdmin',
             component: () => import('../view/estadisticasAdmin.vue'), 
  
         },
-
         {
             path: '/calendarioAdmin',
             name: 'calendarioAdmin',
             component: () => import('../view/calendarioAdmin.vue'), 
  
         },
-
         {
             path: '/verAutosSegunCalendarioAdmin',
             name: 'verAutosSegunCalendarioAdmin',
             component: () => import('../view/verAutosSegunCalendarioAdmin.vue'), 
  
         },
-
         {
             path: '/calendarioTrabajador',
             name: 'calendarioTrabajador',
             component: () => import('../view/calendarioTrabajador.vue'), 
  
         },
-
         {
             path: '/verAutosSegunCalendarioTrabajador',
             name: 'verAutosSegunCalendarioAdminTrabajador',
             component: () => import('../view/verAutosSegunCalendarioTrabajador.vue'), 
  
         },
-
         {
             path: '/seleccionVehiculoAdmin/:idVehiculo',
             name: 'seleccionVehiculoAdmin',
@@ -193,12 +175,16 @@ const router = createRouter({
             props: true,
  
         },
-
         {
             path: '/rellenarDatosClienteAdmin',
             name: 'rellenarDatosClienteAdmin',
             component: () => import('../view/rellenarDatosClienteAdmin.vue'), 
  
+        },
+        {
+            path: '/verBoleta',
+            name: 'verBoleta',
+            component: () => import('../view/verBoleta.vue'), 
         },
 
              

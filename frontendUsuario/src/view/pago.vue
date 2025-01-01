@@ -1,7 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
-import NavbarComp from '@/components/navbarComp.vue'; // Importa el componente
 
 const router = useRouter();
 const currentYear = new Date().getFullYear();
@@ -13,7 +12,6 @@ const expiryDate = ref('');
 
 <template>
   <main class="main-container">
-    <NavbarComp />
     <div class="container mt-5">
       <div class="row">
         <div class="col-md-6">
@@ -64,6 +62,7 @@ export default {
   props: ['idVehiculo'],
   data() {
     return {
+      correoLogin: "",
       vehiculo: null,
       reserva: {
         fechaInicioReserva: "",
@@ -73,7 +72,7 @@ export default {
         horaReserva: null,
         costoReserva: "",
       },
-      idUsuario: 26
+      idUsuario: null,
     };
   },
   methods: {
@@ -107,12 +106,30 @@ export default {
         console.error("Error al cargar los detalles del vehículo:", error);
       }
     },
+    async fetchIdByEmail(){
+      try {
+        console.log(`Fetching ID for email: ${this.correoLogin}`);
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}api/usuarios/idByEmail`, {
+          params: { email: this.correoLogin }
+        });
+        this.idUsuario = response.data;
+      } catch (error) {
+        console.error("Error al cargar el id del usuario:", error);
+      }
+    },
     Volver() {
       window.location.href = "/verAutosSegunCalendario";
     }
   },
   mounted() {
     this.fetchVehiculo();
+    // Recuperar el correo del localStorage cuando el componente es montado
+    const correo = localStorage.getItem('correoLogin');
+    if (correo) {
+      this.correoLogin = JSON.parse(correo);
+      console.log(`Correo recuperado: ${this.correoLogin}`);
+      this.fetchIdByEmail(); // Llamar a la función para obtener el id del usuario
+    }
   },
 };
 </script>

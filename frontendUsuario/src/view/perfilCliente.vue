@@ -1,7 +1,6 @@
 <template>
   <main class="main-container">
 
-    <navbarComp /> 
     <!-- Contenedor principal que incluye la barra lateral y el contenido central -->
     <div class="content-container">
       <!-- Rectángulo a la izquierda -->
@@ -65,7 +64,6 @@
 import { useRouter } from 'vue-router'; // Importar el router
 import axios from 'axios'; // Importar axios
 import { ref, onMounted } from 'vue'; // Importar ref y onMounted para la reactividad
-import NavbarComp from '@/components/navbarComp.vue'; 
 
 export default {
   

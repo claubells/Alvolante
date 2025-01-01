@@ -29,4 +29,6 @@ public interface ReservaRepository extends JpaRepository<ReservaEntity, Long> {
 
     Optional<ReservaEntity> findByUsuarioReserva_IdUsuario(Long idUsuario);
 
+    @Query("SELECT r FROM ReservaEntity r WHERE r.usuarioReserva.idUsuario = :idUsuario AND r.estadoReserva = 1")
+    Optional<ReservaEntity> findActiveReservationEntityByUserId(@Param("idUsuario") Long idUsuario);
 }

@@ -1,13 +1,12 @@
 package com.Alvolante.Backend.Controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.Alvolante.Backend.Config.JwtUtil;
@@ -44,20 +43,33 @@ public class AuthController {
         System.out.println("Datos recibidos en el back: "+loginDto);
 
         try{
-
             // Se autentica al usuario con los datos proporcionados:
+
             UsernamePasswordAuthenticationToken loginToken = new UsernamePasswordAuthenticationToken(
                     loginDto.getEmail(),
-                    loginDto.getPassword());
+                    loginDto.getPassword()
+            );
 
-            authenticationManager.authenticate(loginToken);
+            System.out.println("Datos del login: \n\tcorreo: "+loginToken.getPrincipal().toString());
+            try {
+                authenticationManager.authenticate(loginToken);
+                System.out.println("Autenticación exitosa.");
+            } catch (Exception e) {
+                System.out.println("Error en el AuthenticationManager: " + e.getMessage());
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas.");
+            }
 
             //si es exitosa se genera JWT
+            System.out.println("\nSe llama a jwtUtil para crear el token.");
             String jwt = jwtUtil.createToken(loginDto.getEmail());
 
             //se obtiene el usuario autenticado de la base de datos:
             UsuarioEntity user = usuarioRepository.findByEmail(loginDto.getEmail());
+
+            System.out.println("Se busca el usuario por el email: \n email encontrado: "+user);
             if(user == null){
+                System.out.println("No se encontro el usuario.");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                         .body("Usuario no encontrado");
             }
@@ -66,15 +78,25 @@ public class AuthController {
             Map<String, Object> response = new HashMap<>();
             response.put("token", jwt);
             response.put("userId", user.getIdUsuario());
+            response.put("role", user.getRole());
 
+            System.out.println("Se generó con éxito");
+            System.out.println("token: "+ jwt);
+            System.out.println("userId: "+ user.getIdUsuario());
+            System.out.println("role: "+ user.getRole());
             return ResponseEntity.ok(response); // Devolver el token y el ID del usuario
 
         }catch (BadCredentialsException e) {
-            //401 el cliente no proporciona un token jwt valido
+            // Maneja credenciales incorrectas
+            System.out.println("Credenciales incorrectas: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("Credenciales incorrectas.");
+                    .body("Credenciales incorrectas. Verifique su correo y contraseña.");
+        } catch (Exception e) {
+            // cualquier otro error
+            System.out.println("Error en el proceso de autenticación: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error interno en el servidor.");
         }
-
     }
 
     //Registrar usuario
@@ -88,19 +110,19 @@ public class AuthController {
         }
 
         try {
-            // se crea un nuevo usuario
-
+            // Asignar rol por defecto si no se proporciona
+            String rol = (registerDto.getRole() == null || registerDto.getRole().isEmpty()) ? "CLIENTE" : registerDto.getRole();
             // Cifrar la contraseña
             String hashedPassword = passwordEncoder.encode(registerDto.getPassword());
-
+            // se crea un nuevo usuario
             UsuarioEntity newUser = new UsuarioEntity(
                     registerDto.getRut(),
                     registerDto.getName(),
                     registerDto.getEmail(),
                     registerDto.getPhone(),
-                    registerDto.getFechaDeNacimiento(),
+                    registerDto.getBirthdate(),
                     hashedPassword,
-                    registerDto.getRol());
+                    rol);
 
             usuarioRepository.save(newUser);
             // 201 solicitud exitosa

@@ -23,6 +23,7 @@
   </template>
   
   <script>
+  
 import VerVehiculos from './VerVehiculos.vue';
 
   export default {
