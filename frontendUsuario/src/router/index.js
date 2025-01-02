@@ -39,7 +39,8 @@ const router = createRouter({
         {
             path: '/contacto',
             name: 'contacto',
-            component: () => import('../view/contacto.vue')
+            component: () => import('../view/contacto.vue'),
+            meta: { showHeader: true }
         },
         {
             path: '/anonimo',
