@@ -22,7 +22,7 @@ public class JwtUtil {
         try{
             return JWT.create()
                     .withSubject(email)
-                    .withIssuer("tbd")
+                    .withIssuer("tbd")// es para ver quien emitio el token, to be defined
                     .withIssuedAt(new Date())
                     .withExpiresAt(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(666))) // Duración del token
                     .sign(ALGORITHM);
@@ -46,7 +46,7 @@ public class JwtUtil {
         }
     }
 
-    // Método para extraer el email del JWT
+    // extrae el email del JWT
     public String getEmail(String jwt) {
         DecodedJWT decodedJWT = JWT.require(ALGORITHM)
                 .build()

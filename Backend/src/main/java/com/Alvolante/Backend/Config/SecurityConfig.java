@@ -1,14 +1,11 @@
 package com.Alvolante.Backend.Config;
 
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -42,43 +39,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/**").permitAll() // Permite acceso sin autenticación a /auth/**
                         .requestMatchers("/usuario/**").hasRole("CLIENTE")//Acceso exclusivo para clientes
-                        .requestMatchers("/api/**").hasAnyRole("ADMIN", "TRABAJADOR", "CLIENTE")
+                        .requestMatchers("/api/**").hasAnyRole("ADMIN", "TRABAJADOR")
                         .anyRequest().authenticated() // Requiere autenticación para las demás rutas
                 )
                 // Configurar política de sesiones stateless
                 .sessionManagement(session -> session.sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS))
-
-                // Configurar manejador de acceso denegado directamente
-                .exceptionHandling(exception -> exception
-                        .accessDeniedHandler((request, response, accessDeniedException) -> {
-                            // Obtener roles requeridos y roles actuales
-                            String requiredRoles = "ADMIN, TRABAJADOR"; // Cambia según la lógica de tus rutas
-                            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-                            String currentRoles = authentication != null
-                                    ? authentication.getAuthorities().toString()
-                                    : "No autenticado";
-
-                            String requestUri = request.getRequestURI();
-
-                            // Mostrar en consola usando printf
-                            System.out.printf("Acceso denegado:\n");
-                            System.out.printf("  Ruta solicitada: %s\n", requestUri);
-                            System.out.printf("  Roles actuales del usuario: %s\n", currentRoles);
-                            System.out.printf("  Mensaje de excepción: %s\n", accessDeniedException.getMessage());
-
-
-                            // Mostrar en la consola de IntelliJ
-                            System.err.println("Acceso denegado:");
-                            System.err.println("Ruta solicitada: " + requestUri);
-                            System.err.println("Roles actuales del usuario: " + currentRoles);
-                            System.err.println("Mensaje de excepción: " + accessDeniedException.getMessage());
-
-                            // Respuesta al cliente
-                            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                            response.setContentType("application/json");
-                            response.getWriter().write("{\"error\": \"Acceso denegado. No tiene permisos para acceder a este recurso.\"}");
-                        })
-                )
 
                 // Agregar el filtro JWT antes del filtro de autenticación
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
