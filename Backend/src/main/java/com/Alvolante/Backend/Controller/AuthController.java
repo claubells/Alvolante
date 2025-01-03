@@ -43,8 +43,17 @@ public class AuthController {
         System.out.println("Datos recibidos en el back: "+loginDto);
 
         try{
-            // Se autentica al usuario con los datos proporcionados:
 
+            // Verificar si el usuario existe en la base de datos antes de autenticar
+            UsuarioEntity user = usuarioRepository.findByEmail(loginDto.getEmail());
+            if (user == null) {
+                // error 400
+                System.out.println("No se encontró el usuario con el correo proporcionado.");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("El correo no está registrado. Por favor, regístrese primero.");
+            }
+
+            // Se autentica al usuario con los datos proporcionados:
             UsernamePasswordAuthenticationToken loginToken = new UsernamePasswordAuthenticationToken(
                     loginDto.getEmail(),
                     loginDto.getPassword()
@@ -64,15 +73,6 @@ public class AuthController {
             System.out.println("\nSe llama a jwtUtil para crear el token.");
             String jwt = jwtUtil.createToken(loginDto.getEmail());
 
-            //se obtiene el usuario autenticado de la base de datos:
-            UsuarioEntity user = usuarioRepository.findByEmail(loginDto.getEmail());
-
-            System.out.println("Se busca el usuario por el email: \n email encontrado: "+user);
-            if(user == null){
-                System.out.println("No se encontro el usuario.");
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                        .body("Usuario no encontrado");
-            }
 
             // se construye la respuesta con el token y la de idUsuario
             Map<String, Object> response = new HashMap<>();
@@ -84,13 +84,16 @@ public class AuthController {
             System.out.println("token: "+ jwt);
             System.out.println("userId: "+ user.getIdUsuario());
             System.out.println("role: "+ user.getRole());
+
             return ResponseEntity.ok(response); // Devolver el token y el ID del usuario
 
         }catch (BadCredentialsException e) {
             // Maneja credenciales incorrectas
+            // 401 Unauthorized
             System.out.println("Credenciales incorrectas: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body("Credenciales incorrectas. Verifique su correo y contraseña.");
+
         } catch (Exception e) {
             // cualquier otro error
             System.out.println("Error en el proceso de autenticación: " + e.getMessage());
@@ -108,6 +111,7 @@ public class AuthController {
             // 409 la solicitud no se puede completar por un conflicto(ya existe)
             return ResponseEntity.status(HttpStatus.CONFLICT).body("El correo ya se encuentra registrado.\n");
         }
+        // se puede implementar la validación de datos aqui y dar error 400 en caso de no cumplirse
 
         try {
             // Asignar rol por defecto si no se proporciona

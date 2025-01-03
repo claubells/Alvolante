@@ -111,24 +111,19 @@ const loginTrabajador = async () => {
         confirmButtonText: 'OK',
       });
     }
-  }catch(error){
-    if (error.response?.status === 401) {
-      await Swal.fire({
-        title: "¡Error!",
-        text: "Credenciales incorrectas. Verifique su correo y contraseña.",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
-    } else {
-      await Swal.fire({
-        title: "¡Error!",
-        text: "Ocurrió un error inesperado. Intente nuevamente más tarde.",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
-    }
+  } catch (error){
 
-    }
+    Swal.fire({
+      title: '¡Error!',
+      text: error.message, // Usa el mensaje directamente del servicio
+      icon: 'warning',
+      confirmButtonText: 'OK',
+      customClass: {
+          confirmButton: 'custom-confirm-button'
+      }});
+    console.error('Error al iniciar sesión:', error);
+    return;
+  }
 };
 </script>
 

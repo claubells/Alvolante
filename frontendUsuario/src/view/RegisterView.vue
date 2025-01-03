@@ -44,7 +44,6 @@
 
 
 <script setup>
-
 // Imports
 import Swal from 'sweetalert2';
 import { registerService } from '../services/authService.js';
@@ -117,33 +116,16 @@ const addUser = async () => {
 
     }catch(error){
 
-        // El correo ya existe
-        if(error.response.status == 409){
-            Swal.fire({
-                title: '¡Error!',
-                text: 'El correo ya esta registrado',
-                icon: 'warning',
-                confirmButtonText: 'OK',
-                customClass: {
-                confirmButton: 'custom-confirm-button'
-                }
-            });
-            return;
-
-        } else {
-            Swal.fire({
-                title: '¡Error!',
-                text: 'No se pudo registrar',
-                icon: 'warning',
-                confirmButtonText: 'OK',
-                customClass: {
-                confirmButton: 'custom-confirm-button'
-                }
-                });
-
-            console.error('Error al registrar el usuario:', error);
-        } 
-
+        Swal.fire({
+        title: '¡Error!',
+        text: error.message, // Usa el mensaje directamente del servicio
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+            confirmButton: 'custom-confirm-button'
+        }});
+        console.error('Error al registrar el usuario:', error);
+        return;
     }
                 
 };           

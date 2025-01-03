@@ -31,11 +31,11 @@ export default {
     overflow-x: hidden; /* Evita desplazamiento horizontal si hay contenido sobrante */
   }
 
-  /* Permitir scroll solo en vistas específicas 
+  /* Permitir scroll solo en vistas específicas */
   body.scrollable {
-    overflow-y: auto; /* Habilitar scroll en las vistas necesarias 
+    overflow-y: auto; /* Habilitar scroll en las vistas necesarias */
   }
-  */
+  
   
 
   #app{
@@ -43,8 +43,8 @@ export default {
     width: 100%;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Evita scroll por defecto */
+    overflow: hidden; 
   }
-
+/* Evita scroll por defecto */
 
 </style> 

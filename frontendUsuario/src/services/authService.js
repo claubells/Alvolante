@@ -26,8 +26,25 @@ class RegisterService {
         );
         return response.data
         } catch (error) {
-            console.error("Error al registrar al usuario", error);
-            throw error; 
+            // Errores en la API
+            if (error.response) {
+            const status = error.response.status;
+            
+            if(status === 400) {
+                throw new Error("Datos inválidos. Por favor, verifica los datos ingresados.");
+            }
+            if (status === 409) {
+                throw new Error("El correo ya se encuentra registrado.");
+            } if (status === 500) {
+                throw new Error("Error interno en el servidor. Intente más tarde.");
+            }
+            } else if (error.request) {
+                // Problemas de conexión con el servidor
+                throw new Error("No se pudo conectar con el servidor. Por favor, revisa tu conexión.");
+            } else {
+                // Otros errores
+                throw new Error("Ocurrió un error inesperado.");
+            }
         }
     }
 }
@@ -62,8 +79,25 @@ class LoginService {
             return { token, userId , role};
             
         } catch (error) {
-            console.error("Error al iniciar sesión", error);
-            throw error;
+            // Errores en la API
+            if (error.response) {
+                const status = error.response.status;
+            
+                if(status === 401) {
+                    throw new Error("Credenciales incorrectas. Por favor, verifique los datos ingresados.");
+                }
+                if (status === 400) {
+                    throw new Error("El correo ingresado no se encuentra registrado.");
+                } if (status === 500) {
+                    throw new Error("Error interno en el servidor. Intente más tarde.");
+                }
+                } else if (error.request) {
+                    // Problemas de conexión con el servidor
+                    throw new Error("No se pudo conectar con el servidor. Por favor, revisa tu conexión.");
+                } else {
+                    // Otros errores
+                    throw new Error("Ocurrió un error inesperado.");
+                }
         }
     }
 

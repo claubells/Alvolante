@@ -17,11 +17,11 @@ public class JwtUtil {
     private static final Algorithm ALGORITHM = Algorithm.HMAC256(SECRET_KEY);
 
     // Método para crear un JWT
-    public String createToken(String username) {
+    public String createToken(String email) {
         System.out.println("En la funcin creatoToken para crear el token.");
         try{
             return JWT.create()
-                    .withSubject(username)
+                    .withSubject(email)
                     .withIssuer("tbd")
                     .withIssuedAt(new Date())
                     .withExpiresAt(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(666))) // Duración del token

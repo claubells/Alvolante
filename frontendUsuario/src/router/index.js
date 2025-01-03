@@ -12,7 +12,6 @@ const router = createRouter({
             name: 'intranet',
             component: () => import('../view/intranet.vue'),
             alias: '/inicio',
-
         },
         {
             path: '/login',
@@ -73,8 +72,7 @@ const router = createRouter({
         {
             path: '/loginTrabajador',
             name: 'LoginTrabajador',
-            component: () => import('../view/loginTrabajador.vue'),
-            
+            component: () => import('../view/LoginTrabajador.vue'),            
         },
         {
             path: '/contactoAnonimo',
