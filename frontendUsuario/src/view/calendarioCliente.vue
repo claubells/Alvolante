@@ -1,94 +1,91 @@
+<template>
+  <main class="main-container">
+    <!-- Sección del calendario -->
+    <section class="calendar-section">
+      <h2>Reserva de vehículos</h2>
+      <p>Seleccione las fechas y lugares de retiro y entrega del vehículo:</p>
+
+      <div class="form-container">
+        <div class="form-input">
+          <label for="fecha-retiro">Fecha de Retiro:</label>
+          <input type="date" id="fecha-retiro" v-model="fechaRetiro" />
+        </div>
+        <div class="form-input">
+          <label for="fecha-entrega">Fecha de Entrega:</label>
+          <input type="date" id="fecha-entrega" v-model="fechaEntrega" />
+        </div>
+        <div class="form-input">
+          <label for="lugar-retiro">Lugar de Retiro:</label>
+          <select id="lugar-retiro" v-model="lugarRetiro">
+            <option value="">Seleccione un lugar</option>
+            <option value="Sucursal Arica">Sucursal Arica</option>
+          <option value="Sucursal Iquique">Sucursal Iquique</option>
+          <option value="Sucursal Antofagasta">Sucursal Antofagasta</option>
+          <option value="Sucursal Copiapó">Sucursal Copiapó</option>
+          <option value="Sucursal La Serena">Sucursal La Serena</option>
+          <option value="Sucursal Valparaíso">Sucursal Valparaíso</option>
+          <option value="Sucursal Santiago">Sucursal Santiago</option>
+          <option value="Sucursal Rancagua">Sucursal Rancagua</option>
+          <option value="Sucursal Talca">Sucursal Talca</option>
+          <option value="Sucursal Chillán">Sucursal Chillán</option>
+          <option value="Sucursal Concepción">Sucursal Concepción</option>
+          <option value="Sucursal Puerto Montt">Sucursal Puerto Montt</option>
+          <option value="Sucursal Coyhaique">Sucursal Coyhaique</option>
+          <option value="Sucursal Punta Arenas">Sucursal Punta Arenas</option>
+          <option value="Sucursal Valdivia">Sucursal Valdivia</option>
+          </select>
+        </div>
+        <div class="form-input">
+          <label for="lugar-entrega">Lugar de Entrega:</label>
+          <select id="lugar-entrega" v-model="lugarEntrega">
+            <option value="">Seleccione un lugar</option>
+            <option value="Sucursal Arica">Sucursal Arica</option>
+          <option value="Sucursal Iquique">Sucursal Iquique</option>
+          <option value="Sucursal Antofagasta">Sucursal Antofagasta</option>
+          <option value="Sucursal Copiapó">Sucursal Copiapó</option>
+          <option value="Sucursal La Serena">Sucursal La Serena</option>
+          <option value="Sucursal Valparaíso">Sucursal Valparaíso</option>
+          <option value="Sucursal Santiago">Sucursal Santiago</option>
+          <option value="Sucursal Rancagua">Sucursal Rancagua</option>
+          <option value="Sucursal Talca">Sucursal Talca</option>
+          <option value="Sucursal Chillán">Sucursal Chillán</option>
+          <option value="Sucursal Concepción">Sucursal Concepción</option>
+          <option value="Sucursal Puerto Montt">Sucursal Puerto Montt</option>
+          <option value="Sucursal Coyhaique">Sucursal Coyhaique</option>
+          <option value="Sucursal Punta Arenas">Sucursal Punta Arenas</option>
+          <option value="Sucursal Valdivia">Sucursal Valdivia</option>
+          </select>
+        </div>
+      </div>
+                      
+      <button class="submit-button" @click="handleSubmit">Confirmar Datos</button>
+    </section>
+  </main>
+</template>
+  
 <script setup>
+// Imports
+import { ref } from 'vue';
 import { useRouter } from 'vue-router'; 
 import Swal from 'sweetalert2';
 
+// Variables reactivas
 const router = useRouter();
-</script>
+const fechaRetiro = ref("");
+const fechaEntrega = ref("");
+const lugarRetiro = ref("");
+const lugarEntrega = ref("");
 
-<template>
-    <main class="main-container">
-      <!-- Sección del calendario -->
-      <section class="calendar-section">
-        <h2>Reserva de vehículos</h2>
-        <p>Seleccione las fechas y lugares de retiro y entrega del vehículo:</p>
-  
-        <div class="form-container">
-          <div class="form-input">
-            <label for="fecha-retiro">Fecha de Retiro:</label>
-            <input type="date" id="fecha-retiro" v-model="fechaRetiro" />
-          </div>
-          <div class="form-input">
-            <label for="fecha-entrega">Fecha de Entrega:</label>
-            <input type="date" id="fecha-entrega" v-model="fechaEntrega" />
-          </div>
-          <div class="form-input">
-            <label for="lugar-retiro">Lugar de Retiro:</label>
-            <select id="lugar-retiro" v-model="lugarRetiro">
-              <option value="">Seleccione un lugar</option>
-              <option value="Sucursal Arica">Sucursal Arica</option>
-            <option value="Sucursal Iquique">Sucursal Iquique</option>
-            <option value="Sucursal Antofagasta">Sucursal Antofagasta</option>
-            <option value="Sucursal Copiapó">Sucursal Copiapó</option>
-            <option value="Sucursal La Serena">Sucursal La Serena</option>
-            <option value="Sucursal Valparaíso">Sucursal Valparaíso</option>
-            <option value="Sucursal Santiago">Sucursal Santiago</option>
-            <option value="Sucursal Rancagua">Sucursal Rancagua</option>
-            <option value="Sucursal Talca">Sucursal Talca</option>
-            <option value="Sucursal Chillán">Sucursal Chillán</option>
-            <option value="Sucursal Concepción">Sucursal Concepción</option>
-            <option value="Sucursal Puerto Montt">Sucursal Puerto Montt</option>
-            <option value="Sucursal Coyhaique">Sucursal Coyhaique</option>
-            <option value="Sucursal Punta Arenas">Sucursal Punta Arenas</option>
-            <option value="Sucursal Valdivia">Sucursal Valdivia</option>
-            </select>
-          </div>
-          <div class="form-input">
-            <label for="lugar-entrega">Lugar de Entrega:</label>
-            <select id="lugar-entrega" v-model="lugarEntrega">
-              <option value="">Seleccione un lugar</option>
-              <option value="Sucursal Arica">Sucursal Arica</option>
-            <option value="Sucursal Iquique">Sucursal Iquique</option>
-            <option value="Sucursal Antofagasta">Sucursal Antofagasta</option>
-            <option value="Sucursal Copiapó">Sucursal Copiapó</option>
-            <option value="Sucursal La Serena">Sucursal La Serena</option>
-            <option value="Sucursal Valparaíso">Sucursal Valparaíso</option>
-            <option value="Sucursal Santiago">Sucursal Santiago</option>
-            <option value="Sucursal Rancagua">Sucursal Rancagua</option>
-            <option value="Sucursal Talca">Sucursal Talca</option>
-            <option value="Sucursal Chillán">Sucursal Chillán</option>
-            <option value="Sucursal Concepción">Sucursal Concepción</option>
-            <option value="Sucursal Puerto Montt">Sucursal Puerto Montt</option>
-            <option value="Sucursal Coyhaique">Sucursal Coyhaique</option>
-            <option value="Sucursal Punta Arenas">Sucursal Punta Arenas</option>
-            <option value="Sucursal Valdivia">Sucursal Valdivia</option>
-            </select>
-          </div>
-        </div>
-                        
-        <button class="submit-button" @click="handleSubmit">Confirmar Datos</button>
-      </section>
-    </main>
-  </template>
-  
-  <script>
-  
-
-  export default {
-  data() {
-    return {
-      fechaRetiro: "",
-      fechaEntrega: "",
-      lugarRetiro: "",
-      lugarEntrega: "",
-    };
-  },
-  methods: {
-    handleSubmit() {
+// Métodos
+const handleSubmit = () => {
   const hoy = new Date(); // Fecha actual
-  const fechaRetiro = new Date(this.fechaRetiro);
-  const fechaEntrega = new Date(this.fechaEntrega);
+  const fechaRetiroDate = new Date(fechaRetiro.value);
+  const fechaEntregaDate = new Date(fechaEntrega.value);
 
-  if (!this.fechaRetiro || !this.fechaEntrega || !this.lugarRetiro || !this.lugarEntrega) {
+
+
+  //no cache como se tenia qe hacer con la nueva cosa esa pulenta que lo hace mas facilito
+  if (!fechaRetiro.value || !fechaEntrega.value || !lugarRetiro.value || !lugarEntrega.value) {
     Swal.fire({
       title: '¡Cuidado!',
       text: 'Por favor complete todos los campos',
@@ -101,7 +98,7 @@ const router = useRouter();
     return;
   }
 
-  if (fechaRetiro > fechaEntrega) {
+  if (fechaRetiroDate > fechaEntregaDate) {
     Swal.fire({
       title: '¡Cuidado!',
       text: 'La fecha de retiro no puede ser posterior a la fecha de entrega',
@@ -114,7 +111,7 @@ const router = useRouter();
     return;
   }
 
-  const diferenciaDias = (fechaEntrega - fechaRetiro) / (1000 * 60 * 60 * 24);
+  const diferenciaDias = (fechaEntregaDate - fechaRetiroDate) / (1000 * 60 * 60 * 24);
   if (diferenciaDias > 30) {
     Swal.fire({
       title: '¡Cuidado!',
@@ -129,7 +126,7 @@ const router = useRouter();
   }
 
   const hoySinHora = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
-  if (fechaRetiro <= hoySinHora) {
+  if (fechaRetiroDate <= hoySinHora) {
     Swal.fire({
       title: '¡Cuidado!',
       text: 'La fecha de retiro debe ser al menos un día después de hoy',
@@ -142,83 +139,81 @@ const router = useRouter();
     return;
   }
 
-  localStorage.setItem('fechaRetiro', JSON.stringify(this.fechaRetiro));
-  localStorage.setItem('fechaEntrega', JSON.stringify(this.fechaEntrega));
+  localStorage.setItem('fechaRetiro', JSON.stringify(fechaRetiro.value));
+  localStorage.setItem('fechaEntrega', JSON.stringify(fechaEntrega.value));
   window.location.href = "/verAutosSegunCalendario";
-}   
-}
 };
-  </script>
-  
-  <style>
-  body {
-    margin: 0;
-    font-family: "Arial", sans-serif;
-    background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
-  }
-  
-  
-  
-  /* Sección del calendario */
-  .calendar-section {
-    text-align: center;
-    margin: 2rem;
-    padding-top: 5rem;
-  }
-  
-  .form-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem 0;
-    justify-content: center;
-  }
-  
-  .form-input {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .form-input label {
-    font-size: 1rem;
-    color: #333;
-  }
-  
-  .form-input input,
-  .form-input select {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-  }
-  
-  .submit-button {
-    background: #ff80ab;
-    color: #fff;
-    border: none;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .submit-button:hover {
-    background: #ff4081;
-  }
+</script>
 
-  .custom-confirm-button {
-  background-color: #ff80ab !important; 
-  color: white !important;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
+<style>
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
+}
+
+
+
+/* Sección del calendario */
+.calendar-section {
+  text-align: center;
+  margin: 2rem;
+  padding-top: 5rem;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+  justify-content: center;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-input label {
+  font-size: 1rem;
+  color: #333;
+}
+
+.form-input input,
+.form-input select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   font-size: 1rem;
 }
 
-.custom-confirm-button:hover {
-  background-color: #ff80ab !important; 
+.submit-button {
+  background: #ff80ab;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
-  
-  </style>
+
+.submit-button:hover {
+  background: #ff4081;
+}
+
+.custom-confirm-button {
+background-color: #ff80ab !important; 
+color: white !important;
+border: none;
+border-radius: 5px;
+padding: 10px 20px;
+font-size: 1rem;
+}
+
+.custom-confirm-button:hover {
+background-color: #ff80ab !important; 
+}
+
+</style>

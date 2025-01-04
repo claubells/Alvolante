@@ -60,54 +60,45 @@
 
 
 
-<script>
+<script setup>
+// Imports
 import { useRouter } from 'vue-router'; // Importar el router
 import axios from 'axios'; // Importar axios
 import { ref, onMounted } from 'vue'; // Importar ref y onMounted para la reactividad
 
-export default {
-  
-    data() {
-        return {
-            nombreGuardado: '',
-            correoGuardado: ''
+// Variables reactivas
+const nombreGuardado = ref('');
+const correoGuardado = ref('');
 
+// Métodos
+onMounted(() => {
+  nombreGuardado.value = localStorage.getItem('login1');
+  correoGuardado.value = localStorage.getItem('correoLogin');
+});
 
-        };
-    },
-    
-    mounted() {
-        this.nombreGuardado = localStorage.getItem('login1');
-        this.correoGuardado = localStorage.getItem('correoLogin');
-    },
-    methods: {
-        logout() { 
-            localStorage.clear();
-            window.location.href = "/";
-        },
+// Redireccionar a la página de inicio
+const logout = () => {
+  localStorage.clear();
+  window.location.href = "/";
+};
 
-        toHistorialArriendo() {
-            window.location.href = "/historialArriendo";
-        },
+// Redireccionar a la página del historial de arriendo
+const toHistorialArriendo = () => window.location.href = "/historialArriendo";
 
-        toComprobantesPago() {
-            window.location.href = "/comprobantesPago";
-        },
+// Redireccionar a la página de comprobantes de pago
+const toComprobantesPago = () => window.location.href = "/comprobantesPago";
 
-        editProfile() {
-            // Lógica para editar el perfil
-        },
+const editProfile = () => {
+  // Lógica para editar el perfil
+};
 
-        editDocuments() {
-            // Lógica para agregar documentos
-        },
+const editDocuments = () => {
+  // Lógica para agregar documentos
+};
 
-        viewDetails() {
-            // Lógica para ver detalles
-        }
-    }
-}
-
+const viewDetails = () => {
+  // Lógica para ver detalles
+};
 </script>
 
 <style>

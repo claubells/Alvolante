@@ -1,10 +1,3 @@
-<script setup>
-import { ref } from "vue";
-
-// Puedes usar variables para datos dinámicos.
-const userName = ref("Usuario");
-</script>
-
 <template>
   <main class="main-container"> 
     <section class="welcome-section">
@@ -29,26 +22,23 @@ const userName = ref("Usuario");
   </main>
 </template>
 
-<script>
+<script setup>
+// Imports
+import { ref } from "vue";
 import axios from 'axios';
 
-export default {
-  methods: {
-    logout() {
-      localStorage.removeItem("login"); // Limpia el almacenamiento local
-      window.location.href = "/"; // Redirige al login
-    },
-    toContact() {
-      window.location.href = "/contacto";
-    },
-    toCalendario(){
-      window.location.href = "/calendarioCliente"; 
-      
-    },
-    toPerfilCliente(){
-      window.location.href = "/perfilCliente";
-    },
-  },
+// Variables reactivas
+const userName = ref("Usuario"); // Puedes usar variables para datos dinámicos.
+
+// Métodos
+const toCalendario = () => window.location.href = "/calendarioCliente";
+
+//creo que estos los podemos sacar nomas, ya que funciona con la barra de arriba
+const toContact = () => window.location.href = "/contacto";
+const toPerfilCliente = () => window.location.href = "/perfilCliente";
+const logout = () => {
+  localStorage.removeItem("login"); // Limpia el almacenamiento local
+  window.location.href = "/"; // Redirige al login
 };
 </script>
 
