@@ -1,68 +1,74 @@
 <template>
-    <div class="container">
-      <div class="sidebar">
-        <ul>
-          <img class="image" src="./media/logoalvolante.png">
-          <li><a href="#" @click="toInicio">Inicio</a></li>
-          <li><a href="#" @click="cierreSesion">Cerrar sesión</a></li>
-        </ul>
-      </div>
-      <div class="main-content">
-        <h1>Lista de Boletas</h1>
-        <div class="boletas-container" v-if="boletas.length">
-          <div v-for="boleta in boletas" :key="boleta.idBoleta" class="boleta-card">
-            <p><strong>Nombre emisor:</strong> {{ boleta.nombreEmisor }}</p>
-            <p><strong>Rut emisor:</strong> {{ boleta.rutEmisor }}</p>
-            <p><strong>Direccion Emisión:</strong> {{ boleta.direccionEmisor }}</p>
-            <p><strong>ID Boleta:</strong> {{ boleta.idBoleta }}</p>
-            <p><strong>Nombre Cliente:</strong> {{ boleta.nombreCliente }}</p>
-            <p><strong>Rut:</strong> {{ boleta.rutCliente }}</p>
-            <p><strong>Total:</strong> ${{ boleta.total }}</p>
-
-            <!-- Añadir otros campos si es necesario -->
-          </div>
-        </div>
-        <p v-else>No hay boletas disponibles.</p>
-      </div>
+  <div class="container">
+    <!-- Barra lateral -->
+    <div class="sidebar">
+      <ul>
+        <img class="image" src="./media/logoalvolante.png">
+        <li><a href="#" @click="toInicio">Inicio</a></li>
+        <li><a href="#" @click="cierreSesion">Cerrar sesión</a></li>
+      </ul>
     </div>
-  </template>
 
-<script>
+    <!-- Contenedor principal -->
+    <div class="main-content">
+      <h1>Lista de Boletas</h1>
+      <div class="boletas-container" v-if="boletas.length">
+        <div v-for="boleta in boletas" :key="boleta.idBoleta" class="boleta-card">
+          <p><strong>Nombre emisor:</strong> {{ boleta.nombreEmisor }}</p>
+          <p><strong>Rut emisor:</strong> {{ boleta.rutEmisor }}</p>
+          <p><strong>Direccion Emisión:</strong> {{ boleta.direccionEmisor }}</p>
+          <p><strong>ID Boleta:</strong> {{ boleta.idBoleta }}</p>
+          <p><strong>Nombre Cliente:</strong> {{ boleta.nombreCliente }}</p>
+          <p><strong>Rut:</strong> {{ boleta.rutCliente }}</p>
+          <p><strong>Total:</strong> ${{ boleta.total }}</p>
+
+          <!-- Añadir otros campos si es necesario -->
+        </div>
+      </div>
+      <p v-else>No hay boletas disponibles.</p>
+    </div>
+  </div>
+</template>
+
+<script setup>
+// Imports
+import { ref, onMounted } from 'vue';
 import axios from "axios";
 
-export default {
-  data() {
-    return {
-      boletas: [], // Lista para almacenar las boletas
-    };
-  },
-  methods: {
-    async fetchBoletas() {
-      try {
-        const response = await axios.get(
-          import.meta.env.VITE_BASE_URL + "api/boleta/all" // Ruta para obtener las boletas
-        );
-        this.boletas = response.data; // Guardamos los datos de las boletas
-      } catch (error) {
-        console.error("Error al obtener las boletas:", error);
-        alert("No se pudo cargar la lista de boletas");
-      }
-    },
-    cierreSesion() {
-      window.location.href = "/"; // Redirecciona a la vista principal
-    },
-    toInicio() {
-      window.location.href = "/admin"; // Redirecciona al inicio del administrador
-    },
-  },
-  mounted() {
-    this.fetchBoletas(); // Llama a la función al cargar el componente
-  },
+// Variables reactivas
+const boletas = ref([]); // Lista para almacenar las boletas
+
+// Métodos
+
+// Función para obtener las boletas
+const fetchBoletas = async () => {
+  try {
+    const response = await axios.get(
+      import.meta.env.VITE_BASE_URL + "api/boleta/all" // Ruta para obtener las boletas
+    );
+    boletas.value = response.data; // Guardamos los datos de las boletas
+  } catch (error) {
+    console.error("Error al obtener las boletas:", error);
+    alert("No se pudo cargar la lista de boletas");
+  }
 };
+
+const cierreSesion = () => {
+  window.location.href = "/"; // Redirecciona a la vista principal
+};
+
+const toInicio = () => {
+  window.location.href = "/admin"; // Redirecciona al inicio del administrador
+};
+
+onMounted(() => {
+  fetchBoletas(); // Llama a la función al cargar el componente
+});
 </script>
 
   
 <style>
+/* Estilo global */
 body {
   background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
   color: #000;
@@ -76,6 +82,7 @@ body {
   min-height: 100vh;
 }
 
+/* Barra lateral */
 .sidebar {
   width: 250px;
   background-color: #ff80ab;
@@ -117,6 +124,7 @@ body {
   border-radius: 8px;
 }
 
+/* Contenedor principal */
 .main-content {
   margin-left: 270px;
   padding: 40px;
@@ -128,6 +136,7 @@ h1 {
   margin-bottom: 20px;
 }
 
+/* Estilos de las boletas */
 .boletas-container {
   display: flex;
   flex-wrap: wrap;
