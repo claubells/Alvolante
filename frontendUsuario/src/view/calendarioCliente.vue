@@ -57,8 +57,9 @@
           </select>
         </div>
       </div>
-                      
+                    
       <button class="submit-button" @click="handleSubmit">Confirmar Datos</button>
+    
     </section>
   </main>
 </template>
@@ -83,8 +84,6 @@ const handleSubmit = () => {
   const fechaEntregaDate = new Date(fechaEntrega.value);
 
 
-
-  //no cache como se tenia qe hacer con la nueva cosa esa pulenta que lo hace mas facilito
   if (!fechaRetiro.value || !fechaEntrega.value || !lugarRetiro.value || !lugarEntrega.value) {
     Swal.fire({
       title: '¡Cuidado!',
@@ -147,73 +146,69 @@ const handleSubmit = () => {
 
 <style>
 body {
+  font-family: 'Arial', sans-serif;
   margin: 0;
-  font-family: "Arial", sans-serif;
   background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
 }
 
+.main-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+}
 
-
-/* Sección del calendario */
 .calendar-section {
-  text-align: center;
-  margin: 2rem;
-  padding-top: 5rem;
+  background: #fff;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.section-title {
+  font-size: 2rem;
+  color: #444;
+}
+
+.section-description {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: #666;
 }
 
 .form-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
-  margin: 2rem 0;
-  justify-content: center;
-}
-
-.form-input {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 }
 
 .form-input label {
-  font-size: 1rem;
+  font-weight: bold;
   color: #333;
 }
 
 .form-input input,
 .form-input select {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 1rem;
 }
 
 .submit-button {
-  background: #ff80ab;
+  margin-top: 2rem;
+  background: #be0a97;
   color: #fff;
+  padding: 0.75rem 2rem;
   border: none;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 25px;
+  font-size: 1.2rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .submit-button:hover {
-  background: #ff4081;
-}
-
-.custom-confirm-button {
-background-color: #ff80ab !important; 
-color: white !important;
-border: none;
-border-radius: 5px;
-padding: 10px 20px;
-font-size: 1rem;
-}
-
-.custom-confirm-button:hover {
-background-color: #ff80ab !important; 
+  background: #830b5b;
 }
 
 </style>

@@ -142,6 +142,7 @@ body {
     margin: 0;
     font-family: "Arial", sans-serif;
     background: linear-gradient(135deg, #f8bbd0, #fce4ec);
+    overflow: hidden;
 }
 
 .main-container {
@@ -149,30 +150,38 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 104%;
+    height: 103%;
+    margin-left: -2%;
+    margin-top: 5.1%;
+    
 }
+
+body.scrollable {
+    overflow-y: hidden; /* Habilitar scroll en las vistas necesarias */
+  }
 
 /* Contenedor dividido */
 .split-container {
-    position:absolute;
     display: flex;
-    flex:1;
     width: 100%;
     height: 100%;
 }
 
 /* Mitad izquierda */
 .left-container {
-    height: 100%;
     flex: 1;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     /*align-items: center;*/
     align-items: flex-start; /* Asegura que el contenido esté alineado a la izquierda */
     padding: 2rem; /* Ajusta el espacio interno si es necesario */
+    
 }
 
 .left-container h1 {
-    font-size: 900%;
+    font-size: 600%;
     color: #ffffff;
     text-align:left;
     position: absolute;
@@ -303,8 +312,10 @@ input:focus {
   width: 100%; /* O el tamaño del elemento */
   height: 100vh; /* O el tamaño deseado */
   background: radial-gradient(circle, #faf8b4, #f8bbd0, #f48fdc, #ff80ab, #f8bbd0, #faff9a, #ff4081);
-  background-size: 400% 400%;
+  background-size: 500% 500%;
   animation: gradient 15s ease infinite;
+  margin-top: -10%;
+  
 }
 
 .text-link {

@@ -51,29 +51,10 @@ export default {
   verDetallesVehiculo(idVehiculo) {
       this.$router.push({ name: 'seleccionVehiculoCliente', params: { idVehiculo } });
     },
-    /* logout() {
-      localStorage.removeItem("login"); // Limpia el almacenamiento local
-      window.location.href = "/"; // Redirige al login
-    },
-    toContact() {
-      window.location.href = "/contacto";
-    },
-    toCalendario(){
-      window.location.href = "/calendarioCliente"; 
-      
-    },
-    toPerfilCliente(){
-      window.location.href = "/perfilCliente";
-    },
-    toInicio(){
-      window.location.href = "/user"; // donde esta la vista inicio?????????
-    }, */
   },
   mounted() {
     this.fetchVehiculos(); // Llamamos a la API al cargar
   },
-  
-    
 };
 </script>
 <style>

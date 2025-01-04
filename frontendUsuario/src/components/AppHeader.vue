@@ -10,9 +10,9 @@
     
       <!-- Enlaces de navegación -->
       <nav class="nav-links">
-        <router-link to="/user" class="nav-link">Inicio</router-link>
-        <router-link to="/perfilCliente" class="nav-link">Ver Perfil</router-link>
-        <router-link to="/contacto" class="nav-link">Contacto</router-link>
+        <button  @click="User" class="nav-link">Inicio</button>
+        <button  @click="PerfilCliente" class="nav-link">Ver Perfil</button>
+        <button  @click="Contacto" class="nav-link">Contacto</button>
         <!-- Botón de cerrar sesión -->
         <button class="logout-button" @click="logout">Cerrar sesión</button>
       </nav>
@@ -20,6 +20,9 @@
   </template>
   
   <script>
+import Contacto from '@/view/contacto.vue';
+import PerfilCliente from '@/view/perfilCliente.vue';
+
   export default {
     name: "AppHeader", // Nombre del componente
     methods: {
@@ -32,6 +35,16 @@
         // Redirigimos al usuario a la página de inicio
         localStorage.removeItem("login"); // Limpia el almacenamiento local
         window.location.href = "/"; // Redirige al login
+      },
+      // Método para redirigir a la página de contacto
+      Contacto() {
+        window.location.href = "/contacto";
+      },
+      PerfilCliente() {
+        window.location.href = "/perfilCliente";
+      },
+      User() {
+        window.location.href = "/user";
       },
     },
   };

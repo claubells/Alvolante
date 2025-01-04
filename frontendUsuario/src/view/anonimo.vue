@@ -43,6 +43,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 104%;
+    height: 103%;
+    margin-left: -2%;
+    margin-top: -0.9%;
 }
 
 .moving-gradient {

@@ -25,7 +25,7 @@
               <!-- Botones adicionales -->
               <div class="alsoButtons">
                 <div class="headerCliente">¿Usted no es trabajador?</div>
-                <router-link to="/inicio" class="text-link">Volver al inicio</router-link>
+                <button @click="toInicio" class="text-link">Volver al inicio</button>
               </div>
             </div>
           </div>
@@ -137,10 +137,23 @@ body {
 }
 
 .main-container {
-    min-height: 100vh;
+  min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 104%;
+    height: 103%;
+    margin-left: -2%;
+    margin-top: -0.9%;
+}
+
+.text-link {
+    color: blue;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
 }
 
 /* Contenedor dividido */

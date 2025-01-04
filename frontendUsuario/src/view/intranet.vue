@@ -32,9 +32,13 @@ body {
 
 .main-container {
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 104%;
+    height: 103%;
+    margin-left: -2%;
+    margin-top: -0.9%;
 }
 
 .moving-gradient {

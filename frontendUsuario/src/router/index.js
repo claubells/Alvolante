@@ -62,7 +62,7 @@ const router = createRouter({
             path: '/perfilCliente',
             name: 'perfilCliente',
             component: () => import('../view/perfilCliente.vue'),
-            
+            meta: { showHeader: true },
         },
         {
             path: '/verVehiculos',
@@ -97,13 +97,13 @@ const router = createRouter({
             path: '/calendarioCliente',
             name: 'calendarioCliente',
             component: () => import('../view/calendarioCliente.vue'),
-            
+            meta: { showHeader: true },
         },
         {
             path: '/verAutosSegunCalendario',
             name: 'verAutosSegunCalendario',
             component: () => import('../view/verAutosSegunCalendario.vue'),
-            
+            meta: { showHeader: true }
         },
         {
             path: '/seleccionVehiculoCliente/:idVehiculo',

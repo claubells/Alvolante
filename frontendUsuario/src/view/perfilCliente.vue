@@ -118,8 +118,10 @@ body {
 /* Contenedor principal */
 .content-container {
   display: flex;
-  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
   height: calc(100vh - 80px); /* Ajustar para que ocupe todo el espacio disponible debajo de la barra de navegación */
+  margin: 0 auto;
 }
 
 /* Contenedor del perfil */
@@ -130,14 +132,17 @@ body {
   width: 350px; /* Ajustar el ancho según sea necesario */ 
   height: calc(100vh - 70px); /* Ajustar para que ocupe todo el espacio disponible debajo de la barra de navegación */ 
   display: flex;
-   flex-direction: column; 
-   align-items: center; 
-   justify-content: center; /* Centrar contenido verticalmente */ 
-   padding: 2rem; 
-   background-color: rgba(255, 255, 255, 0.8); 
-   border-radius: 0; 
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; /* Centrar contenido verticalmente */ 
+  padding: 2rem; 
+  background-color: rgba(255, 255, 255, 0.8); 
+  border-radius: 0; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+
+
 
 .profile-img { width: 150px; /* Ajustar el ancho de la imagen del perfil según sea necesario */ 
 margin-top: 2rem; /* Añadir margen inferior para separar la imagen de los botones */ 

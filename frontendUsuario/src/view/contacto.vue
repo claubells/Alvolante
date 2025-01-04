@@ -1,9 +1,3 @@
-<script setup>
-import { useRouter } from 'vue-router'; 
-
-const router = useRouter();
-</script>
-
 <template>
   <main class="main-container">
     <div class="contacto_titulo">Contáctenos</div>
@@ -25,48 +19,22 @@ const router = useRouter();
   </main>
 </template>
 
-<script>
-export default {
-  
-  /* methods: {
-    logout() {
-      localStorage.removeItem("login"); // Limpia el almacenamiento local
-      window.location.href = "/"; // Redirige al login
-    },
-    toContact(){
-      window.location.href = "/contacto"; // Redirecciona a la vista de contacto
-    },
-    toInicio(){
-      window.location.href = "/user"; // donde esta la vista inicio?????????
-    },
-    toPerfilCliente(){
-      window.location.href = "/perfilCliente"; // Redireccina a perfil clinete
-    }
-  }, */
-};
+<script setup>
 
-import axios from 'axios';
 
-//rediccionamientos
-//usuario
-function redireccionarASubpaginaInicio(){
-    window.location.href = '/home';
-
-}
-
-function redireccionarASubpaginaContacto(){
-    window.location.href = '/Contacto';
-
-} 
-function redireccionarASubpaginaPerfilCliente(){
-    window.location.href = '/perfilCliente';
-
-}
 </script>
-
 
 <style>
 /* Estilos generales */
+
+
+body, html{
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: "Arial", sans-serif;
@@ -80,7 +48,7 @@ body {
 
 .contacto_titulo {
   position: relative; /* Cambiar la posición a relativa */ 
-  top: 100px; /* Ajustar la posición vertical hacia arriba */
+  top: 10px; /* Ajustar la posición vertical hacia arriba */
   left: 14%;
   font-size: 2.5rem;
   font-weight: bold;
@@ -98,8 +66,8 @@ body {
   position: relative; /* Cambiar la posición a relativa */ 
   left: -15%; /* Ajustar la posición vertical hacia arriba */
   margin-right: 12rem; /* Ajustar el margen derecho según sea necesario */ 
-  margin-left: -15rem; /* Ajustar el margen izquierdo para mover la imagen a la izquierda */
-  margin-top: 3rem; /* Ajustar el margen superior para mover la imagen hacia arriba */
+  margin-left: 30rem; /* Ajustar el margen izquierdo para mover la imagen a la izquierda */
+  margin-top: -15rem; /* Ajustar el margen superior para mover la imagen hacia arriba */
 }
 
 .contact-box {
@@ -112,7 +80,7 @@ body {
   text-align: center;
   margin-right: 1rem;
   margin-left: 1rem;
-  margin-top: 1rem; /* Ajustar el margen superior para mover la imagen hacia arriba */
+  margin-top: -15rem; /* Ajustar el margen superior para mover la imagen hacia arriba */
   width: 500px;
 }
 
@@ -128,6 +96,12 @@ body {
   margin-bottom: 1rem;
   position: relative; /* Cambiar la posición a relativa */ 
   top: -1px; /* Ajustar la posición vertical hacia arriba */
+}
+
+.contact-content {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  height: 700px;
 }
 
 </style>
