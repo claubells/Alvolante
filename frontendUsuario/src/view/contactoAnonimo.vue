@@ -8,7 +8,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-              <a class="nav-link active" aria-current="page" @click.prevent="Intranet" href="#" style="margin-left: 20px;">Inicio</a>
+              <a class="nav-link active" aria-current="page" @click.prevent="goToIntranet" href="#" style="margin-left: 20px;">Inicio</a>
           </li>
           <li class="nav-item">
               <a class="nav-link" @click.prevent="verVehiculos" href="#" style="margin-left: 0px;">Ver Vehículos</a>
@@ -27,82 +27,88 @@
 
   <div class="main-content" style="margin-top: 80px;"> 
       <div class="contacto_titulo">Contáctenos</div>
-  <!-- Sección de contacto -->
-  <section class="contact-section">
-    <div class="contact-content">
-      <div class="contact-box">
-        <img src="./media/logoAV.png" alt="Logo AV" class="logo-img" /> <!-- Imagen del logo -->
-        
-        <h2>Información de contacto:</h2>
-        <p>Teléfono: +5693452342</p>
-        <p>Email: soporte@alvolante.com</p>
-        <p>Dirección: Aeropuerto Santiago,Chile</p>
-        <img src="./media/contactoIconos.png" alt="Iconos" class="iconos-img" /> <!-- Imagen de iconos -->
-      </div>
-    </div>
-  </section>
+      <!-- Sección de contacto -->
+      <section class="contact-section">
+        <div class="contact-content">
+          <img src="./media/soporte.png" alt="Soporte" class="support-img" /> <!-- Imagen de soporte -->
+          <div class="contact-box">
+            <img src="./media/logoAV.png" alt="Logo AV" class="logo-img" /> <!-- Imagen del logo -->
+            
+            <!-- Información de contacto -->
+            <h2>Información de contacto:</h2>
+            <p>Teléfono: +5693452342</p>
+            <p>Email: soporte@alvolante.com</p>
+            <p>Dirección: Aeropuerto Santiago,Chile</p>
+            <img src="./media/contactoIconos.png" alt="Iconos" class="iconos-img" /> <!-- Imagen de iconos -->
+          </div>
+        </div>
+      </section>
   </div>
 </template>
 
-<script>
-import axios from "axios";
-import Intranet from "./intranet.vue";
-import Contacto from "./contacto.vue";
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import axios from 'axios';
 
-export default {
-  data() {
-    return {
-      vehiculos: [], // Lista para almacenar los vehículos
-    };
-  },
-  methods: {
-    async fetchVehiculos() {
-      try {
-        const response = await axios.get(
-          import.meta.env.VITE_BASE_URL + "api/vehiculos/all" // Ruta para obtener los autos
-        );
-        this.vehiculos = response.data;
-      } catch (error) {
-        console.error("Error al obtener los vehículos:", error);
-        alert("No se pudo cargar la lista de vehículos");
-      }
-    },
-    registrarse() {
-      this.$router.push({ path: '/RegisterView', query: { register: true } }).then(() => {
-        window.location.reload(); // Recarga completa la página
-    }); // Redirecciona a la vista contacto
-    },
-    inicioSesion() {
-      this.$router.push("/LoginView").then(() => {
-  window.location.reload(); // Recarga completa la página
-    }); // Redirecciona a la vista contacto
-    },
-    verVehiculos() {
-      this.$router.push('/vehiculosAnonimo').then(() => {
-  window.location.reload(); // Recarga completa la páginaf
-    }); // Redirecciona a la vista contacto
-    },
-    Intranet() {
-      this.$router.push("/").then(() => {
-  window.location.reload(); 
-    }); 
-    },
-  },
-  mounted() {
-    this.fetchVehiculos(); // Llama a la función al cargar el componente
-  },
+// Variables reactivas
+const vehiculos = ref([]); // Lista para almacenar los vehículos
+const router = useRouter();
+
+// Métodos
+const fetchVehiculos = async () => {
+  try {
+    const response = await axios.get(
+      import.meta.env.VITE_BASE_URL + "api/vehiculos/all" // Ruta para obtener los autos
+    );
+    vehiculos.value = response.data;
+  } catch (error) {
+    console.error("Error al obtener los vehículos:", error);
+    alert("No se pudo cargar la lista de vehículos");
+  }
+};
+
+const registrarse = () => {
+  router.push({ path: '/register', query: { register: true } }).then(() => {
+    window.location.reload(); // Recarga completa la página
+  });
+};
+
+const inicioSesion = () => {
+  router.push("/login").then(() => {
+    window.location.reload(); // Recarga completa la página
+  });
+};
+
+const verVehiculos = () => {
+  router.push('/vehiculosAnonimo').then(() => {
+    window.location.reload(); // Recarga completa la página
+  });
+};
+
+const goToIntranet = () => {
+  router.push("/").then(() => {
+    window.location.reload(); // Recarga completa la página
+  });
 };
 </script>
 
 <style>
 
-body {
+body, html{
 background: #8b8b8b;
 color: #000;
 font-family: Arial, sans-serif;
 margin: 0;
 padding: 0;
+min-height: 100vh;
 box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(135deg, #8b8b8b, #8b8b8b);
 }
 
 .container {
@@ -119,19 +125,16 @@ margin-top: auto;
 }
 
 .main-content {
-margin-top: 80px;
-padding: 40px;
-flex: 1;
-display: flex;
-flex-direction: column;
-align-items: center; /* Centra todo el contenido dentro de main-content */
+padding: 1rem;
 }
 
 .contacto_titulo {
-font-size: 2rem; /* Tamaño del título más grande */
-color: #202020; /* Color oscuro para el título */
-margin-bottom: 30px; /* Espaciado debajo del título */
-text-align: center; /* Centra el título */
+  position: relative; /* Cambiar la posición a relativa */
+  top: 10px; /* Ajustar la posición vertical hacia arriba */
+  left: 14%;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #202020;
 }
 
 .contact-section {
@@ -142,36 +145,46 @@ margin-bottom: 40px; /* Espacio debajo de la sección de contacto */
 }
 
 .contact-content {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  height: 700px;
 }
 
 .support-img {
-max-width: 250px; /* Establece un tamaño fijo para la imagen de soporte */
-height: auto;
-object-fit: contain; /* Asegura que la imagen mantenga su proporción */
+  width: 700px; /* Ajustar el ancho de la imagen de soporte según sea necesario */
+  position: relative; /* Cambiar la posición a relativa */ 
+  left: -15%; /* Ajustar la posición vertical hacia arriba */
+  margin-right: 12rem; /* Ajustar el margen derecho según sea necesario */ 
+  margin-left: 30rem; /* Ajustar el margen izquierdo para mover la imagen a la izquierda */
+  margin-top: -15rem; /* Ajustar el margen superior para mover la imagen hacia arriba */
 }
 
 .contact-box {
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-text-align: center; /* Centra el texto dentro de contact-box */
-margin-right: -70px;
-margin-top: -110px;
+  background: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+  position: relative; /* Cambiar la posición a relativa */ 
+  left: -25%; /* Ajustar la posición vertical hacia arriba */
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  margin-top: -15rem; /* Ajustar el margen superior para mover la imagen hacia arriba */
+  width: 500px;
 }
 
 .logo-img {
-max-width: 150px; /* Ajusta el tamaño del logo */
-margin-bottom: 15px; /* Espaciado debajo del logo */
+  width: 150px; /* Ajustar el ancho de la imagen del logo según sea necesario */
+  margin-bottom: 1rem;
+  position: relative; /* Cambiar la posición a relativa */ 
+  top: -3px; /* Ajustar la posición vertical hacia arriba */
 }
 
 .iconos-img {
-max-width: 150px; /* Ajusta el tamaño de los iconos */
-margin-top: 20px;
+  width: 150px; /* Ajustar el ancho de la imagen del logo según sea necesario */
+  margin-bottom: 1rem;
+  position: relative; /* Cambiar la posición a relativa */ 
+  top: -1px; /* Ajustar la posición vertical hacia arriba */
 }
 
 .nav-link {

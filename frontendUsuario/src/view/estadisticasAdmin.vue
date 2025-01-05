@@ -1,4 +1,117 @@
+<template>
+  <main class="main-container">
+
+    <!-- Barra lateral -->
+    <div class="sidebar">
+      <ul>
+        <img class="image" src="./media/logoalvolante.png">
+        <li><a href="#"@click="toInicio">Inicio</a></li>
+        <li><a href="#" @click="logout">Cerrar sesión</a></li>
+      </ul>
+    </div>
+
+
+  <div>
+    <!-- Sección de gráficos -->
+    <section class="charts-section">
+      <div class="chart-container">
+        <h2>Ventas Anuales</h2>
+        <Bar :data="chartData1" :options="chartOptions" />
+        <div class="chart-controls">
+          <button class="chart-button">Expandir</button>
+          <div class="controls-right">
+            <select class="control-select">
+              <option value="">Ordenar</option>
+              <option value="">Marca</option>
+              <option value="">Precio</option>
+              <option value="">Año del vehiculo</option>
+              <option value="">Estado</option>
+            </select>
+            <select class="control-select">
+              <option value="">Filtrar</option>
+              <option value="">Marca</option>
+              <option value="">Precio</option>
+              <option value="">Año del vehiculo</option>
+              <option value="">Estado</option>
+            </select>
+          </div>
+        </div>
+        
+      </div>
+      <!-- Gráfico de ventas mensuales -->
+      <div class="chart-container">
+        <h2>Ventas Mensuales</h2>
+        <Bar :data="chartData2" :options="chartOptions" />
+        <div class="chart-controls">
+          <button class="chart-button">Expandir</button>
+          <div class="controls-right">
+            <select class="control-select">
+              <option value="">Ordenar</option>
+              <option value="">Marca</option>
+              <option value="">Precio</option>
+              <option value="">Año del vehiculo</option>
+              <option value="">Estado</option>
+            </select>
+            <select class="control-select">
+              <option value="">Filtrar</option>
+              <option value="">Marca</option>
+              <option value="">Precio</option>
+              <option value="">Año del vehiculo</option>
+              <option value="">Estado</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gráfico de ventas semanales -->
+      <div class="chart-container">
+        <h2>Ventas Semanales</h2>
+        <Bar :data="chartData3" :options="chartOptions" />
+        <div class="chart-controls">
+          <button class="chart-button">Expandir</button>
+          <div class="controls-right">
+            <select class="control-select">
+              <option value="">Ordenar</option>
+              <option value="">Marca</option>
+              <option value="">Precio</option>
+              <option value="">Año del vehiculo</option>
+              <option value="">Estado</option>
+            </select>
+            <select class="control-select">
+              <option value="">Filtrar</option>
+              <option value="">Marca</option>
+              <option value="">Precio</option>
+              <option value="">Año del vehiculo</option>
+              <option value="">Estado</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+</div>
+
+<section class="text-box-section">
+  <div class="text-box-container">
+    <img src="./media/usuarios_nuevos.png" alt="Imagen 1" class="text-box-image" />
+    <p class="text-box-text">+500 Nuevos registros el último mes.</p>
+  </div>
+  <div class="text-box-container">
+    <img src="./media/vistas_a_la_pagina.png" alt="Imagen 2" class="text-box-image" />
+    <p class="text-box-text">+9.0000 Visitas a la pagina el último mes.</p>
+  </div>
+  <div class="text-box-container">
+    <img src="./media/ventas.png" alt="Imagen 3" class="text-box-image" />
+    <p class="text-box-text">+100 Vehiculos arrendados el último mes .</p>
+  </div>
+</section>
+
+  </main>
+</template>
+
+
 <script setup>
+// Imports
 import { useRouter } from 'vue-router'; // Importar el router
 import { Bar } from 'vue-chartjs';
 import {
@@ -11,7 +124,18 @@ import {
   LinearScale,
 } from 'chart.js';
 
+// Variables reactivas
 const router = useRouter(); // Usar el router
+
+// Métodos
+const logout = () => {
+  localStorage.removeItem("login"); // Limpia el almacenamiento local
+  window.location.href = "/"; // Redirige al login
+};
+
+const toInicio = () => {
+  window.location.href = "/admin";
+};
 
 // Registrar componentes globales de Chart.js
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
@@ -60,155 +184,6 @@ const chartOptions = {
 </script>
 
 
-
-
-
-
-<template>
-  <main class="main-container">
-
-    <div class="sidebar">
-      <ul>
-        <img class="image" src="./media/logoalvolante.png">
-        <li><a href="#"@click="toInicio">Inicio</a></li>
-        <li><a href="#" @click="logout">Cerrar sesión</a></li>
-      </ul>
-    </div>
-
-
-  <div>
-    <!-- Sección de gráficos -->
-    <section class="charts-section">
-      <div class="chart-container">
-        <h2>Ventas Anuales</h2>
-        <Bar :data="chartData1" :options="chartOptions" />
-        <div class="chart-controls">
-          <button class="chart-button">Expandir</button>
-          <div class="controls-right">
-            <select class="control-select">
-              <option value="">Ordenar</option>
-              <option value="">Marca</option>
-              <option value="">Precio</option>
-              <option value="">Año del vehiculo</option>
-              <option value="">Estado</option>
-            </select>
-            <select class="control-select">
-              <option value="">Filtrar</option>
-              <option value="">Marca</option>
-              <option value="">Precio</option>
-              <option value="">Año del vehiculo</option>
-              <option value="">Estado</option>
-            </select>
-          </div>
-        </div>
-        
-      </div>
-      <div class="chart-container">
-        <h2>Ventas Mensuales</h2>
-        <Bar :data="chartData2" :options="chartOptions" />
-        <div class="chart-controls">
-          <button class="chart-button">Expandir</button>
-          <div class="controls-right">
-            <select class="control-select">
-              <option value="">Ordenar</option>
-              <option value="">Marca</option>
-              <option value="">Precio</option>
-              <option value="">Año del vehiculo</option>
-              <option value="">Estado</option>
-            </select>
-            <select class="control-select">
-              <option value="">Filtrar</option>
-              <option value="">Marca</option>
-              <option value="">Precio</option>
-              <option value="">Año del vehiculo</option>
-              <option value="">Estado</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="chart-container">
-        <h2>Ventas Semanales</h2>
-        <Bar :data="chartData3" :options="chartOptions" />
-        <div class="chart-controls">
-          <button class="chart-button">Expandir</button>
-          <div class="controls-right">
-            <select class="control-select">
-              <option value="">Ordenar</option>
-              <option value="">Marca</option>
-              <option value="">Precio</option>
-              <option value="">Año del vehiculo</option>
-              <option value="">Estado</option>
-            </select>
-            <select class="control-select">
-              <option value="">Filtrar</option>
-              <option value="">Marca</option>
-              <option value="">Precio</option>
-              <option value="">Año del vehiculo</option>
-              <option value="">Estado</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </section>
-
-</div>
-
-<section class="text-box-section">
-  <div class="text-box-container">
-    <img src="./media/usuarios_nuevos.png" alt="Imagen 1" class="text-box-image" />
-    <p class="text-box-text">+500 Nuevos registros el último mes.</p>
-  </div>
-  <div class="text-box-container">
-    <img src="./media/vistas_a_la_pagina.png" alt="Imagen 2" class="text-box-image" />
-    <p class="text-box-text">+9.0000 Visitas a la pagina el último mes.</p>
-  </div>
-  <div class="text-box-container">
-    <img src="./media/ventas.png" alt="Imagen 3" class="text-box-image" />
-    <p class="text-box-text">+100 Vehiculos arrendados el último mes .</p>
-  </div>
-</section>
-
-
-  </main>
-</template>
-
-
-<script>
-export default {
-  methods: {
-    logout() {
-      localStorage.removeItem("login"); // Limpia el almacenamiento local
-      window.location.href = "/"; // Redirige al login
-    },
-    toInicio(){
-      window.location.href = "/admin"; 
-    },
-    toPerfilCliente(){//Deberia ser trabajador/admin
-      this.$router.push('/perfilCliente'); 
-    }
-  },
-};
-
-import axios from 'axios';
-
-//rediccionamientos
-//usuario
-function redireccionarASubpaginaInicio(){
-    window.location.href = '/home';
-
-}
-
-function redireccionarASubpaginaContacto(){
-    window.location.href = '/Contacto';
-
-} 
-function redireccionarASubpaginaPerfilCliente(){
-    window.location.href = '/perfilCliente';
-
-}
-</script>
-
-
 <style>
 /* Estilos generales */
 body {
@@ -219,47 +194,47 @@ body {
   padding: 0;
 }
 
-
 .container {
     display: flex;
     min-height: 100vh;
   }
-  
-  .sidebar {
-    width: 250px;
-    background-color: #ff80ab;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    position: fixed;
-    height: 100%;
-    margin-left: -13%;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .sidebar ul li {
-    margin-bottom: 12px;
-  }
-  
-  .sidebar ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 15px;
-    display: block;
-    padding: 7px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-  }
-  
-  .sidebar ul li a:hover {
-    background-color: #ff4081;
-  }
+
+/* Barra lateral */
+.sidebar {
+  width: 250px;
+  background-color: #ff80ab;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: fixed;
+  height: 100%;
+  margin-left: -13%;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 12px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  display: block;
+  padding: 7px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.sidebar ul li a:hover {
+  background-color: #ff4081;
+}
 
 .image {
   max-width: 100%;
@@ -267,6 +242,7 @@ body {
   border-radius: 8px;
 }
 
+/* Contenedor principal */
 .main-container {
   margin-left: 250px; /* Compensa el ancho del sidebar */
   padding: 1rem; /* Asegura un espacio interno */
