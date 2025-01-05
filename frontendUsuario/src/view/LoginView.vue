@@ -20,7 +20,7 @@
                         <div class="inputContainer">
                             <input type="email" v-model="username" placeholder="Ingrese correo">
                             <input type="password" v-model="password" placeholder="Ingrese contraseña">
-                            <button class="sessionButton" @click="login">Iniciar sesión</button>
+                            <button class="sessionButton" @click="login">Iniciar sesión <i class="bi bi-box-arrow-in-right nav-icon"></i></button>
                         </div>
 
                         <!-- Botones adicionales -->
@@ -331,5 +331,13 @@ input:focus {
   color: darkblue; /* Cambia el color al pasar el mouse */
   text-decoration: none; /* Opcional: elimina el subrayado */
 }
-
+/* Iconos */
+.nav-icon {
+  margin-right: 5px;
+  font-size: 1.1rem;
+  vertical-align: middle;
+  }
+  .nav-icon.large {
+    font-size: 1.3rem;
+  }
 </style>

@@ -59,7 +59,7 @@
       <div class="card">
         <h2>Reserva</h2>
         <p>¡Entra ya y reserva!</p>
-        <button class="card-button" @click.prevent="toCalendario">Ir</button>
+        <button class="card-button" @click.prevent="toCalendario"><i class="bi bi-calendar-fill nav-icon"></i>  Agendar </button>
       </div>
     </section> 
 
