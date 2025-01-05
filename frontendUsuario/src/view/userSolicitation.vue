@@ -77,6 +77,10 @@ const userName = ref("Usuario"); // Puedes usar variables para datos dinámicos.
 const toCalendario = () => window.location.href = "/calendarioCliente";
 onMounted(() => {
   const carousel = new bootstrap.Carousel(document.getElementById('carouselExample'))
+  // recalcular layout para que no se cargue buggeado
+  requestAnimationFrame(() => {
+    document.querySelector('.content-section').style.opacity = '1'
+  })
 })
 </script>
 
@@ -88,71 +92,45 @@ body {
   background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
 }
 
-.welcome-section {
+
+/* Make sure styles are scoped */
+.main-container {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Force immediate style application */
+* {
+  margin: 0;
+  padding: 0;
+  
+}
+
+
+/* Sección de tarjetas */
+.content-section {
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  margin-top: 20px; /* Ajusta este valor */
-}
-.main-container {
-  margin: 0;
-  padding: 0;
-}
-
-.welcome-text {
-  text-align: center;
-  max-width: 800px;
-}
-
-.welcome-text h1 {
-  font-size: 2rem;
-  color: #ff4081;
-  margin-top: 0; /* Elimina el margen negativo */
-}
-
-.welcome-text p {
-  font-size: 1.2rem;
-  color: #ff6f61;
-}
-
-.welcome-image {
-  max-width: 40%;
-}
-
-.al-volante-img {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  
-}
-
-/* Sección de tarjetas */
-.content-section {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-top: 67rem;
+  margin-top: 0rem; 
 }
 
 .card {
-  background: #fff3e0;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgb(80, 0, 89);
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
-  width: 450px;
-  height: 220px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin-top: -45%;
+  width: 462px;
 }
-
-
-
-
-
 .card h2 {
   font-size: 1.5rem;
   color: #ff4081;
@@ -193,15 +171,17 @@ body {
   justify-content: center;
   align-items: center;
   height: 65vh; /* alto carousel*/
-  width: 99vw;
+  width: 100vw;
+  margin-left: calc((100vw - 90vw) / 2); 
   overflow: hidden;
-  margin-top: 1%; /* top margin */
+  margin: 0; 
 }
 
 .carousel {
-  width: calc(100% - 40px); /* ajustar margenes */
+  width: 97vw; /* ajustar margenes */
   height: 100%;
-  
+  margin: 0 auto; 
+  transform: translateX(-2.3%); 
 }
 
 .carousel-item {
@@ -212,7 +192,7 @@ body {
 .carousel-item img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Changed from contain to cover */
+  object-fit: contain; 
   object-position: center;
 }
 
@@ -243,25 +223,25 @@ body {
 /* Estilos para los íconos de flechas prev/next */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  width: 5rem;  /* Tamaño del ícono de flecha */
+  width: 5rem;  
   height: 3rem;
-  background-color: rgba(0, 0, 0, 0); /* Color de fondo del círculo */
-  border-radius: 50%; /* Hace el círculo */
+  background-color: rgba(0, 0, 0, 0); 
+  border-radius: 50%; 
   padding: 1.5rem;
-  filter: contrast(200%) brightness(150%); /* Hace las flechas más bold */
+  filter: contrast(200%) brightness(150%); 
 }
 
 /* Estilos para los botones contenedores de prev/next */
 .carousel-control-prev,
 .carousel-control-next {
-  width: 5%; /* Ancho del área clickeable */
-  opacity: 1; /* Sin transparencia */
+  width: 5%; 
+  opacity: 1; 
 }
 
 /* Efectos al pasar el mouse por los botones */
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
   opacity: 1;
-  background-color: rgba(0, 0, 0, 0.2); /* Fondo oscuro al hover */
+  background-color: rgba(0, 0, 0, 0.2); 
 }
 </style>

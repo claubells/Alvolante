@@ -92,7 +92,16 @@ const login = async () => {
                 }});
 
             // Se redirige a la pagina del usuario
-            router.push('/user');
+            router.push('/user').then(() => {
+                // Recargar la página para evitar errores de renderizado
+                window.requestAnimationFrame(() => {
+                    window.requestAnimationFrame(() => {
+                    document.body.style.display = 'none'
+                    document.body.offsetHeight // Forzar el reflow
+                    document.body.style.display = ''
+                    })
+                })
+                });
         }
         else if (role === 'ADMIN' || role == 'TRABAJADOR') { // Si el rol es ADMIN
 
