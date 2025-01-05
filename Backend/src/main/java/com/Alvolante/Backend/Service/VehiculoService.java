@@ -5,8 +5,11 @@ import com.Alvolante.Backend.Repository.VehiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -61,6 +64,20 @@ public class VehiculoService {
     public List<VehiculoEntity> getVehiculosByDisponible(){
         return vehiculoRepository.findByDisponibilidadTrue();
 
+    }
+
+    public List<VehiculoEntity> getVehiculosUnicosConMenorKilometraje() {
+        List<VehiculoEntity> allAvailable = vehiculoRepository.findVehiculosUnicosConMenorKilometraje();
+        Map<String, VehiculoEntity> lowestMileageByModel = new HashMap<>();
+        
+        for (VehiculoEntity vehiculo : allAvailable) {
+            String modelo = vehiculo.getModelo();
+            if (!lowestMileageByModel.containsKey(modelo)) {
+                lowestMileageByModel.put(modelo, vehiculo);
+            }
+        }
+        
+        return new ArrayList<>(lowestMileageByModel.values());
     }
 
 }

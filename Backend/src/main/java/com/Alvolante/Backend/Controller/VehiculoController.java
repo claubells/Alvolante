@@ -70,4 +70,9 @@ public class VehiculoController {
     public List<VehiculoEntity> getVehiculosDisponible() {
         return vehiculoService.getVehiculosByDisponible();
     }
+    //Devuelve lista de vehiculos no repetidos por modelo, devuelve los de menor kilometraje y que esten disponibles
+    @GetMapping("/disponibles-menor-kilometraje")
+    public List<VehiculoEntity> getVehiculosUnicosConMenorKilometraje() {
+        return vehiculoService.getVehiculosUnicosConMenorKilometraje();
+    }
 }
