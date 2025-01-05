@@ -1,6 +1,7 @@
 <template>
   <main class="main-container">
     <div class="contacto_titulo">Contáctenos</div>
+
     <!-- Sección de contacto -->
     <section class="contact-section">
       <div class="contact-content">
@@ -8,6 +9,7 @@
         <div class="contact-box">
           <img src="./media/logoAV.png" alt="Logo AV" class="logo-img" /> <!-- Imagen del logo -->
           
+          <!-- Información de contacto -->
           <h2>Información de contacto:</h2>
           <p>Teléfono: +5693452342</p>
           <p>Email: soporte@alvolante.com</p>
@@ -20,14 +22,10 @@
 </template>
 
 <script setup>
-
-
 </script>
 
 <style>
-/* Estilos generales */
-
-
+/* Estilo general */
 body, html{
   margin: 0;
   padding: 0;
@@ -41,11 +39,12 @@ body {
   background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
 }
 
+/* Contenedor principal */
 .main-container {
   padding: 1rem;
 }
 
-
+/* Sección de contacto */
 .contacto_titulo {
   position: relative; /* Cambiar la posición a relativa */ 
   top: 10px; /* Ajustar la posición vertical hacia arriba */
@@ -54,7 +53,6 @@ body {
   font-weight: bold;
   color: #633434;
 }
-
 
 .contact-content {
   display: flex;

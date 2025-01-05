@@ -2,6 +2,7 @@
   <div class="container">
     <div class="main-content">
       <h1>Lista de Vehículos</h1>
+      <!-- Contenedor de vehículos -->
       <div class="vehiculos-container" v-if="vehiculos.length">
         <div v-for="vehiculo in vehiculos" :key="vehiculo.idVehiculo" class="vehiculo-card">
           <img
@@ -10,6 +11,8 @@
             alt="Foto del Vehículo"
             class="vehiculo-imagen"
           />
+
+          <!-- Datos del vehículo -->
           <p><strong>Patente:</strong> {{ vehiculo.patente }}</p>
           <p><strong>Modelo:</strong> {{ vehiculo.modelo }}</p>
           <p><strong>Marca:</strong> {{ vehiculo.marca }}</p>
