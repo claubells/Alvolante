@@ -9,59 +9,51 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
-// habilita la anotación @PreAuthorize q permite proteger métodos específicos con roles o permisos.
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
     private final CorsConfig corsConfig;
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
-    public SecurityConfig(JwtFilter jwtFilter, CorsConfig corsConfig) {
+    public SecurityConfig(JwtFilter jwtFilter, CorsConfig corsConfig, CustomAccessDeniedHandler customAccessDeniedHandler) {
         this.jwtFilter = jwtFilter;
         this.corsConfig = corsConfig;
+        this.customAccessDeniedHandler = customAccessDeniedHandler;
     }
 
     @Bean
-    //define las reglas de seguridad, endpoints publicos y cuales necesitan autenticación
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         System.out.println("Configurando seguridad...");
         http
-                // Deshabilitar CSRF porque es una API
                 .csrf(csrf -> csrf.disable())
-
-                // Configurar CORS
-                .cors(cors -> cors.configurationSource(corsConfig.corsConfigurationSource())) // Uso correcto del método
-
-                // Configuración de rutas
+                .cors(cors -> cors.configurationSource(corsConfig.corsConfigurationSource()))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/**").permitAll() // Permite acceso sin autenticación a /auth/**
-                        .requestMatchers("/usuario/**").hasRole("CLIENTE")//Acceso exclusivo para clientes
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/usuario/**").hasRole("CLIENTE")
                         .requestMatchers("/api/**").hasAnyRole("ADMIN", "TRABAJADOR")
-                        .anyRequest().authenticated() // Requiere autenticación para las demás rutas
+                        .anyRequest().authenticated()
                 )
-                // Configurar política de sesiones stateless
                 .sessionManagement(session -> session.sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS))
-
-                // Agregar el filtro JWT antes del filtro de autenticación
+                .exceptionHandling(exception -> exception
+                        .accessDeniedHandler(customAccessDeniedHandler)
+                )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
     @Bean
-    // maneja el proceso de autenticación, spring lo configura de forma automatica, y se expone como un bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
-
-    @Bean
-    // cifra las contraseñas antes de almacenarlas y compararlas en las autenticaciones
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
 }
