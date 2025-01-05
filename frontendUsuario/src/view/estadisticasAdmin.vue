@@ -5,8 +5,8 @@
     <div class="sidebar">
       <ul>
         <img class="image" src="./media/logoalvolante.png">
-        <li><a href="#"@click="toInicio">Inicio</a></li>
-        <li><a href="#" @click="logout">Cerrar sesión</a></li>
+        <li><a href="#" @click="toInicio"><i class="bi bi-house-door nav-icon"></i> Inicio</a></li>
+        <li><a href="#" @click="cierreSesion"><i class="bi bi-box-arrow-right nav-icon"></i> Cerrar sesión</a></li>
       </ul>
     </div>
 
@@ -209,7 +209,7 @@ body {
   justify-content: flex-start;
   position: fixed;
   height: 100%;
-  margin-left: -13%;
+  margin-left: -15.4%;
 }
 
 .sidebar ul {
@@ -241,6 +241,7 @@ body {
   margin-bottom: 10px; /* Menos margen debajo de la imagen */
   border-radius: 8px;
 }
+
 
 /* Contenedor principal */
 .main-container {
@@ -351,5 +352,14 @@ body {
   line-height: 1.4; /* Mejorar el espaciado entre líneas si el texto es largo */
 }
 }
+/* Iconos */
+.nav-icon {
+  margin-right: 5px;
+  font-size: 1.1rem;
+  vertical-align: middle;
+  }
+  .nav-icon.large {
+    font-size: 1.3rem;
+  }
 
 </style>

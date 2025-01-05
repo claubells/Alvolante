@@ -5,8 +5,8 @@
     <div class="sidebar">
       <img class="image" src="./media/logoalvolante.png" alt="Logo" />
       <ul>
-        <li><a href="#" @click="toInicio">Inicio</a></li>
-        <li><a href="#" @click="cierreSesion">Cerrar sesión</a></li>
+        <li><a href="#" @click="toInicio"><i class="bi bi-house-door nav-icon"></i> Inicio</a></li>
+        <li><a href="#" @click="cierreSesion"><i class="bi bi-box-arrow-right nav-icon"></i> Cerrar sesión</a></li>
       </ul>
     </div>
     
@@ -17,10 +17,10 @@
       
       <!-- Botones de acción -->
       <div class="action-buttons">
-        <button @click="AgregarVehiculoAdmin" class="action-btn">Agregar Vehículo a alguna sucursal</button>
-        <button @click="arrendarVehiculo" class="action-btn">Realizar arriendo de vehículo</button>
-        <button @click="VerVehiculos" class="action-btn">Ver vehículos</button>
-        <button @click="Verestadisticas" class="action-btn">Ver estadisticas</button>
+        <button @click="AgregarVehiculoAdmin" class="action-btn"><i class="bi bi-plus-square-dotted nav-icon"></i> Agregar Vehículo a alguna sucursal</button>
+        <button @click="arrendarVehiculo" class="action-btn"><i class="bi bi-basket3 nav-icon"></i> Realizar arriendo de vehículo</button>
+        <button @click="VerVehiculos" class="action-btn"><i class="bi bi-car-front nav-icon"></i> Ver vehículos</button>
+        <button @click="Verestadisticas" class="action-btn"><i class="bi bi-graph-up nav-icon"></i> Ver estadisticas</button>
       </div>
     </div>
   </div>
@@ -158,5 +158,14 @@ h1 {
     font-size: 18px;
   }
 }
+/* Iconos */
+.nav-icon {
+  margin-right: 5px;
+  font-size: 1.1rem;
+  vertical-align: middle;
+  }
+  .nav-icon.large {
+    font-size: 1.3rem;
+  }
 </style>
   

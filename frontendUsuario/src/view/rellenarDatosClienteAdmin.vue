@@ -4,14 +4,17 @@
     <div class="sidebar">
       <img class="image" src="./media/logoalvolante.png" alt="Logo" />
       <ul>
-        <li><a href="#" @click="toInicio">Inicio</a></li>
-        <li><a href="#" @click="cierreSesion">Cerrar sesión</a></li>
+        <li><a href="#" @click="toInicio"><i class="bi bi-house-door nav-icon"></i> Inicio</a></li>
+        <li><a href="#" @click="cierreSesion"><i class="bi bi-box-arrow-right nav-icon"></i> Cerrar sesión</a></li>
       </ul>
     </div>
     <!-- Contenido principal -->
     <div class="main-content">
-      <h1 class="titulo-form">Formulario de arriendo</h1>
-      <form @submit.prevent="enviarFormulario" class="formulario">
+      
+      <div class="form-container">
+        <h2 class="titulo-form">Formulario de Arriendo</h2>
+        <!-- formulario -->
+        <form @submit.prevent="enviarFormulario" class="formulario">
         <div class="form-group">
           <label for="nombreCliente">Nombre y apellido:</label>
           <input type="text" id="nombreCliente" v-model="formulario.nombreCliente" required />
@@ -46,6 +49,7 @@
         <button type="submit" @click= "confirmacionPago" class="action-btn">Enviar</button>
         <button type="submit" @click= "verBoleta(formulario.nombreCliente)" class="action-btn">Ver boleta</button>
       </form>
+      </div>
     </div>
   </div>
 </template>
@@ -118,7 +122,7 @@ body {
 }
 
 .titulo-form{
-    margin-left: 38%;
+    margin-left: 25%;
     font-weight: bold;
   }
 
@@ -127,6 +131,30 @@ body {
   min-height: 100vh;
 }
 
+.form-container {
+  background-color: #ffffff; /* White background */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  width: 80%;
+  max-width: 800px;
+}
+
+/* If you want to target specific form elements */
+.form-control {
+  background-color: #faf0f0; /* Light gray for input fields */
+  border: 1px solid #ddd;
+}
+
+/* Container for the entire content */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 /* Barra lateral */
 .sidebar {
   width: 250px;
@@ -222,4 +250,14 @@ button {
 button:hover {
   background-color: #ff80ab;
 }
+
+/* Iconos */
+.nav-icon {
+  margin-right: 5px;
+  font-size: 1.1rem;
+  vertical-align: middle;
+  }
+  .nav-icon.large {
+    font-size: 1.3rem;
+  }
 </style>
