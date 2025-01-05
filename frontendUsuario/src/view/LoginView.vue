@@ -27,9 +27,9 @@
                         <div class="alsoButtons">
                             <div class="headerCliente">¿No estás registrado?</div>
                             <!-- Enlaces adicionales -->
-                            <button @click="goToAnon"class="text-link">Ingresar como Anónimo</button>
-                            <button @click="goToRegister"class="text-link">Registrarse</button>
-                            <button @click="goToIntranet"class="text-link">Volver al incio</button>
+                            <button @click="goToAnon" class="text-link">Ingresar como Anónimo</button>
+                            <button @click="goToRegister" class="text-link">Registrarse</button>
+                            <button @click="goToIntranet" class="text-link">Volver al incio</button>
                         </div>
                     </div>
                 </div>
@@ -104,15 +104,11 @@ const login = async () => {
 
             // Se redirige a la pagina del usuario
             router.push('/user').then(() => {
-                // Recargar la página para evitar errores de renderizado
-                window.requestAnimationFrame(() => {
-                    window.requestAnimationFrame(() => {
-                    document.body.style.display = 'none'
-                    document.body.offsetHeight // Forzar el reflow
-                    document.body.style.display = ''
-                    })
-                })
-                });
+                // recargar pagina para que se cargue correctamente
+                setTimeout(() => {
+                    window.location.reload();
+                }, 100);
+            });
         }
         else if (role === 'ADMIN' || role == 'TRABAJADOR') { // Si el rol es ADMIN
 

@@ -4,8 +4,8 @@
         <div class="sidebar">
         <img class="image" src="./media/logoalvolante.png" alt="Logo" />
         <ul>
-          <li><a href="#" @click="toInicio">Inicio</a></li>
-          <li><a href="#" @click="cierreSesion">Cerrar sesión</a></li>
+          <li><a href="#" @click="toInicio"><i class="bi bi-house-door nav-icon"></i> Inicio</a></li>
+        <li><a href="#" @click="cierreSesion"><i class="bi bi-box-arrow-right nav-icon"></i> Cerrar sesión</a></li>
         </ul>
       </div>
 
@@ -84,6 +84,7 @@ body {
   padding: 0;
 }
 
+
 /* Barra lateral */
 .sidebar {
   width: 250px;
@@ -94,7 +95,7 @@ body {
   justify-content: flex-start;
   position: fixed;
   height: 100%;
-  margin-left: 1%;
+  margin-left: 0%;
 }
 
 .sidebar ul {
@@ -129,15 +130,13 @@ body {
 
 /* Contenedor principal */
 .main-content {
-  margin-left: 270px;
-  padding: 40px;
-  flex: 1;
-  margin-top: 75px;
+  margin-left: 270px; 
+  padding: 20px;
 }
 
 h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 22px;
+  margin-bottom: 10px;
 }
 
 /* Vehículos */
@@ -167,4 +166,14 @@ h1 {
   margin: 5px 0;
   font-size: 14px;
 }
+
+/* Iconos */
+.nav-icon {
+  margin-right: 5px;
+  font-size: 1.1rem;
+  vertical-align: middle;
+  }
+  .nav-icon.large {
+    font-size: 1.3rem;
+  }
 </style>

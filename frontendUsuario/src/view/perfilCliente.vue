@@ -31,7 +31,7 @@
 
         <!-- Contenedor para "Documentos" -->
         <div class="document-container">
-          <h2 class="document-title"><i class="bi bi-folder nav-icon"></i>Documentos</h2>
+          <h2 class="document-title"><i class="bi bi-person-vcard nav-icon"></i>Documentos</h2>
           <div class="document-section">
             <h3>Documentos</h3>
             <p><strong>DNI:</strong> 111111111111</p>
@@ -185,7 +185,8 @@ body {
 .button-container button { 
   background-color: #ff80ab; 
     color: #fff; 
-    font-size: 18px; 
+    font-size: 100%; 
+    font-weight: bold;
     border: none; 
     border-radius: 0px; 
     padding: 2.7rem; 
@@ -335,7 +336,7 @@ body {
 /* Iconos */
 .nav-icon {
   margin-right: 5px;
-  font-size: 1.1rem;
+  font-size: 2rem;
   vertical-align: middle;
   }
 .nav-icon.large {
