@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <!-- Barra lateral -->
     <div class="sidebar">
       <img class="image" src="./media/logoalvolante.png" alt="Logo" />
       <ul>
@@ -7,6 +8,7 @@
         <li><a href="#" @click="cierreSesion">Cerrar sesión</a></li>
       </ul>
     </div>
+    <!-- Contenido principal -->
     <div class="main-content">
       <h1 class="titulo-form">Formulario de arriendo</h1>
       <form @submit.prevent="enviarFormulario" class="formulario">
@@ -40,6 +42,7 @@
           <input type="email" id="correo" v-model="formulario.correo" required />
         </div>
 
+        <!-- Botones de acción -->
         <button type="submit" @click= "confirmacionPago" class="action-btn">Enviar</button>
         <button type="submit" @click= "verBoleta(formulario.nombreCliente)" class="action-btn">Ver boleta</button>
       </form>
@@ -47,61 +50,65 @@
   </div>
 </template>
 
-<script>
+<script setup>
+// Imports
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
-export default {
-  data() {
-    return {
-      formulario: {
-        nombreEmisor: 'AlVolante',
-        rutEmisor: '677777',
-        direccionEmisor: '',
-        nombreCliente: '',
-        rutCliente: '',
-        telefono: '',
-        direccion: '',
-        total: '', 
-        correo: ''
-      }
-    };
-  },
-  methods: {
-    cierreSesion() {
-      window.location.href = "/";
-    },
-    toInicio() {
-      window.location.href = "/admin";
-    },
-    async confirmacionPago() {
-        localStorage.setItem('formNombre', JSON.stringify(this.nombre));
-        localStorage.setItem('formApellido', JSON.stringify(this.apellido));
-        localStorage.setItem('formRut', JSON.stringify(this.rut));
-        localStorage.setItem('formTelefono', JSON.stringify(this.telefono));
-        localStorage.setItem('formDireccion', JSON.stringify(this.direccion));
-        localStorage.setItem('formCorreo', JSON.stringify(this.correo));
-        try {
-        // agrupa los datos y los manda al backend
-        const response = await axios.post(
-          import.meta.env.VITE_BASE_URL + 'api/boleta/generarBoleta',
-          this.formulario)
-          alert('se creo');
-        } catch (error) {      
-        }
-      },   
+import { useRouter } from 'vue-router';
 
-      verBoleta() {
-  this.$router.push({ name: 'verBoleta', params: { nombreCliente: this.formulario.nombreCliente } });
-}
-    },
+// Variables reactivas
+const router = useRouter();
+const formulario = ref({
+  nombreEmisor: 'AlVolante',
+  rutEmisor: '677777',
+  direccionEmisor: '',
+  nombreCliente: '',
+  rutCliente: '',
+  telefono: '',
+  direccion: '',
+  total: '', 
+  correo: ''
+});
 
-    mounted(){
-      this.total = localStorage.getItem('total');
-    },
+// Métodos
+const cierreSesion = () => {
+  window.location.href = "/";
+};
+
+const toInicio = () => {
+  window.location.href = "/admin";
+};
+
+const confirmacionPago = async () => {
+  localStorage.setItem('formNombre', JSON.stringify(formulario.value.nombreCliente));
+  localStorage.setItem('formApellido', JSON.stringify(formulario.value.apellido));
+  localStorage.setItem('formRut', JSON.stringify(formulario.value.rutCliente));
+  localStorage.setItem('formTelefono', JSON.stringify(formulario.value.telefono));
+  localStorage.setItem('formDireccion', JSON.stringify(formulario.value.direccion));
+  localStorage.setItem('formCorreo', JSON.stringify(formulario.value.correo));
+  try {
+    // agrupa los datos y los manda al backend
+    const response = await axios.post(
+      import.meta.env.VITE_BASE_URL + 'api/boleta/generarBoleta',
+      formulario.value
+    );
+    alert('se creo');
+  } catch (error) {
+    console.error(error);
   }
+};
 
+const verBoleta = () => {
+  router.push({ name: 'verBoleta', params: { nombreCliente: formulario.value.nombreCliente } });
+};
+
+onMounted(() => {
+  formulario.value.total = localStorage.getItem('total');
+});
 </script>
 
 <style>
+/* Estilo general */
 body {
   background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
   color: #000;
@@ -120,6 +127,7 @@ body {
   min-height: 100vh;
 }
 
+/* Barra lateral */
 .sidebar {
   width: 250px;
   background-color: #ff80ab;
@@ -174,6 +182,7 @@ h1 {
   margin-bottom: 20px;
 }
 
+/* Formulario */
 .formulario {
   display: flex;
   flex-direction: column;
