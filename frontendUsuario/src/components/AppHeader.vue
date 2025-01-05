@@ -10,11 +10,19 @@
     
       <!-- Enlaces de navegación -->
       <nav class="nav-links">
-        <button  @click="User" class="nav-link">Inicio</button>
-        <button  @click="PerfilCliente" class="nav-link">Ver Perfil</button>
-        <button  @click="Contacto" class="nav-link">Contacto</button>
+        <button @click="User" class="nav-link">
+          <i class="bi bi-house-door nav-icon"></i> Inicio
+        </button>
+        <button @click="PerfilCliente" class="nav-link">
+          <i class="bi bi-person nav-icon"></i> Ver Perfil
+        </button>
+        <button @click="Contacto" class="nav-link">
+          <i class="bi bi-envelope nav-icon"></i> Contacto
+        </button>
         <!-- Botón de cerrar sesión -->
-        <button class="logout-button" @click="logout">Cerrar sesión</button>
+        <button class="logout-button" @click="logout">
+        <i class="bi bi-box-arrow-right nav-icon"></i> Cerrar sesión
+      </button>
       </nav>
     </header>
   </template>
@@ -22,6 +30,7 @@
   <script>
 import Contacto from '@/view/contacto.vue';
 import PerfilCliente from '@/view/perfilCliente.vue';
+import 'bootstrap-icons/font/bootstrap-icons.css'
 
   export default {
     name: "AppHeader", // Nombre del componente
@@ -117,9 +126,20 @@ import PerfilCliente from '@/view/perfilCliente.vue';
   .logout-button:hover {
     background-color: #ad1457;
   }
+  
 
   .nav-link:hover {
     color: #d81b60; /* Cambia el color al pasar el cursor */
   }
-  </style>
+  
+  /* Iconos */
+  .nav-icon {
+  margin-right: 5px;
+  font-size: 1.1rem;
+  vertical-align: middle;
+  }
+  .nav-icon.large {
+    font-size: 1.3rem;
+  }
+</style>
   
