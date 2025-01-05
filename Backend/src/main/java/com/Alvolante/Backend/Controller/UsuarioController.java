@@ -49,5 +49,16 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+    @GetMapping("/userByEmail")
+    public ResponseEntity<UsuarioEntity> getUserByEmail(@RequestParam String email) {
+        try{
+            UsuarioEntity user = userservice.getUserByEmail(email);
+            System.out.println("\nse encontro Usuario:"+user+"\n");
+            return ResponseEntity.ok(user);
+        } catch (RuntimeException e) {
+            System.out.println("\nhay un error\n");
+            throw new RuntimeException("\nError al obtener el usuario\n");
+        }
+    }
 
 }

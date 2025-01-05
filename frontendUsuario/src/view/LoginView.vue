@@ -56,7 +56,18 @@ const router = useRouter(); // Router
 const goToRegister = () => window.location.href = '/register';
 const goToIntranet = () => window.location.href = '/inicio';
 const goToAnon = () => window.location.href = '/anonimo';
-
+const handleLogin = async () => {
+    try {
+        const response = await loginService.login(email.value, password.value);
+        if (response.token) {
+            localStorage.setItem('token', response.token);
+            console.log('Token saved:', response.token); // Debug line
+        }
+        // ...existing code...
+    } catch (error) {
+        console.error('Login error:', error);
+    }
+};
 const login = async () => {
     // Validar campos
     if (!username.value || !password.value) {

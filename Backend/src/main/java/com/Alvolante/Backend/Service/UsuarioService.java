@@ -49,5 +49,8 @@ public class UsuarioService {
     public Long getIdByEmail(String email) {
         return userRepo.findIdByEmail(email);
     }
+    public UsuarioEntity getUserByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
 
 }

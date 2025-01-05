@@ -170,22 +170,22 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 65vh; /* alto carousel*/
-  width: 100vw;
-  margin-left: calc((100vw - 90vw) / 2); 
+  height: 50%; /* alto carousel*/
+  width: 100%;
+  margin-left: calc((100% - 97%) / 2); 
   overflow: hidden;
   margin: 0; 
 }
 
 .carousel {
-  width: 97vw; /* ajustar margenes */
-  height: 100%;
+  width: 97%; /* ajustar margenes */
+  height: 50%;
   margin: 0 auto; 
-  transform: translateX(-2.3%); 
+  transform: translateX(-0.0%); 
 }
 
 .carousel-item {
-  height: 70vh;
+  height: 65vh;
   background-color: #ff80aa8c;
 }
 

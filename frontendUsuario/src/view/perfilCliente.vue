@@ -8,10 +8,10 @@
         <img src="./media/profilePic.png" alt="Foto de Persona" class="profile-img" /> <!-- Imagen de persona -->
         <div class="button-container">
           <div class="nombre-cliente"> {{ nombreGuardado }}</div> 
-          <button @click="toPerfilCliente">Perfil</button>
-          <button @click="toHistorialArriendo">Historial de Arriendo</button>
-          <button @click="toComprobantesPago">Comprobantes de Pago</button>
-          <button @click="logout">Cerrar Sesión</button>
+          <button @click="toPerfilCliente"><i class="bi bi-person nav-icon"></i> Perfil</button>
+          <button @click="toHistorialArriendo"><i class="bi bi-journal nav-icon"></i> Historial de Arriendo</button>
+          <button @click="toComprobantesPago"><i class="bi bi-card-checklist nav-icon"></i> Comprobantes de Pago</button>
+          <button @click="logout"><i class="bi bi-box-arrow-right nav-icon"></i> Cerrar Sesión</button>
         </div>
       </div>
 
@@ -19,17 +19,19 @@
       <div class="central-container">
         <!-- Contenedor para "Datos Cliente" -->
         <div class="data-container">
-          <h2 class="data-title">Datos Cliente</h2>
+          <h2 class="data-title"><i class="bi bi-person-square nav-icon"></i> Datos Cliente</h2>
           <div class="data-section">
-            <h3>Datos Personales</h3>
-            <p><strong>Correo:</strong> {{ correoGuardado }}</p>
+            <h3>Datos Personales</h3> <!-- Datos del usuario, deberia devolverlo el Backend --> 
+            <p><strong>Correo:</strong> {{ usuario?.email }}</p>
+            <p><strong>RUT:</strong> {{ usuario?.rut }}</p>
+            <p><strong>Teléfono:</strong> {{ usuario?.phone }}</p>
             <button @click="editProfile" class="edit-button">Editar Perfil</button>
           </div>
         </div>
 
         <!-- Contenedor para "Documentos" -->
         <div class="document-container">
-          <h2 class="document-title">Documentos</h2>
+          <h2 class="document-title"><i class="bi bi-folder nav-icon"></i>Documentos</h2>
           <div class="document-section">
             <h3>Documentos</h3>
             <p><strong>DNI:</strong> 111111111111</p>
@@ -41,9 +43,9 @@
 
       <!-- Contenedor para "Historial de Arriendo" -->
       <div class="history-container">
-        <h2 class="history-title">Historial de Arriendo</h2>
+        <h2 class="history-title"><i class="bi bi-journal nav-icon"></i>  Historial de Arriendo</h2>
         <div class="history-section">
-          <h3>Vehículos Arrendados</h3>
+          <p>Vehículos Arrendados</p>
           <ul>
             <li><strong>Nissan Maluma:</strong> Activo</li>
             <li><strong>Ford Mustang:</strong> Finalizado</li>
@@ -60,27 +62,42 @@
 
 
 
-<script setup>
+<script setup lang = "ts">
 // Imports
 import { useRouter } from 'vue-router'; // Importar el router
 import axios from 'axios'; // Importar axios
 import { ref, onMounted } from 'vue'; // Importar ref y onMounted para la reactividad
-
+import { userService } from '../services/userService';
+import type { User } from '../types/User';
 // Variables reactivas
 const nombreGuardado = ref('');
 const correoGuardado = ref('');
-
+const usuario = ref<User | null>(null);
 // Métodos
-onMounted(() => {
-  nombreGuardado.value = localStorage.getItem('login1');
-  correoGuardado.value = localStorage.getItem('correoLogin');
-});
+
+const loadUserData = async () => {
+    try {
+        nombreGuardado.value = localStorage.getItem('login1');
+        correoGuardado.value = localStorage.getItem('correoLogin');
+        
+        if (correoGuardado.value) {
+            const userData = await userService.fetchUserByEmail(correoGuardado.value);
+            usuario.value = userData;
+        }
+    } catch (error) {
+        console.error("Error cargando datos del usuario:", error);
+    }
+};
+
+onMounted(loadUserData);
 
 // Redireccionar a la página de inicio
 const logout = () => {
   localStorage.clear();
   window.location.href = "/";
 };
+// Redireccionar a la página perfilCliente
+const toPerfilCliente = () => window.location.href = "/perfilCliente";
 
 // Redireccionar a la página del historial de arriendo
 const toHistorialArriendo = () => window.location.href = "/historialArriendo";
@@ -129,13 +146,13 @@ body {
   position: absolute; /* Para colocarla en una posición específica */ 
   top: 70px; /* Ajustar según la altura de la barra de navegación */ 
   left: 0; /* Para pegarla al borde izquierdo */ 
-  width: 350px; /* Ajustar el ancho según sea necesario */ 
+  width: 450px; /* Ajustar el ancho según sea necesario */ 
   height: calc(100vh - 70px); /* Ajustar para que ocupe todo el espacio disponible debajo de la barra de navegación */ 
   display: flex;
   flex-direction: column; 
   align-items: center; 
   justify-content: center; /* Centrar contenido verticalmente */ 
-  padding: 2rem; 
+  padding: 0rem; 
   background-color: rgba(255, 255, 255, 0.8); 
   border-radius: 0; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -144,13 +161,14 @@ body {
 
 
 
-.profile-img { width: 150px; /* Ajustar el ancho de la imagen del perfil según sea necesario */ 
-margin-top: 2rem; /* Añadir margen inferior para separar la imagen de los botones */ 
+.profile-img { 
+  width: 150px; /* Ajustar el ancho de la imagen del perfil según sea necesario */ 
+  margin-top: 5rem; /* Añadir margen inferior para separar la imagen de los botones */ 
 } 
 .nombre-cliente { 
     position: relative; /* Cambiar la posición a relativa */ 
-    margin-top: 0; 
-    margin-bottom: 10px; 
+    margin-top: 2rem; 
+    margin-bottom: 3rem; 
     text-align: center; 
     font-size: 2.5rem; 
     font-weight: bold; 
@@ -159,18 +177,26 @@ margin-top: 2rem; /* Añadir margen inferior para separar la imagen de los boton
 .button-container { 
     display: flex; 
     flex-direction: column; 
-    width: 123%; /* Asegurar que los botones ocupen todo el ancho del contenedor */ 
+    width: 100%; /* Asegurar que los botones ocupen todo el ancho del contenedor */ 
+    height: 100%;
+    flex: 1;
+    
 } 
 .button-container button { 
-    background-color: #ff80ab; 
+  background-color: #ff80ab; 
     color: #fff; 
-    font-size:18px; 
+    font-size: 18px; 
     border: none; 
     border-radius: 0px; 
     padding: 2.7rem; 
-    margin: 0rem 0; 
+    margin: 0; /* Remove margins */
     cursor: pointer; 
-    transition: background-color 0.3s ease; 
+    transition: background-color 0.3s ease;
+    flex: 1; /* Make buttons equal height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
 }
 
 .button-container button:hover {
@@ -179,10 +205,11 @@ margin-top: 2rem; /* Añadir margen inferior para separar la imagen de los boton
 
 /* Contenedor central para "Datos Cliente" */
 .data-container {
-  height: 300px;
+  height: 40%;
+  width: 70%;
   padding: 2rem;
   background-color: rgba(255, 255, 255, 0.8);
-  margin-left: 21rem; /* Añadir margen izquierdo */
+  margin-left: 35rem; /* Añadir margen izquierdo */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -225,12 +252,12 @@ margin-top: 2rem; /* Añadir margen inferior para separar la imagen de los boton
 }
 /* Containe documentos */
 .document-container {
-  height: 300px;
-  width: 500px;
+  height: 40%;
+  width: 70%;
   padding: 2rem;
   background-color: rgba(255, 255, 255, 0.8);
   margin-top: 2rem;
-  margin-left: 21rem; /* Añadir margen izquierdo */
+  margin-left: 35rem; /* Añadir margen izquierdo */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -273,24 +300,46 @@ margin-top: 2rem; /* Añadir margen inferior para separar la imagen de los boton
 }
 .history-container{
   position: absolute;
-  height: 633px;
-  width: 350px;
+  height: 77%;
+  width: 20%;
   padding: 1.5rem;
   background-color: rgba(255, 255, 255, 0.8);
   margin-top: 0.1rem;
   margin-right: 6rem;
-  margin-left: 55rem; /* Añadir margen izquierdo */
+  margin-left: 80rem; /* Añadir margen izquierdo */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .history-title{
-  font-size: 2rem;
+  font-size: 200%;
   color: #633434;
   
-  margin-bottom: 1rem;    
+  margin-bottom: 15%;    
 }
 .history-section {
-  font-size: 1.2rem;
-  color: #555;    
+  font-size: 130%;
+  color: #555;
+      
+}
+.history-section p {
+  font-size: 100%;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 2rem;    
+}
+.history-section li {
+  font-size: 100%;
+  color: #333;
+  
+  margin-bottom: 15%;    
+}
+/* Iconos */
+.nav-icon {
+  margin-right: 5px;
+  font-size: 1.1rem;
+  vertical-align: middle;
+  }
+.nav-icon.large {
+  font-size: 1.3rem;
 }
 
 </style>
