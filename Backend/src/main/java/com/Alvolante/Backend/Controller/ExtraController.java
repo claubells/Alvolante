@@ -35,6 +35,9 @@ public class ExtraController {
                 System.out.println("Resultado enviado al frontend: " + resultado);
                 return 1; // ya existe este extra
             }
+
+
+
             return 0; //exito
         } catch (Exception e) {
             return -2;
@@ -57,8 +60,8 @@ public class ExtraController {
             //preguntar cuales extra quiere
             ReservaEntity reservaPendiente = extraService.obtenerReservaPendiente(idUsuario);
 
-            if(reservaPendiente != null) {
-                return -1; //no se encontró una reserva pendiente
+            if (reservaPendiente == null) {
+                return -1; // No se encontró una reserva pendiente
             }
 
             for(ExtraEntity extra : extrasParaLaReserva) {

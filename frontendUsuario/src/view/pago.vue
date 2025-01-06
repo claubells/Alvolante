@@ -47,20 +47,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from 'vue-router';
 import axios from 'axios';
-import vehicleServicesInstance from '../services/vehicleService';
+import reservaServiceInstance from '../services/reservaService';
 
 const router = useRouter();
 const route = useRoute();
-const vehiculo = ref(null);
+
+
 const reserva = ref({
-  fechaInicioReserva: "2024-12-16",
-  fechaFinReserva: "2024-12-20",
-  quiereExtras: false,
+  fechaInicioReserva: "",
+  fechaFinReserva: "",
+  quiereExtras: "",
   estadoReserva: 1,
-  horaReserva: 0,
+  extrasReserva: "",
   costoReserva: 0,
 });
 

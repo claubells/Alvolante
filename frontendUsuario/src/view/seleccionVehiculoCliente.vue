@@ -14,25 +14,7 @@
       <p><strong>Tipo:</strong> {{ vehiculo.tipo }}</p>
       <p><strong>Color:</strong> {{ vehiculo.color }}</p>
       <p><strong>Asientos:</strong> {{ vehiculo.capacidadPasajeros }}</p>
-    <p><strong>Accesorios:</strong></p>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" v-model="sillaBebe" @change="updateAccesorios" id="sillaBebe">
-        <label class="form-check-label" for="sillaBebe">
-          Silla de bebe
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" v-model="supensor" @change="updateAccesorios" id="supensor">
-        <label class="form-check-label" for="supensor">
-          Supensor
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" v-model="parrilla" @change="updateAccesorios" id="parrilla">
-        <label class="form-check-label" for="parrilla">
-          Parrilla
-        </label>
-      </div>
+      <p><strong>Accesorios:</strong> {{ vehiculo.accesorios }}</p>
       <p><strong>Fechas:</strong> (información por completar)</p>
       <p><strong>Total Vehículo:</strong> {{ vehiculo.costo }}</p>
       <p><strong>Total:</strong> (vehículo + accesorios)</p>
@@ -51,6 +33,7 @@ const router = useRouter();
 const route = useRoute();
 const vehiculo = ref(null);
 
+
 const fetchVehiculo = async () => {
   try {
     const idVehiculo = route.params.idVehiculo; // Obtén el idVehiculo de los parámetros de la ruta
@@ -66,6 +49,12 @@ const fetchVehiculo = async () => {
     alert("No se pudo cargar la información del vehículo.");
   }
 };
+
+const guardarIdVehiculo = (idVehiculo) => {
+  localStorage.setItem("idVehiculo", idVehiculo);
+};
+
+guardarIdVehiculo(route.params.idVehiculo);
 
 const verDetallesVehiculoPago = (idVehiculo) => {
   router.push({ name: 'pago', params: { idVehiculo } });

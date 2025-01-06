@@ -3,7 +3,6 @@ package com.Alvolante.Backend.Controller;
 import com.Alvolante.Backend.Entity.VehiculoEntity;
 import com.Alvolante.Backend.Service.VehiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,10 +39,12 @@ public class VehiculoController {
 
             if (resultado == 2) {
                 System.out.println("Resultado enviado al frontend: " + resultado);
+                System.out.println("Chasis duplicado");
                 return 2; //chasis duplicado
             }
             if (resultado == 4) {
                 System.out.println("Resultado enviado al frontend: " + resultado);
+                System.out.println("Patente duplicado");
                 return 4; //patente duplicada
             }
             if (resultado == 0) {
@@ -77,11 +78,5 @@ public class VehiculoController {
     @GetMapping("/disponibles-menor-kilometraje")
     public List<VehiculoEntity> getVehiculosUnicosConMenorKilometraje() {
         return vehiculoService.getVehiculosUnicosConMenorKilometraje();
-    }
-
-    @GetMapping("/disponibles")
-    public ResponseEntity<List<VehiculoEntity>> obtenerVehiculosDisponibles() {
-        List<VehiculoEntity> disponibles = vehiculoService.obtenerVehiculosDisponibles();
-        return ResponseEntity.ok(disponibles);
     }
 }

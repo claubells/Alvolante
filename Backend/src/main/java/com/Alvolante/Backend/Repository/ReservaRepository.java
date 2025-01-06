@@ -11,24 +11,18 @@ import java.util.Optional;
 
 
 public interface ReservaRepository extends JpaRepository<ReservaEntity, Long> {
-    @Query( "SELECT r " +
-            "FROM ReservaEntity r " +
-            "WHERE r.usuarioReserva.idUsuario = :idUsuario AND r.estadoReserva = 1")
-    List<ReservaEntity> findActiveReservationByUserId(@Param("idUsuario") Long idUsuario);
+
+    @Query
+    List<ReservaEntity> findByIdUsuarioAndEstadoReserva(Long idUsuario, int estadoReserva);
+
+    @Query("SELECT r FROM ReservaEntity r WHERE r.idUsuario = :idUsuario AND r.estadoReserva = 0")
+    ReservaEntity findPendingReservationByUserId(@Param("idUsuario") Long idUsuario);
 
 
-    @Query( "SELECT r " +
-            "FROM ReservaEntity r " +
-            "WHERE r.usuarioReserva.idUsuario = :idUsuario AND r.estadoReserva = 0")
-    ReservaEntity findPendingReservationByUserId(@Param("idUsuario")Long idUsuario);
+    @Query("SELECT r.estadoReserva FROM ReservaEntity r WHERE r.idReserva = :idReserva")
+    int StateReservationByIdReservation(@Param("idReserva") Long idReserva);
 
-    @Query( "SELECT r.estadoReserva " +
-            "FROM ReservaEntity r " +
-            "WHERE r.idReserva = : idReserva")
-    int StateReservationByIdReservation(@Param("idReserva")Long idReserva);
+    @Query
+    Optional<ReservaEntity> findByIdUsuario(Long idUsuario);
 
-    Optional<ReservaEntity> findByUsuarioReserva_IdUsuario(Long idUsuario);
-
-    @Query("SELECT r FROM ReservaEntity r WHERE r.usuarioReserva.idUsuario = :idUsuario AND r.estadoReserva = 1")
-    Optional<ReservaEntity> findActiveReservationEntityByUserId(@Param("idUsuario") Long idUsuario);
 }

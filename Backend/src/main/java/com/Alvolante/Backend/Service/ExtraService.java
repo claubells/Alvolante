@@ -22,13 +22,11 @@ public class ExtraService {
     }
 
     /*
-    public boolean quiereReservar(Long userId){
-        // vemos si quiere una reserva o no
-        if(reservaRepository.findActiveReservationByUserId(userId)){
-            return false;
-        }
-        return true; //si quiere reserva
-    }*/
+    public boolean quiereReservar(Long userId) {
+    List<ReservaEntity> reservasActivas = reservaRepository.findByIdUsuarioAndEstadoReserva(userId, 1);
+    return reservasActivas.isEmpty(); // Devuelve true si no hay reservas activas
+    }
+    */
 
     public ReservaEntity obtenerReservaPendiente(Long userId){
         return reservaRepository.findPendingReservationByUserId(userId);
