@@ -14,7 +14,25 @@
       <p><strong>Tipo:</strong> {{ vehiculo.tipo }}</p>
       <p><strong>Color:</strong> {{ vehiculo.color }}</p>
       <p><strong>Asientos:</strong> {{ vehiculo.capacidadPasajeros }}</p>
-      <p><strong>Accesorios:</strong> {{ vehiculo.accesorios }}</p>
+      <p><strong>Accesorios:</strong></p>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" v-model="sillaBebe" @change="updateAccesorios" id="sillaBebe">
+        <label class="form-check-label" for="sillaBebe">
+          Silla de bebe
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" v-model="supensor" @change="updateAccesorios" id="supensor">
+        <label class="form-check-label" for="supensor">
+          Supensor
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" v-model="parrilla" @change="updateAccesorios" id="parrilla">
+        <label class="form-check-label" for="parrilla">
+          Parrilla
+        </label>
+      </div>
       <p><strong>Fechas:</strong> (información por completar)</p>
       <p><strong>Total Vehículo:</strong> {{ vehiculo.costo }}</p>
       <p><strong>Total:</strong> (vehículo + accesorios)</p>
@@ -240,4 +258,7 @@ h1 {
   margin-right: auto;
   border: 2px solid black;
 }
+.form-check {
+  margin-right: 30px;
+} 
 </style>
