@@ -1,4 +1,10 @@
-async enviarReserva(reserva, idUsuario, idVehiculo) {
+import axios from "axios"
+
+// URL de la API
+const API_URL = "http://localhost:8080"
+// 
+class reservaService {
+  async enviarReserva(reserva, idUsuario, idVehiculo) {
     try {
       const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
       const response = await axios.post(
@@ -18,3 +24,8 @@ async enviarReserva(reserva, idUsuario, idVehiculo) {
       throw error;
     }
   }
+}
+
+// Exportar una instancia de la clase correctamente
+const reservaServiceInstance = new ReservaService();
+export default reservaServiceInstance;

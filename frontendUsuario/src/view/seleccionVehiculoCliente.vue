@@ -55,6 +55,7 @@ const guardarIdVehiculo = (idVehiculo) => {
 };
 
 guardarIdVehiculo(route.params.idVehiculo);
+console.log(route.params.idVehiculo);
 
 const verDetallesVehiculoPago = (idVehiculo) => {
   router.push({ name: 'pago', params: { idVehiculo } });
