@@ -18,7 +18,7 @@
       <p><strong>Fechas:</strong> (información por completar)</p>
       <p><strong>Total Vehículo:</strong> {{ vehiculo.costo }}</p>
       <p><strong>Total:</strong> (vehículo + accesorios)</p>
-      <button @click="verDetallesVehiculoPago(vehiculo.idVehiculo)" class="select-button">Arrendar</button>
+      <button @click="verDetallesVehiculoPago(vehiculo.idVehiculo)" class="action-btn mt-3">Arrendar</button>
     </div>
   </div>
   <p v-else>Cargando datos del vehículo...</p>
@@ -130,6 +130,9 @@ h1 {
   width: 90%;
   display: flex;
   justify-content: center;
+  background-color: #70707000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0);
+  
 }
 
 .data-title {
@@ -174,7 +177,7 @@ h1 {
   border: none;
   border-radius: 4px;
   background-color: #007bff;
-  color: white;
+  color: rgb(255, 255, 255);
   cursor: pointer;
   margin-top: 10px;
 }
@@ -205,18 +208,29 @@ h1 {
   position: absolute;
   align-items: center;
   border-radius: 4px;
-  background-color: #ffffff;
-  color: #000;
+  background-color: #fa2170;
+  color: #ffffff;
   cursor: pointer;
   margin-left: -3%;
   margin-top: -4%;
   justify-content: center;
-  border: 2px solid black;
+  border: 2px solid rgba(0, 0, 0, 0);
 }
 
 .select-button:hover,
 .select-button2:hover {
-  background-color: #218838;
+  background-color: #fa2170;
+}
+.action-btn{
+  background-color: #fa2170;
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
 }
 
 .vehiculo-imagen {
