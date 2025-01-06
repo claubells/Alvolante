@@ -88,7 +88,7 @@ const verBoleta = () => {
 const paymentError = async () => {
   await Swal.fire({
         title: '¡Error!',
-        text: 'Nose pudo generar Boleta\n',
+        text: 'No se pudo procesar el Pago\n',
         icon: 'warning',
         confirmButtonText: 'OK',
         customClass: {

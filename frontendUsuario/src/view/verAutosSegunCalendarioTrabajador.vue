@@ -28,7 +28,7 @@
           <p><strong>Año:</strong> {{ vehiculo.anio }}</p>
 
           <!-- Botón de selección -->
-          <button @click="verDetallesVehiculoTrabajador(vehiculo.idVehiculo)" class="select-button">Seleccionar</button> 
+          <button @click="verDetallesVehiculoTrabajador(vehiculo.idVehiculo)" class="action-btn mt-3">Seleccionar</button> 
         </div>
       </div>
       <p v-else>No hay vehículos disponibles.</p>
@@ -182,4 +182,15 @@ h1 {
   .nav-icon.large {
     font-size: 1.3rem;
   }
+/*boton seleccionar*/
+  .action-btn{
+  background-color: #fa2170;
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 </style>
