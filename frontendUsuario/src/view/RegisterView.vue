@@ -76,6 +76,25 @@ const addUser = async () => {
         });
         return;
     }
+    // Validar edad
+    const birthDateObj = new Date(birthdate.value);
+    const today = new Date();
+    const age = today.getFullYear() - birthDateObj.getFullYear();
+    const monthDiff = today.getMonth() - birthDateObj.getMonth();
+    const dayDiff = today.getDate() - birthDateObj.getDate();
+
+    if (age < 22 || (age === 22 && (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)))) {
+        await Swal.fire({
+            title: '¡Error!',
+            text: 'Debe tener al menos 22 años para registrarse.',
+            icon: 'warning',
+            confirmButtonText: 'OK',
+            customClass: {
+                confirmButton: 'custom-confirm-button'
+            }
+        });
+        return;
+    }
 
     // Validar que las contraseñas sean iguales
     if(password.value !== confirmPassword.value){
@@ -104,7 +123,7 @@ const addUser = async () => {
 
         await Swal.fire({
             title: '¡Excelente!',
-            text: `Usuario creado con éxito. Nombre: ${response.nameParam}, Correo: ${response.email}`,
+            text: `Usuario creado con éxito.`,
             icon: 'success',
             confirmButtonText: 'OK',
             customClass: {

@@ -56,6 +56,7 @@
 
 <script setup>
 // Imports
+import Swal from 'sweetalert2';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
@@ -91,10 +92,24 @@ const enviarFormulario = async () => {
         'Content-Type': 'application/json'
       }
     });
-    alert("Boleta generada exitosamente");
+    Swal.fire({
+        title: '¡Éxito!',
+        text: '¡Boleta creada exitosamente!',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        customClass: {
+        confirmButton: 'custom-confirm-button'
+        }});
   } catch (error) {
     console.error("Error al generar la boleta:", error);
-    alert("No se pudo generar la boleta.");
+    await Swal.fire({
+        title: '¡Error!',
+        text: 'Nose pudo generar Boleta\n',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+        confirmButton: 'custom-confirm-button'
+      }});
   }
 };
 

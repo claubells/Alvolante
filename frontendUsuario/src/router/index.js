@@ -93,6 +93,13 @@ const router = createRouter({
             component: () => import('../view/pago.vue'),
             props: true,
             meta: { showHeader: true },
+        },
+        {
+            path: '/pagoAdmin/:idVehiculo',
+            name: 'pagoAdmin',
+            component: () => import('../view/pagoAdmin.vue'),
+            props: true,
+            meta: { showHeader: true },
         },   
         {
             path: '/calendarioCliente',

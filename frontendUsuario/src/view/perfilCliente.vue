@@ -45,12 +45,12 @@
         <div class="history-section">
           <p>Vehículos Arrendados</p>
           <ul>
-            <li><strong>Nissan Maluma:</strong> Activo</li>
-            <li><strong>Ford Mustang:</strong> Finalizado</li>
-            <li><strong>Suzuki Swift:</strong> Finalizado</li>
-            <li><strong>KIA Morning:</strong> Finalizado</li>
-            <li><strong>Suzuki ñuñuky:</strong> Finalizado</li>
-            <li><strong>Changang chang:</strong> Finalizado</li>
+            <li><strong>Hyundai Creta:</strong> Activo <i class="bi bi-dot nav-icon-status-v"></i></li>
+            <li><strong>Ford Mustang:</strong> Finalizado <i class="bi bi-dot nav-icon-status-r"></i></li>
+            <li><strong>Suzuki Swift:</strong> Finalizado <i class="bi bi-dot nav-icon-status-r"></i></li>
+            <li><strong>KIA Morning:</strong> Finalizado <i class="bi bi-dot nav-icon-status-r"></i></li>
+            <li><strong>Suzuki Jimny:</strong> Finalizado <i class="bi bi-dot nav-icon-status-r"></i></li>
+            <li><strong>BMW M4:</strong> Finalizado <i class="bi bi-dot nav-icon-status-r"></i></li>
           </ul>
         </div>
       </div>
@@ -204,7 +204,7 @@ body {
   width: 70%;
   padding: 2rem;
   background-color: rgba(255, 255, 255, 0.8);
-  margin-left: 35rem; /* Añadir margen izquierdo */
+  margin-left: 34rem; /* Añadir margen izquierdo */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -252,7 +252,7 @@ body {
   padding: 2rem;
   background-color: rgba(255, 255, 255, 0.8);
   margin-top: 2rem;
-  margin-left: 35rem; /* Añadir margen izquierdo */
+  margin-left: 34rem; /* Añadir margen izquierdo */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -296,12 +296,12 @@ body {
 .history-container{
   position: absolute;
   height: 77%;
-  width: 20%;
+  width: 24%;
   padding: 1.5rem;
   background-color: rgba(255, 255, 255, 0.8);
   margin-top: 0.1rem;
   margin-right: 6rem;
-  margin-left: 80rem; /* Añadir margen izquierdo */
+  margin-left: 73%; /* Añadir margen izquierdo */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .history-title{
@@ -325,7 +325,7 @@ body {
   font-size: 100%;
   color: #333;
   
-  margin-bottom: 15%;    
+  margin-bottom: 5%;    
 }
 /* Iconos */
 .nav-icon {
@@ -334,6 +334,26 @@ body {
   vertical-align: middle;
   }
 .nav-icon.large {
+  font-size: 1.3rem;
+}
+.nav-icon-status-r {
+  margin-right: 5px;
+  font-size: 3rem;
+  font-weight: bold;
+  vertical-align: middle;
+  color: #e20606;
+  }
+.nav-icon-status-r.large {
+  font-size: 1.3rem;
+}
+.nav-icon-status-v {
+  margin-right: 5px;
+  font-size: 3rem;
+  font-weight: bold;
+  vertical-align: middle;
+  color: #44e206;
+  }
+.nav-icon-status-v.large {
   font-size: 1.3rem;
 }
 

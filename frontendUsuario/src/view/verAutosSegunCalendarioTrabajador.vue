@@ -71,7 +71,7 @@ const fetchVehiculosDispo = async () => {
 };
 
 const verDetallesVehiculoTrabajador = (idVehiculo) => {
-  router.push({ name: 'seleccionVehiculoCliente', params: { idVehiculo } });
+  router.push({ name: 'seleccionVehiculoAdmin', params: { idVehiculo } });
 };
 
 onMounted(() => {
