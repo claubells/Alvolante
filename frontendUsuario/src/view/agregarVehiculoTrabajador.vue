@@ -79,6 +79,11 @@ const router = useRouter();
         </div>
 
         <div class="mb-3">
+          <label for="combustible" class="form-label">Combustible:</label>
+          <input type="text" class="form-control" id="combustible" v-model="vehicle.combustible" ref= "combustible" required> 
+        </div>
+
+        <div class="mb-3">
           <label for="estadoVehiculo" class="form-label">Estado del vehiculo:</label>
           <input type="text" class="form-control" id="estadoVehiculo" v-model="vehicle.estadoVehiculo" ref= "estadoVehiculo" required> 
         </div>
@@ -137,6 +142,7 @@ export default {
         color: "",
         capacidadPasajeros: "",
         fechaUltimoMantenimiento: "",
+        combustible: "",
         estadoVehiculo: "",
         sucursal: "",
         fotoVehiculo: "", // Almacenará la imagen en Base64  
