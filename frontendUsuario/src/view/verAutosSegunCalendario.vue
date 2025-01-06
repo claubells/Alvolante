@@ -30,35 +30,34 @@
 <script setup>
 // Imports
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
-import { useRouter } from 'vue-router'; 
+import axios from "axios";
+import Swal from 'sweetalert2';
 
 // Variables reactivas
-const router = useRouter();
-const vehiculos = ref([]);
+const vehiculos = ref([]); // Lista para almacenar los vehículos
 
 // Métodos
-
-const fetchVehiculos = async () => { // funcion para obtener los vehiculos
+const fetchVehiculosDispo = async () => {
   try {
-    const response = await axios.get(
-      import.meta.env.VITE_BASE_URL + "api/vehiculos/all" //ruta para obtener los autos
-    );
-    vehiculos.value = response.data;
+    const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
+    const response = await axios.get("http://localhost:8080/api/vehiculos/all", {
+      headers: {
+        Authorization: `Bearer ${token}`, // Añade el token al encabezado
+      },
+    });
+    vehiculos.value = response.data; // Asigna los vehículos a la variable
   } catch (error) {
     console.error("Error al obtener los vehículos:", error);
-    alert("No se pudo cargar la lista de vehículos");
+    Swal.fire({
+      title: "Error",
+      text: "No se pudieron cargar los vehículos disponibles.",
+      icon: "error",
+    });
   }
 };
-
-const verDetallesVehiculo = (idVehiculo) => {
-  router.push({ name: 'seleccionVehiculoCliente', params: { idVehiculo } });
-};
-
 onMounted(() => {
-  fetchVehiculos(); // Llamamos a la API al cargar
+  fetchVehiculosDispo(); // Llama a la función al cargar el componente
 });
-
 </script>
 
 
