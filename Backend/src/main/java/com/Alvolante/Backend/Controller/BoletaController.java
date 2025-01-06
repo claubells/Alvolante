@@ -4,6 +4,7 @@ import com.Alvolante.Backend.Entity.BoletaEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.Alvolante.Backend.Service.BoletaService;
 
@@ -16,6 +17,7 @@ public class BoletaController {
     @Autowired
     private BoletaService boletaService;
 
+    @PreAuthorize("hasRole('TRABAJADOR') or hasRole('ADMIN')")
     @PostMapping("/generarBoleta")
     public ResponseEntity<?> generarBoleta(@RequestBody BoletaEntity nuevaBoleta) {
 

@@ -31,29 +31,31 @@
 </template>
 
 <script setup>
-// Imports
 import { ref, onMounted } from 'vue';
-import axios from "axios";
+import axios from 'axios';
 
-// Variables reactivas
-const boletas = ref([]); // Lista para almacenar las boletas
+const boletas = ref([]);
 
-// Métodos
-
-// Función para obtener las boletas
 const fetchBoletas = async () => {
   try {
-    const response = await axios.get(
-      import.meta.env.VITE_BASE_URL + "api/boleta/all" // Ruta para obtener las boletas
-    );
-    boletas.value = response.data; // Guardamos los datos de las boletas
+    const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
+    if (!token) {
+      throw new Error("Token no encontrado");
+    }
+    const response = await axios.get('http://localhost:8080/api/boleta/all', {
+      headers: {
+        Authorization: `Bearer ${token}`, // Añade el token al encabezado
+      },
+    });
+    boletas.value = response.data;
   } catch (error) {
     console.error("Error al obtener las boletas:", error);
-    alert("No se pudo cargar la lista de boletas");
+    alert("No se pudo cargar la información de las boletas.");
   }
 };
 
 const cierreSesion = () => {
+  localStorage.removeItem("jwtToken"); // Elimina el token del almacenamiento local
   window.location.href = "/"; // Redirecciona a la vista principal
 };
 

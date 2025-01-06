@@ -22,13 +22,16 @@
             class="vehiculo-imagen"
           />
           <!-- Datos del vehículo -->
-          <p><strong>Patente:</strong> {{ vehiculo.patente }}</p>
-          <p><strong>Modelo:</strong> {{ vehiculo.modelo }}</p>
-          <p><strong>Marca:</strong> {{ vehiculo.marca }}</p>
-          <p><strong>Año:</strong> {{ vehiculo.anio }}</p>
-
+          <div class="vehiculo-info">
+          <h2>{{ vehiculo.modelo }}</h2>
+          <div class="vehiculo-detalles">
+              <p><i class="bi bi-people"></i><strong>Pasajeros:</strong> {{ vehiculo.capacidadPasajeros }}</p>
+              <p><i class="bi bi-fuel-pump"></i><strong>Combustible:</strong> {{ vehiculo.combustible }}</p>
+              <p><i class="bi bi-gear"></i><strong>Transmisión:</strong> {{ vehiculo.tipo }}</p>
+            </div>
           <!-- Botón de selección -->
-          <button @click="verDetallesVehiculoTrabajador(vehiculo.idVehiculo)" class="action-btn mt-3">Seleccionar</button> 
+          <button @click="verDetallesVehiculoTrabajador(vehiculo.idVehiculo)" class="select-button">Seleccionar</button> 
+          </div>
         </div>
       </div>
       <p v-else>No hay vehículos disponibles.</p>
@@ -149,28 +152,60 @@ h1 {
 .vehiculos-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 30px;
+  justify-content: center;
 }
 
 .vehiculo-card {
   border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 15px;
-  width: 250px;
+  border-radius: 12px;
+  padding: 20px;
+  width: 730px;
   background-color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  transition: transform 0.3s;
 }
 
 .vehiculo-card img {
-  max-width: 100%;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  max-width: 60%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.vehiculo-info {
+  text-align: center;
 }
 
 .vehiculo-card p {
   margin: 5px 0;
   font-size: 14px;
+}
+
+.vehiculo-detalles {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  justify-content: center;
+}
+
+.vehiculo-detalles p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 16px;
+  background-color: #f9f9f9; 
+  padding: 10px 15px; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  border: 1px solid #ddd; 
+}
+
+.vehiculo-detalles i {
+  font-size: 24px; 
+  color: #ff80ab; 
 }
 
 /* Iconos */
@@ -182,15 +217,17 @@ h1 {
   .nav-icon.large {
     font-size: 1.3rem;
   }
-/*boton seleccionar*/
-  .action-btn{
-  background-color: #fa2170;
-  color: white;
+
+  .select-button {
+  background-color: #ff80ab;
+  color: #fff;
   font-size: 16px;
-  padding: 10px;
+  font-weight: bold;
+  padding: 12px 24px;
   border: none;
-  border-radius: 5px;
+  border-radius: 25px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 </style>

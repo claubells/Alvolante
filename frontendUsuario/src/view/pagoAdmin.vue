@@ -79,11 +79,11 @@ const enviarReserva = async () => {
 };
 
 const Volver = () => {
-  router.push('/trabajador');
+  window.location.href = "/trabajador";
   
 };
 const verBoleta = () => {
-  router.push('/rellenarDatosClienteAdmin');
+  window.location.href = "/rellenarDatosClienteAdmin";
 };
 const paymentError = async () => {
   await Swal.fire({
@@ -94,7 +94,7 @@ const paymentError = async () => {
         customClass: {
         confirmButton: 'custom-confirm-button'
       }});
-  router.push('/trabajador');
+      window.location.href = "/admin";
 };
 
 onMounted(() => {
