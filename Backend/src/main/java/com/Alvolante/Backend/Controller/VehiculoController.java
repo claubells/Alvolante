@@ -13,6 +13,7 @@ public class VehiculoController {
     @Autowired
     private VehiculoService vehiculoService;
 
+
     @PostMapping("/crear-vehiculo")
     public int createVehiculo(@RequestBody VehiculoEntity nuevoVehiculo) {
 
