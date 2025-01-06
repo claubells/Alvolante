@@ -14,7 +14,7 @@ public class UsuarioEntity {
     //Atributos
     private long idUsuario;
     private String rut;
-    private String name;
+    private String nameParam;
     private String email;
     private String phone;
     @JsonFormat
@@ -24,9 +24,9 @@ public class UsuarioEntity {
 
     //Constructor de usuario
 
-    public UsuarioEntity(String rut, String name, String email, String phone, Date birthdate, String password, String role) {
+    public UsuarioEntity(String rut, String nameParam, String email, String phone, Date birthdate, String password, String role) {
         this.rut = rut;
-        this.name = name;
+        this.nameParam = nameParam;
         this.email = email;
         this.phone = phone;
         this.birthdate = birthdate;

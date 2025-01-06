@@ -18,7 +18,7 @@
 
                         <!-- Contenedor de inputs -->
                         <div class="inputContainer">
-                            <input type="name" v-model="nameParam" placeholder="Ingrese nombre y apellido">
+                            <input type="text" v-model="nameParam" placeholder="Ingrese nombre y apellido">
                             <input type="email" v-model="email" placeholder="Ingrese correo">
                             <input type="password" v-model="password" placeholder="Ingrese contraseña">
                             <input type="password" v-model="confirmPassword" placeholder="Repita contraseña">
@@ -31,9 +31,9 @@
                         <div class="alsoButtons">
                             <div class="headerCliente">¿No estás registrado?</div>
                             <!-- Enlaces adicionales -->
-                            <button @click="goToAnon"class="text-link">Ingresar como Anónimo</button>
-                            <button @click="goToLogin"class="text-link">Ir al Login</button>
-                            <button @click="goToIntranet"class="text-link">Volver al incio</button>
+                            <button @click="goToAnon" class="text-link">Ingresar como Anónimo</button>
+                            <button @click="goToLogin" class="text-link">Ir al Login</button>
+                            <button @click="goToIntranet" class="text-link">Volver al incio</button>
                         </div>
                     </div>
                 </div>
@@ -104,15 +104,26 @@ const addUser = async () => {
 
         await Swal.fire({
             title: '¡Excelente!',
-            text: 'Usuario creado con exito',
+            text: `Usuario creado con éxito. Nombre: ${response.nameParam}, Correo: ${response.email}`,
             icon: 'success',
             confirmButtonText: 'OK',
             customClass: {
             confirmButton: 'custom-confirm-button'
             
         }});
-
+  
+        
+        
+        
         window.location.href = '/login'; //lo redirige al login
+        return {
+            nameParam,
+            email,
+            password,
+            confirmPassword,
+            birthdate,
+            addUser
+        }
 
     }catch(error){
 

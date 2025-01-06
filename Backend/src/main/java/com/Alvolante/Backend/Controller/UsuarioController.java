@@ -24,7 +24,7 @@ public class UsuarioController {
     public ResponseEntity<?> register(@RequestBody UsuarioEntity nuevo) {
 
         try {
-            UsuarioEntity user = userservice.register(nuevo.getRut(), nuevo.getName(), nuevo.getEmail(), nuevo.getPhone(), nuevo.getBirthdate(), nuevo.getPassword(), nuevo.getRole());
+            UsuarioEntity user = userservice.register(nuevo.getRut(), nuevo.getNameParam(), nuevo.getEmail(), nuevo.getPhone(), nuevo.getBirthdate(), nuevo.getPassword(), nuevo.getRole());
             return ResponseEntity.ok(user); //retorna al usuario si todo salio ok
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage()); // imprime el error

@@ -121,7 +121,7 @@ public class AuthController {
             // se crea un nuevo usuario
             UsuarioEntity newUser = new UsuarioEntity(
                     registerDto.getRut(),
-                    registerDto.getName(),
+                    registerDto.getNameParam(),
                     registerDto.getEmail(),
                     registerDto.getPhone(),
                     registerDto.getBirthdate(),

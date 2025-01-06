@@ -7,7 +7,7 @@
       <div class="profile-container">
         <img src="./media/profilePic.png" alt="Foto de Persona" class="profile-img" /> <!-- Imagen de persona -->
         <div class="button-container">
-          <div class="nombre-cliente"> {{ nombreGuardado }}</div> 
+          <div class="nombre-cliente"> {{ usuario?.nameParam }}</div> 
           <button @click="toPerfilCliente"><i class="bi bi-person nav-icon"></i> Perfil</button>
           <button @click="toHistorialArriendo"><i class="bi bi-journal nav-icon"></i> Historial de Arriendo</button>
           <button @click="toComprobantesPago"><i class="bi bi-card-checklist nav-icon"></i> Comprobantes de Pago</button>
@@ -23,8 +23,6 @@
           <div class="data-section">
             <h3>Datos Personales</h3> <!-- Datos del usuario, deberia devolverlo el Backend --> 
             <p><strong>Correo:</strong> {{ usuario?.email }}</p>
-            <p><strong>RUT:</strong> {{ usuario?.rut }}</p>
-            <p><strong>Teléfono:</strong> {{ usuario?.phone }}</p>
             <button @click="editProfile" class="edit-button">Editar Perfil</button>
           </div>
         </div>
@@ -62,31 +60,27 @@
 
 
 
-<script setup lang = "ts">
+<script setup >
 // Imports
-import { useRouter } from 'vue-router'; // Importar el router
+
 import axios from 'axios'; // Importar axios
 import { ref, onMounted } from 'vue'; // Importar ref y onMounted para la reactividad
 import { userService } from '../services/userService';
-import type { User } from '../types/User';
 // Variables reactivas
-const nombreGuardado = ref('');
-const correoGuardado = ref('');
-const usuario = ref<User | null>(null);
+
+const usuario = ref('');
+
 // Métodos
 
 const loadUserData = async () => {
-    try {
-        nombreGuardado.value = localStorage.getItem('login1');
-        correoGuardado.value = localStorage.getItem('correoLogin');
-        
-        if (correoGuardado.value) {
-            const userData = await userService.fetchUserByEmail(correoGuardado.value);
-            usuario.value = userData;
-        }
-    } catch (error) {
-        console.error("Error cargando datos del usuario:", error);
-    }
+  try {
+    const idUsuario = localStorage.getItem('userId')
+    usuario.value = await userService.getUserById(idUsuario)
+    console.log('Datos del id usuario:', idUsuario);
+
+  } catch (error) {
+    console.error('Error al cargar datos del usuario:', error)
+  }
 };
 
 onMounted(loadUserData);

@@ -78,6 +78,10 @@ class LoginService {
             // Retorna un obj con el token, el id del usuario y el role
             return { token, userId , role};
             
+
+
+            
+            
         } catch (error) {
             // Errores en la API
             if (error.response) {
