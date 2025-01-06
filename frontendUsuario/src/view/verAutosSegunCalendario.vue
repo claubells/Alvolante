@@ -32,9 +32,11 @@
 import { ref, onMounted } from 'vue';
 import axios from "axios";
 import Swal from 'sweetalert2';
+import { useRouter } from 'vue-router'; // Importa el enrutador
 
 // Variables reactivas
 const vehiculos = ref([]); // Lista para almacenar los vehículos
+const router = useRouter(); // Instancia del enrutador
 
 // Métodos
 const fetchVehiculosDispo = async () => {
@@ -55,6 +57,11 @@ const fetchVehiculosDispo = async () => {
     });
   }
 };
+
+const verDetallesVehiculo = (idVehiculo) => {
+  router.push({ name: 'seleccionVehiculoCliente', params: { idVehiculo } });
+};
+
 onMounted(() => {
   fetchVehiculosDispo(); // Llama a la función al cargar el componente
 });

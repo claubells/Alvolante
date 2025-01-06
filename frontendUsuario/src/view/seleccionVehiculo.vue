@@ -106,10 +106,6 @@ seleccionarVehiculoAnonimo() {
     });
 
 },
-
-
-
-    
   },
   mounted() {
     this.fetchVehiculo(this.idVehiculo); // Carga los datos del vehículo al montar el componente
