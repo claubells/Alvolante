@@ -61,6 +61,12 @@ const fetchVehiculo = async () => {
     });
     vehiculo.value = response.data; // Asigna el vehículo a la variable
     reserva.value.costoReserva = vehiculo.value.costo; // Asigna el costo del vehículo a la reserva
+    localStorage.setItem("vehiculoCosto", vehiculo.value.costo); // Guarda el costo del vehículo en localStorage
+    if (vehiculoCosto) {
+      boletas.value.forEach(boleta => {
+        boleta.total = parseFloat(vehiculoCosto);
+      });
+    }
   } catch (error) {
     console.error("Error al obtener el vehículo:", error);
     alert("No se pudo cargar la información del vehículo.");

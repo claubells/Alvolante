@@ -48,6 +48,14 @@ const fetchBoletas = async () => {
       },
     });
     boletas.value = response.data;
+
+    // Asigna el costo del vehículo desde localStorage a cada boleta
+    const vehiculoCosto = localStorage.getItem("vehiculoCosto");
+    if (vehiculoCosto) {
+      boletas.value.forEach(boleta => {
+        boleta.total = parseFloat(vehiculoCosto);
+      });
+    }
   } catch (error) {
     console.error("Error al obtener las boletas:", error);
     alert("No se pudo cargar la información de las boletas.");

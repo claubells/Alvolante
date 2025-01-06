@@ -47,7 +47,7 @@
 
         <!-- Botones de acción -->
         <button type="submit" @click= "enviarFormulario" class="action-btn">Enviar</button>
-        <button type="submit" @click= "verBoleta(formulario.nombreCliente)" class="action-btn">Ver boleta</button>
+        <button type="submit" @click= "verBoleta(formulario.nombreCliente)" class="action-btn">Ver boletas</button>
       </form>
       </div>
     </div>
@@ -118,7 +118,10 @@ const verBoleta = () => {
 };
 
 onMounted(() => {
-  formulario.value.total = localStorage.getItem('total');
+  const vehiculoCosto = localStorage.getItem("vehiculoCosto");
+  if (vehiculoCosto) {
+    formulario.value.montoTotal = parseFloat(vehiculoCosto); // Asigna el costo del vehículo desde localStorage
+  }
 });
 </script>
 
