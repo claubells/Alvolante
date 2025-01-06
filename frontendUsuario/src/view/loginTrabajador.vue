@@ -75,8 +75,7 @@ const loginTrabajador = async () => {
 
     // Verificar el rol del usuario
     const { role } = response;
-    if (role === 'ADMIN' || role == 'TRABAJADOR') { // Si el rol es ADMIN
-
+    if (role == 'TRABAJADOR') { // Si el rol es trabajador
       console.log('Sesión iniciada', response);
       Swal.fire({
         title: '¡Éxito!',
@@ -100,8 +99,24 @@ const loginTrabajador = async () => {
         customClass: {
         confirmButton: 'custom-confirm-button'
       }});
+      
       router.push('/login'); // Redirigir al dashboard del login
-    } else {
+    }else if(role === 'ADMIN'){
+      console.log('Sesión iniciada', response);
+      Swal.fire({
+        title: '¡Éxito!',
+        text: '¡Sesión iniciada exitosamente!',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        customClass: {
+        confirmButton: 'custom-confirm-button'
+        }});
+        router.push('/admin');
+    }
+    
+    
+    
+    else {
       console.log('Rol del usuario: ', role);
       // Si el rol no es válido, muestra un SweetAlert
       await Swal.fire({
