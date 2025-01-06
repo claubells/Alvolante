@@ -29,9 +29,10 @@ public class VehiculoEntity {
     private Date fechaUltimoMantenimiento;
     @Lob
     private byte[] fotoVehiculo;
+    private String combustible;
 
 
-    public VehiculoEntity(String codigoACRISS, String estadoVehiculo, String marca, String modelo, String patente, String numeroChasis, String kilometraje, float costo, int anio, String tipo, String color, int capacidadPasajeros, boolean disponibilidad, Date fechaUltimoMantenimiento, byte[] fotoVehiculo) {
+    public VehiculoEntity(String codigoACRISS, String estadoVehiculo, String marca, String modelo, String patente, String numeroChasis, String kilometraje, float costo, int anio, String tipo, String color, int capacidadPasajeros, boolean disponibilidad, Date fechaUltimoMantenimiento, byte[] fotoVehiculo, String combustible) {
         this.codigoACRISS = codigoACRISS;
         this.estadoVehiculo = estadoVehiculo;
         this.marca = marca;
@@ -47,6 +48,7 @@ public class VehiculoEntity {
         this.disponibilidad = disponibilidad;
         this.fechaUltimoMantenimiento = fechaUltimoMantenimiento;
         this.fotoVehiculo = fotoVehiculo;
+        this.combustible = combustible;
     }
 
     public VehiculoEntity() {

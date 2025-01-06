@@ -3,6 +3,7 @@ package com.Alvolante.Backend.Controller;
 import com.Alvolante.Backend.Entity.VehiculoEntity;
 import com.Alvolante.Backend.Service.VehiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +34,8 @@ public class VehiculoController {
                     nuevoVehiculo.getCapacidadPasajeros(),
                     nuevoVehiculo.isDisponibilidad(),
                     nuevoVehiculo.getFechaUltimoMantenimiento(),
-                    nuevoVehiculo.getFotoVehiculo()
+                    nuevoVehiculo.getFotoVehiculo(),
+                    nuevoVehiculo.getCombustible()
             );
 
             if (resultado == 2) {
@@ -75,5 +77,11 @@ public class VehiculoController {
     @GetMapping("/disponibles-menor-kilometraje")
     public List<VehiculoEntity> getVehiculosUnicosConMenorKilometraje() {
         return vehiculoService.getVehiculosUnicosConMenorKilometraje();
+    }
+
+    @GetMapping("/disponibles")
+    public ResponseEntity<List<VehiculoEntity>> obtenerVehiculosDisponibles() {
+        List<VehiculoEntity> disponibles = vehiculoService.obtenerVehiculosDisponibles();
+        return ResponseEntity.ok(disponibles);
     }
 }

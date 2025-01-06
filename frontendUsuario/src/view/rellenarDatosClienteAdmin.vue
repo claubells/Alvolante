@@ -46,7 +46,7 @@
         </div>
 
         <!-- Botones de acción -->
-        <button type="submit" @click= "confirmacionPago" class="action-btn">Enviar</button>
+        <button type="submit" @click= "enviarFormulario" class="action-btn">Enviar</button>
         <button type="submit" @click= "verBoleta(formulario.nombreCliente)" class="action-btn">Ver boleta</button>
       </form>
       </div>
@@ -63,15 +63,14 @@ import { useRouter } from 'vue-router';
 // Variables reactivas
 const router = useRouter();
 const formulario = ref({
-  nombreEmisor: 'AlVolante',
-  rutEmisor: '677777',
-  direccionEmisor: '',
   nombreCliente: '',
   rutCliente: '',
-  telefono: '',
-  direccion: '',
-  total: '', 
-  correo: ''
+  direccionEmisor: '',
+  fechaEmision: '',
+  montoTotal: '',
+  correo: '',
+  nombreEmisor: 'Al volante', 
+  rutEmisor: '76.123.456-7',
 });
 
 // Métodos
@@ -83,22 +82,19 @@ const toInicio = () => {
   window.location.href = "/admin";
 };
 
-const confirmacionPago = async () => {
-  localStorage.setItem('formNombre', JSON.stringify(formulario.value.nombreCliente));
-  localStorage.setItem('formApellido', JSON.stringify(formulario.value.apellido));
-  localStorage.setItem('formRut', JSON.stringify(formulario.value.rutCliente));
-  localStorage.setItem('formTelefono', JSON.stringify(formulario.value.telefono));
-  localStorage.setItem('formDireccion', JSON.stringify(formulario.value.direccion));
-  localStorage.setItem('formCorreo', JSON.stringify(formulario.value.correo));
+const enviarFormulario = async () => {
   try {
-    // agrupa los datos y los manda al backend
-    const response = await axios.post(
-      import.meta.env.VITE_BASE_URL + 'api/boleta/generarBoleta',
-      formulario.value
-    );
-    alert('se creo');
+    const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
+    const response = await axios.post('http://localhost:8080/api/boleta/generarBoleta', formulario.value, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Añade el token al encabezado
+        'Content-Type': 'application/json'
+      }
+    });
+    alert("Boleta generada exitosamente");
   } catch (error) {
-    console.error(error);
+    console.error("Error al generar la boleta:", error);
+    alert("No se pudo generar la boleta.");
   }
 };
 

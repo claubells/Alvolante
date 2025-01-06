@@ -19,7 +19,7 @@ public class VehiculoService {
     private VehiculoRepository vehiculoRepository;
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('TRABAJADOR')")
-    public int createVehiculo(String codigoACRISS, String estadoVehiculo, String marca, String modelo, String patente, String numeroChasis, String kilometraje, float costo, int anio, String tipo, String color, int capacidadPasajeros, boolean disponibilidad, Date fechaUltimoMantenimiento, byte[] fotoVehiculo) {
+    public int createVehiculo(String codigoACRISS, String estadoVehiculo, String marca, String modelo, String patente, String numeroChasis, String kilometraje, float costo, int anio, String tipo, String color, int capacidadPasajeros, boolean disponibilidad, Date fechaUltimoMantenimiento, byte[] fotoVehiculo, String combustible) {
         VehiculoEntity existentePatente = vehiculoRepository.findByPatente(patente);
         VehiculoEntity existenteChasis = vehiculoRepository.findByNumeroChasis(numeroChasis);
         if(existentePatente != null ) { // si se encuentra una patente ya registrada
@@ -31,7 +31,7 @@ public class VehiculoService {
             return 2; //chasis duplicado
         }
 
-        VehiculoEntity vehiculoNuevo = new VehiculoEntity(codigoACRISS, estadoVehiculo, marca, modelo, patente, numeroChasis, kilometraje, costo, anio, tipo, color, capacidadPasajeros, true, fechaUltimoMantenimiento, fotoVehiculo);
+        VehiculoEntity vehiculoNuevo = new VehiculoEntity(codigoACRISS, estadoVehiculo, marca, modelo, patente, numeroChasis, kilometraje, costo, anio, tipo, color, capacidadPasajeros, true, fechaUltimoMantenimiento, fotoVehiculo, combustible);
         vehiculoRepository.save(vehiculoNuevo);
         return 0; //exito
     }
@@ -66,4 +66,10 @@ public class VehiculoService {
 
         return new ArrayList<>(lowestMileageByModel.values());
     }
+
+    public List<VehiculoEntity> obtenerVehiculosDisponibles() {
+        return vehiculoRepository.findByDisponibilidadTrue();
+    }
+
+
 }
