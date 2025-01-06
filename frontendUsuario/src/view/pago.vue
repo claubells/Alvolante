@@ -50,19 +50,18 @@
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from 'vue-router';
 import axios from 'axios';
-import reservaServiceInstance from '../services/reservaService';
+import ReservaService from '../services/reservaService';
 
 const router = useRouter();
-const route = useRoute();
-
+const vehiculo = ref(null);
 
 const reserva = ref({
   fechaInicioReserva: "",
   fechaFinReserva: "",
-  quiereExtras: "",
   estadoReserva: 1,
+  costoReserva: "",
   extrasReserva: "",
-  costoReserva: 0,
+  idVehiculo: localStorage.getItem("idVehiculo"),
 });
 
 const idUsuario = ref(localStorage.getItem("idUsuario"));
@@ -86,7 +85,7 @@ const fetchVehiculo = async () => {
 
 const enviarReserva = async () => {
   try {
-    const response2 = await reservaServiceInstance.enviarReserva(reserva.value ,idUsuario.value, route.params.idVehiculo);
+    const response2 = await ReservaService.enviarReserva(reserva.value ,idUsuario.value, route.params.idVehiculo);
     reserva.value = response2.data; // Asigna la reserva a la variable
     reserva.value.idUsuario = idUsuario.value; // Asigna el idUsuario a la reserva
     reserva.idVehiculo = vehiculo.value.idVehiculo; // Asigna el idVehiculo a la reserva
@@ -98,6 +97,8 @@ const enviarReserva = async () => {
 const Volver = () => {
   router.push('/seleccionVehiculoCliente/' + route.params.idVehiculo);
 };
+
+const route = useRoute();
 
 onMounted(() => {
   fetchVehiculo(); // Llama a la función al cargar el componente

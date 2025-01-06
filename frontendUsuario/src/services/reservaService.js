@@ -3,21 +3,21 @@ import axios from "axios"
 // URL de la API
 const API_URL = "http://localhost:8080"
 // 
-class reservaService {
+class ReservaService {
   async enviarReserva(reserva, idUsuario, idVehiculo) {
     try {
       const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
       const response = await axios.post(
-        `${API_URL}/crear-reserva`,
-        reserva,
+        "http://localhost:8080/api/reserva/crear-reserva",
+        reserva.value, // Datos de la reserva
         {
-          params: { idUsuario, idVehiculo },
           headers: {
-            Authorization: `Bearer ${token}`, // Añade el token al encabezado
-            "Content-Type": "application/json", // Este encabezado es necesario
+            Authorization: `Bearer ${token}`, // Incluye el token en el encabezado
+            "Content-Type": "application/json", // Establece el tipo de contenido
           },
         }
       );
+      console.log("Reserva creada con éxito:", response.data);
       return response.data;
     } catch (error) {
       console.error("Error al crear la reserva:", error.response || error);
