@@ -23,11 +23,14 @@
             alt="Foto del Vehículo"
             class="vehiculo-imagen"
           />
-          <p><strong>Patente:</strong> {{ vehiculo.patente }}</p>
-          <p><strong>Modelo:</strong> {{ vehiculo.modelo }}</p>
-          <p><strong>Marca:</strong> {{ vehiculo.marca }}</p>
-          <p><strong>Año:</strong> {{ vehiculo.anio }}</p>
-          
+          <div class="vehiculo-info">
+            <h2>{{ vehiculo.modelo }}</h2>
+            <div class="vehiculo-detalles">
+              <p><i class="bi bi-people"></i><strong>Pasajeros:</strong> {{ vehiculo.capacidadPasajeros }}</p>
+              <p><i class="bi bi-fuel-pump"></i><strong>Combustible:</strong> {{ vehiculo.tipo }}</p>
+              <p><i class="bi bi-gear"></i><strong>Transmisión:</strong> {{ vehiculo.tipo }}</p>
+            </div>
+          </div>
         </div>
       </div>
       <p v-else>No hay vehículos disponibles.</p>
@@ -84,7 +87,7 @@ onMounted(() => {
   fetchVehiculosDispo(); // Llama a la función al cargar el componente
 });
 </script>
-  
+
 <style>
 /* Contenedor principal */
 body {
@@ -150,35 +153,68 @@ body {
 }
 
 h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 28px;
+  margin-bottom: 30px;
 }
 
 /* Contenedor de vehículos */
 .vehiculos-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 30px;
+  justify-content: center;
 }
 
 .vehiculo-card {
   border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 15px;
-  width: 250px;
+  border-radius: 12px;
+  padding: 20px;
+  width: 730px;
   background-color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  transition: transform 0.3s;
+}
+
+.vehiculo-card:hover {
+  transform: scale(1.05);
 }
 
 .vehiculo-card img {
   max-width: 100%;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 15px;
 }
 
-.vehiculo-card p {
-  margin: 5px 0;
-  font-size: 14px;
+.vehiculo-info {
+  text-align: center;
 }
+
+.vehiculo-detalles {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  justify-content: center;
+}
+
+.vehiculo-detalles p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 16px;
+  background-color: #f9f9f9; 
+  padding: 10px 15px; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  border: 1px solid #ddd; 
+}
+
+.vehiculo-detalles i {
+  font-size: 24px; 
+  color: #ff80ab; 
+}
+
 </style>
+
