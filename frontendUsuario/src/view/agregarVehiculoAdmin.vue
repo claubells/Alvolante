@@ -140,7 +140,7 @@ export default {
         fechaUltimoMantenimiento: "",
         estadoVehiculo: "",
         sucursal: "",
-        fotoVehiculo: null, // Almacenará la imagen en Base64  
+        fotoVehiculo: "", // Almacenará la imagen en Base64  
       },
       error: null,
       success: false,
@@ -170,7 +170,7 @@ export default {
         const response = await vehicleService.createVehiculo(this.vehicle);
 
         console.log('Sesión iniciada', response);
-        if (response.data == 4) {
+        if (response == 4) {
           Swal.fire({
             title: '¡Cuidado!',
             text: 'Patente repetida',
@@ -181,7 +181,7 @@ export default {
       }
     });
         }
-        if (response.data == 2) {
+        if (response == 2) {
           Swal.fire({
             title: '¡Cuidado!',
             text: 'Numero de chasis repetido',
@@ -190,11 +190,9 @@ export default {
             customClass: {
               confirmButton: 'custom-confirm-button'
       }
-    });
-          
-          
+    });   
         } 
-        if (response.data == 0) {  
+        if (response == 0) {  
           Swal.fire({
             title: '¡Excelente!',
             text: 'Vehículo ingresado con éxito',
