@@ -1,14 +1,13 @@
 <template>
-  <main class="main-container"> 
-    
-      <!-- Bootstrap Carousel -->
-      <section class="carousel-section">
-      <div id="carouselExampleCaptions" class="carousel slide">
+  <main class="main-container">
+    <!-- Bootstrap Carousel -->
+    <section class="carousel-section">
+      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
@@ -35,11 +34,10 @@
           <div class="carousel-item">
             <img src="./media/crent.jpg" class="d-block w-100" alt="Al Volante">
             <div class="carousel-caption d-none d-md-block">
-              <h5>Viaja seguro en nuestras manos</h5>
-              <p>Soporte con sucursales en todas las regiones de Chile.</p>
+              <h5>Confiable</h5>
+              <p>Confía en nosotros para tu próximo viaje.</p>
             </div>
           </div>
-          
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -49,39 +47,34 @@
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
-        
       </div>
     </section>
 
-    
-    <!-- Secciones adicionales -->
+    <!-- Additional Content -->
     <section class="content-section">
       <div class="card">
         <h2>Reserva</h2>
         <p>¡Entra ya y reserva!</p>
         <button class="card-button" @click.prevent="toCalendario"><i class="bi bi-calendar-fill nav-icon"></i>  Agendar </button>
       </div>
-    </section> 
-
+    </section>
   </main>
 </template>
 
 <script setup>
 // Imports
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+
+
 
 // Variables reactivas
-const userName = ref("Usuario"); // Puedes usar variables para datos dinámicos.
+const userName = ref("Usuario")
 
 // Métodos
-const toCalendario = () => window.location.href = "/calendarioCliente";
-onMounted(() => {
-  const carousel = new bootstrap.Carousel(document.getElementById('carouselExample'))
-  // recalcular layout para que no se cargue buggeado
-  requestAnimationFrame(() => {
-    document.querySelector('.content-section').style.opacity = '1'
-  })
-})
+const toCalendario = () => window.location.href = "/calendarioCliente"
+
+
 </script>
 
 <style>
