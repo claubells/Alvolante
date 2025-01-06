@@ -14,8 +14,9 @@
       
       <!-- Botones de acción -->
       <div class="action-buttons">
-        <button @click="verEstadisticas" class="action-btn"><i class="bi bi-graph-up nav-icon"></i> Ver estadisticas</button>
         <button @click="arrendarVehiculo" class="action-btn"><i class="bi bi-basket3 nav-icon"></i> Realizar arriendo de vehículo</button>
+        <button @click="verVehiculoTrabajador" class="action-btn"><i class="bi bi-car-front nav-icon"></i> Ver vehículos</button>
+        <button @click="AgregarVehiculoTrabajador" class="action-btn"><i class="bi bi-plus-square-dotted nav-icon"></i> Agregar Vehículo a alguna sucursal</button>
       </div>
     </div>
   </div>
@@ -26,8 +27,9 @@
 // Métodos
 const cierreSesion = () => window.location.href = "/";
 const toInicio = () => window.location.href = "/trabajador";
-const verEstadisticas = () => window.location.href = "/finanzas";
 const arrendarVehiculo = () => window.location.href = "/calendarioTrabajador";
+const verVehiculoTrabajador = () => window.location.href = "/verVehiculosTrabajador";
+const AgregarVehiculoTrabajador = () => window.location.href = "/agregarVehiculoTrabajador";
 </script>
   
 

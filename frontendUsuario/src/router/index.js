@@ -188,6 +188,19 @@ const router = createRouter({
             component: () => import('../view/verBoleta.vue'), 
         },
 
+        {
+            path: '/VerVehiculosTrabajador',
+            name: 'verVehiculostrabajador',
+            component: () => import('../view/verVehiculosTrabajador.vue'), 
+        },
+
+        {
+            path: '/agregarVehiculoTrabajador',
+            name: 'agregarVehiculoTrabajador',
+            component: () => import('../view/agregarVehiculoTrabajador.vue'), 
+        },
+
+
              
         
         
