@@ -48,7 +48,7 @@
       </div>
        
       <!-- Botón de confirmación -->
-      <button class="btn btn-block mt-3" style="background-color: #ff80ab; color: white;" @click="handleSubmit">Confirmar Datos</button>
+      <button class="submit-button" @click="handleSubmit">Confirmar Datos</button>
     </section>
   </div>
 </template>
@@ -130,9 +130,17 @@ body {
   padding: 0;
 }
 
-.calendar-section{
-  margin-top: 2%;
-  margin-left: 35%;
+/* Calendario */
+.calendar-section {
+  background: #fff;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 
 .form-container {
@@ -150,9 +158,8 @@ body {
 }
 
 .form-input label {
-  font-size: 1rem;
+  font-weight: bold;
   color: #333;
-  
 }
 
 .form-input input,
@@ -250,6 +257,22 @@ h1 {
 .action-btn:hover {
   background-color: #ff80ab;
   transform: scale(1.05);
+}
+
+.submit-button {
+  margin-top: 2rem;
+  background: #be0a97;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+  background: #830b5b;
 }
 
 @media (max-width: 768px) {

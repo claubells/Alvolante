@@ -4,7 +4,7 @@
     <section class="calendar-section">
       <h2>Reserva de vehículos</h2>
       <p>Seleccione las fechas y lugares de retiro y entrega del vehículo:</p>
-
+      <!-- Calendarios -->
       <div class="form-container">
         <div class="form-input">
           <label for="fecha-retiro">Fecha de Retiro:</label>
@@ -14,6 +14,7 @@
           <label for="fecha-entrega">Fecha de Entrega:</label>
           <input type="date" id="fecha-entrega" v-model="fechaEntrega" />
         </div>
+        <!-- Lugar de retiro -->
         <div class="form-input">
           <label for="lugar-retiro">Lugar de Retiro:</label>
           <select id="lugar-retiro" v-model="lugarRetiro">
@@ -35,11 +36,12 @@
           <option value="Sucursal Valdivia">Sucursal Valdivia</option>
           </select>
         </div>
+        <!-- Lugar de entrega -->
         <div class="form-input">
           <label for="lugar-entrega">Lugar de Entrega:</label>
           <select id="lugar-entrega" v-model="lugarEntrega">
-            <option value="">Seleccione un lugar</option>
-            <option value="Sucursal Arica">Sucursal Arica</option>
+          <option value="">Seleccione un lugar</option>
+          <option value="Sucursal Arica">Sucursal Arica</option>
           <option value="Sucursal Iquique">Sucursal Iquique</option>
           <option value="Sucursal Antofagasta">Sucursal Antofagasta</option>
           <option value="Sucursal Copiapó">Sucursal Copiapó</option>
@@ -145,6 +147,7 @@ const handleSubmit = () => {
 </script>
 
 <style>
+/* Estilo general */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
@@ -157,6 +160,7 @@ body {
   padding: 2rem;
 }
 
+/* Sección del calendario */
 .calendar-section {
   background: #fff;
   border-radius: 15px;
