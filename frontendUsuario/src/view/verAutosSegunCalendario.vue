@@ -26,28 +26,24 @@
   </div>
 </template> 
 
-
 <script setup>
-// Imports
 import { ref, onMounted } from 'vue';
-import axios from "axios";
+import axios from 'axios';
 import Swal from 'sweetalert2';
-import { useRouter } from 'vue-router'; // Importa el enrutador
+import { useRouter } from 'vue-router';
 
-// Variables reactivas
-const vehiculos = ref([]); // Lista para almacenar los vehículos
-const router = useRouter(); // Instancia del enrutador
+const vehiculos = ref([]);
+const router = useRouter();
 
-// Métodos
 const fetchVehiculosDispo = async () => {
   try {
-    const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
+    const token = localStorage.getItem("jwtToken");
     const response = await axios.get("http://localhost:8080/api/vehiculos/all", {
       headers: {
-        Authorization: `Bearer ${token}`, // Añade el token al encabezado
+        Authorization: `Bearer ${token}`,
       },
     });
-    vehiculos.value = response.data; // Asigna los vehículos a la variable
+    vehiculos.value = response.data;
   } catch (error) {
     console.error("Error al obtener los vehículos:", error);
     Swal.fire({
@@ -59,11 +55,11 @@ const fetchVehiculosDispo = async () => {
 };
 
 const verDetallesVehiculo = (idVehiculo) => {
-  router.push({ name: 'seleccionVehiculoCliente', params: { idVehiculo } });
+  router.push(`/seleccionVehiculoCliente/${idVehiculo}`);
 };
 
 onMounted(() => {
-  fetchVehiculosDispo(); // Llama a la función al cargar el componente
+  fetchVehiculosDispo();
 });
 </script>
 

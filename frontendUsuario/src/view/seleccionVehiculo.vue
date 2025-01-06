@@ -1,16 +1,12 @@
 <template>
-  <!-- NavBar -->
-  <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-    <div class="container-fluid p-0">
-      <img class="image" src="./media/logoalvolante.png" alt="Logo">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" @click.prevent="Intranet" href="#">Inicio</a>
-          </li>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" @click.prevent="contacto" href="#">Contáctanos</a>
           </li>
@@ -36,81 +32,49 @@
           class="vehiculo-imagen"
         />
       <h1>{{ vehiculo.modelo }}</h1>
-      <p><strong>Total Vehículo:</strong> {{ vehiculo.idVehiculo }}</p>
+      <p><strong>ID Vehículo:</strong> {{ vehiculo.idVehiculo }}</p>
       <p><strong>Tipo:</strong> {{ vehiculo.tipo }}</p>
-      <p><strong>Color:</strong> {{ vehiculo.color}}</p>
-      <p><strong>Asientos:</strong> {{ vehiculo.capacidadPasajeros}}</p>
-      <p><strong>Accesorios:</strong> {{ vehiculo.idVehiculo }}</p>
+      <p><strong>Color:</strong> {{ vehiculo.color }}</p>
+      <p><strong>Asientos:</strong> {{ vehiculo.capacidadPasajeros }}</p>
+      <p><strong>Accesorios:</strong> {{ vehiculo.accesorios }}</p>
       <p><strong>Fechas:</strong> (información por completar)</p>
       <p><strong>Total Vehículo:</strong> {{ vehiculo.costo }}</p>
       <p><strong>Total:</strong> (vehículo + accesorios)</p>
-      <button @click="seleccionarVehiculoAnonimo" class="select-button">  Arrendar  </button>
+      <button @click="seleccionarVehiculoAnonimo" class="select-button">Arrendar</button>
     </div>
   </div>
-  <p v-else>Cargando datos del vehículo...</p>
 </template>
 
-<script>
-
+<script setup>
+// Imports
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import axios from "axios";
+import Swal from 'sweetalert2';
 
-export default {
-  props: ['idVehiculo'], // Recibe el ID del vehículo como una propiedad
-  data() {
-    return {
-      vehiculo: null, // Para almacenar los detalles del vehículo
-    };
-  },
-  methods: {
-    async fetchVehiculo() {
+// Variables reactivas
+const vehiculo = ref(null); // Variable para almacenar el vehículo
+const route = useRoute(); // Instancia de la ruta
+
+// Métodos
+const fetchVehiculo = async () => {
   try {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BASE_URL}api/vehiculos/obtenerVehiculoPorId/${this.idVehiculo}`
-    );
-    this.vehiculo = response.data;
-    if (!this.vehiculo) {
-      throw new Error("No se encontró el vehículo con el ID proporcionado.");
-    }
+    const idVehiculo = route.params.idVehiculo; // Obtén el idVehiculo de los parámetros de la ruta
+    const response = await axios.get(`http://localhost:8080/api/vehiculos/${idVehiculo}`);
+    vehiculo.value = response.data; // Asigna el vehículo a la variable
   } catch (error) {
-    console.error("Error al cargar los detalles del vehículo:", error);
-    alert("No se pudo cargar la información del vehículo.");
-  }
-},
-
-seleccionarVehiculoAnonimo() {
-  Swal.fire({
-    title: '¡Error!',
-    text: 'Para seleccionar un vehículo, primero inicie sesión o regístrese.',
-    icon: 'warning',
-    showDenyButton: true,
-    showCancelButton: true,
-    confirmButtonText: 'Iniciar sesión',
-    denyButtonText: 'Registrarse',
-    cancelButtonText: 'Cancelar',
-    customClass: {
-      confirmButton: 'custom-confirm-button',
-      denyButton: 'custom-deny-button',
-      cancelButton: 'custom-cancel-button'
-    }
-    }).then ((result) => {
-      if (result.isConfirmed) {
-        // Redirigir a la página de inicio de sesión
-        window.location.href = '/login'; // Redirige y recarga la página en '/login'
-      } else if (result.isDenied) {
-        // Redirigir a la página de registro
-        window.location.href = '/register';
-      }else if (result.isDismissed) {
-        // No hacer nada si el usuario cancela la acción
-        console.log('El usuario canceló la acción');
-      }
+    console.error("Error al obtener el vehículo:", error);
+    Swal.fire({
+      title: "Error",
+      text: "No se pudo cargar la información del vehículo.",
+      icon: "error",
     });
-
-},
-  },
-  mounted() {
-    this.fetchVehiculo(this.idVehiculo); // Carga los datos del vehículo al montar el componente
-  },
+  }
 };
+
+onMounted(() => {
+  fetchVehiculo(); // Llama a la función al cargar el componente
+});
 </script>
 
 
