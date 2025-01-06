@@ -21,7 +21,7 @@ const router = useRouter();
 
         <div class="mb-3">
           <label for="codigoACRISS" class="form-label">Codigo ACRISS:</label>
-          <input type="text" class="form-control" id="codigoACRISS" v-model = "vehicle.codigoACRISS" ref = "codigoACRISS" required>
+          <input type="text" class="form-control" v-model = "vehicle.codigoACRISS" id="codigoACRISS"  ref = "codigoACRISS" required>
         </div>
 
         <div class="mb-3">
@@ -117,7 +117,9 @@ const router = useRouter();
   </div>
 </template>
 
+
 <script>
+import vehicleService from "../services/vehicleService";
 
 export default {
   name: "AgregarVehiculoAdmin",
@@ -140,6 +142,8 @@ export default {
         sucursal: "",
         fotoVehiculo: null, // Almacenará la imagen en Base64  
       },
+      error: null,
+      success: false,
     };
   },
   methods: {
@@ -156,9 +160,14 @@ export default {
     },
     // enviar datos al backend
     async submitForm() {
+      this.error = null;
+      this.success = false;
+      console.log("Objeto vehiculo definido en data():", this.vehicle);
+
       try {
+        console.log("Datos antes de enviar:", this.vehicle);
         // llama al servicio de crear un vehiculo
-        const response = await 
+        const response = await vehicleService.createVehiculo(this.vehicle);
 
         console.log('Sesión iniciada', response);
         if (response.data == 4) {
@@ -196,7 +205,6 @@ export default {
       }
     });
         }
-
         // error de la bd 
         } catch (error) {
           Swal.fire({
