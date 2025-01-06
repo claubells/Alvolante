@@ -27,7 +27,7 @@
             <h2>{{ vehiculo.modelo }}</h2>
             <div class="vehiculo-detalles">
               <p><i class="bi bi-people"></i><strong>Pasajeros:</strong> {{ vehiculo.capacidadPasajeros }}</p>
-              <p><i class="bi bi-fuel-pump"></i><strong>Combustible:</strong> {{ vehiculo.tipo }}</p>
+              <p><i class="bi bi-fuel-pump"></i><strong>Combustible:</strong> {{ vehiculo.combustible }}</p>
               <p><i class="bi bi-gear"></i><strong>Transmisión:</strong> {{ vehiculo.tipo }}</p>
             </div>
           </div>
@@ -174,10 +174,6 @@ h1 {
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: transform 0.3s;
-}
-
-.vehiculo-card:hover {
-  transform: scale(1.05);
 }
 
 .vehiculo-card img {
