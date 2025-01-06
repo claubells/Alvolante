@@ -12,7 +12,7 @@
 
     <!-- Contenido principal -->
     <section class="calendar-section">
-      <h2>Reserva de vehículos administrador</h2>
+      <h2>Arriendo de vehículos</h2>
       <p>Seleccione las fechas y lugares de retiro y entrega del vehículo:</p>
 
       <!-- Contenedor del formulario -->

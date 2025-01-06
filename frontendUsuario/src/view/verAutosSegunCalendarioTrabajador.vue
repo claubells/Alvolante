@@ -1,40 +1,39 @@
 <template>
-    <div>
-        <!-- Barra lateral -->
-        <div class="sidebar">
-        <img class="image" src="./media/logoalvolante.png" alt="Logo" />
-        <ul>
-          <li><a href="#" @click="toInicio"><i class="bi bi-house-door nav-icon"></i> Inicio</a></li>
-        <li><a href="#" @click="cierreSesion"><i class="bi bi-box-arrow-right nav-icon"></i> Cerrar sesión</a></li>
-        </ul>
-      </div>
-
-      <!-- Contenido principal -->
-      <div class="main-content">
-        <h2>Trabajador</h2>
-        <h1>Lista de Vehículos</h1>
-        <!-- Contenedor de vehículos -->
-        <div class="vehiculos-container" v-if="vehiculos.length">
-          <div v-for="vehiculo in vehiculos" :key="vehiculo.idVehiculo" class="vehiculo-card">
-            <img
-              v-if="vehiculo.fotoVehiculo"
-              :src="'data:image/jpeg;base64,' + vehiculo.fotoVehiculo"
-              alt="Foto del Vehículo"
-              class="vehiculo-imagen"
-            />
-            <!-- Datos del vehículo -->
-            <p><strong>Patente:</strong> {{ vehiculo.patente }}</p>
-            <p><strong>Modelo:</strong> {{ vehiculo.modelo }}</p>
-            <p><strong>Marca:</strong> {{ vehiculo.marca }}</p>
-            <p><strong>Año:</strong> {{ vehiculo.anio }}</p>
-
-            <!-- Botón de selección -->
-            <button @click="verDetallesVehiculoTrabajador(vehiculo.idVehiculo)" class="select-button">Seleccionar</button> 
-          </div>
-        </div>
-        <p v-else>No hay vehículos disponibles.</p>
-      </div>
+  <div>
+      <!-- Barra lateral -->
+      <div class="sidebar">
+      <img class="image" src="./media/logoalvolante.png" alt="Logo" />
+      <ul>
+        <li><a href="#" @click="toInicio"><i class="bi bi-house-door nav-icon"></i> Inicio</a></li>
+      <li><a href="#" @click="cierreSesion"><i class="bi bi-box-arrow-right nav-icon"></i> Cerrar sesión</a></li>
+      </ul>
     </div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+      <h2>Lista de Vehículos</h2>
+      <!-- Contenedor de vehículos -->
+      <div class="vehiculos-container" v-if="vehiculos.length">
+        <div v-for="vehiculo in vehiculos" :key="vehiculo.idVehiculo" class="vehiculo-card">
+          <img
+            v-if="vehiculo.fotoVehiculo"
+            :src="'data:image/jpeg;base64,' + vehiculo.fotoVehiculo"
+            alt="Foto del Vehículo"
+            class="vehiculo-imagen"
+          />
+          <!-- Datos del vehículo -->
+          <p><strong>Patente:</strong> {{ vehiculo.patente }}</p>
+          <p><strong>Modelo:</strong> {{ vehiculo.modelo }}</p>
+          <p><strong>Marca:</strong> {{ vehiculo.marca }}</p>
+          <p><strong>Año:</strong> {{ vehiculo.anio }}</p>
+
+          <!-- Botón de selección -->
+          <button @click="verDetallesVehiculoTrabajador(vehiculo.idVehiculo)" class="select-button">Seleccionar</button> 
+        </div>
+      </div>
+      <p v-else>No hay vehículos disponibles.</p>
+    </div>
+  </div>
 </template> 
 
 
@@ -52,15 +51,22 @@ const vehiculos = ref([]);
 const cierreSesion = () => window.location.href = "/";
 const toInicio = () => window.location.href = "/trabajador";
 
-const fetchVehiculos = async () => { // funcion para obtener los vehiculos
+const fetchVehiculosDispo = async () => {
   try {
-    const response = await axios.get(
-      import.meta.env.VITE_BASE_URL + "api/vehiculos/all" //ruta para obtener los autos
-    );
-    vehiculos.value = response.data;
+    const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
+    const response = await axios.get("http://localhost:8080/api/vehiculos/all", {
+      headers: {
+        Authorization: `Bearer ${token}`, // Añade el token al encabezado
+      },
+    });
+    vehiculos.value = response.data; // Asigna los vehículos a la variable
   } catch (error) {
     console.error("Error al obtener los vehículos:", error);
-    alert("No se pudo cargar la lista de vehículos");
+    Swal.fire({
+      title: "Error",
+      text: "No se pudieron cargar los vehículos disponibles.",
+      icon: "error",
+    });
   }
 };
 
@@ -69,7 +75,7 @@ const verDetallesVehiculoTrabajador = (idVehiculo) => {
 };
 
 onMounted(() => {
-  fetchVehiculos(); // Llamamos a la API al cargar
+  fetchVehiculosDispo(); // Llamamos a la API al cargar
 });
 </script>
 

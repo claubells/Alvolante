@@ -12,7 +12,7 @@
 
     <!-- Contenido principal -->
     <section class="calendar-section">
-      <h2>Reserva de vehículos Trabajador</h2>
+      <h2>Arriendo de vehículos</h2>
       <p>Seleccione las fechas y lugares de retiro y entrega del vehículo:</p>
 
       <!-- Contenedor del formulario -->
@@ -65,7 +65,7 @@ const lugarEntrega = ref('');
 
 // Métodos
 const AgregarVehiculoAdmin = () => window.location.href = "/agregarvehiculo";
-const toInicio = () => window.location.href = '/admin';
+const toInicio = () => window.location.href = '/trabajador';
 const cierreSesion = () => window.location.href = '/';
 const handleSubmit = () => {
   const hoy = new Date(); // Fecha actual

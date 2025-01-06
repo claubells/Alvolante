@@ -11,8 +11,7 @@
 
     <!-- Contenido principal -->
     <div class="main-content">
-      <h2>Administrador</h2>
-      <h1>Lista de Vehículos</h1>
+      <h2>Lista de Vehículos</h2>
       <!-- Contenedor de vehículos -->
       <div class="vehiculos-container" v-if="vehiculos.length">
         <div v-for="vehiculo in vehiculos" :key="vehiculo.idVehiculo" class="vehiculo-card">
