@@ -92,7 +92,7 @@ const router = createRouter({
             name: 'pago',
             component: () => import('../view/pago.vue'),
             props: true,
-            
+            meta: { showHeader: true },
         },   
         {
             path: '/calendarioCliente',

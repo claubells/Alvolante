@@ -7,6 +7,7 @@ import com.Alvolante.Backend.Repository.UsuarioRepository;
 import com.Alvolante.Backend.Repository.VehiculoRepository;
 import com.Alvolante.Backend.Service.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -22,9 +23,10 @@ public class ReservaController {
     @Autowired
     private VehiculoRepository vehiculoRepository;
 
-    @PostMapping("/crear-reserva")
+    @PreAuthorize("hasRole('CLIENTE') or hasRole('ADMIN')")
+    @PostMapping("/crear-reserva/{idUsuario}")
     public int createReserva(@RequestBody ReservaEntity nuevaReserva,
-                             @RequestParam Long idUsuario,
+                             @PathVariable Long idUsuario,
                              @RequestParam Long idVehiculo) {
         try {
             System.out.println("\nCREANDO RESERVA\n");

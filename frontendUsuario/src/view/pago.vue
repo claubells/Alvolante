@@ -1,15 +1,3 @@
-<script setup>
-import { useRouter } from 'vue-router';
-import { ref } from 'vue';
-
-const router = useRouter();
-const currentYear = new Date().getFullYear();
-const currentMonth = String(new Date().getMonth() + 1).padStart(2, '0');
-const minDate = `${currentYear}-${currentMonth}`;
-const maxDate = `${currentYear + 10}-12`;
-const expiryDate = ref('');
-</script>
-
 <template>
   <main class="main-container">
     <div class="container mt-5">
@@ -34,20 +22,23 @@ const expiryDate = ref('');
         </div>
         <div class="col-md-6">
           <div class="container-custom">
-            <h2>Información de Pago</h2>
-            <div class="card-details">
-              <input type="text" class="form-control mt-3" placeholder="Nombre en la tarjeta" value="Elvis Teck" />
-              <input type="text" class="form-control mt-3" placeholder="Número de tarjeta" value="1111 2222 3333 4444" />
-              <input type="month" class="form-control mt-3" :min="minDate" :max="maxDate" v-model="expiryDate" />
-              <input type="text" class="form-control mt-3" placeholder="CVV" value="123" />
-            </div>
-            <div class="total mt-3">
-              <p>Precio: $3,000.00</p>
-              <p>Envío: $820.00</p>
-              <p>Total (impuestos incl.): $3,820.00</p>
-              <button class="btn btn-primary btn-block mt-3" @click="enviarReserva()">Pagar</button>
-              <button class="btn btn-primary btn-block mt-3" @click="toComprobante(idUsuario)">Ver comprobante</button>
-            </div>
+            <h2>Detalles de Pago</h2>
+            <form @submit.prevent="enviarReserva">
+              <div class="form-group">
+                <label for="cardNumber">Número de Tarjeta</label>
+                <input type="text" class="form-control" id="cardNumber" placeholder="Número de Tarjeta" required>
+              </div>
+              <div class="form-group">
+                <label for="expiryDate">Fecha de Expiración</label>
+                <input type="month" class="form-control" id="expiryDate" placeholder="MM/AA" required>
+              </div>
+              <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" class="form-control" id="cvv" placeholder="CVV" required>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block mt-3">Pagar</button>
+              <button type="button" @click="VerBoleta" class="btn btn-primary mt-3">Ver reserva</button>
+            </form>
           </div>
         </div>
       </div>
@@ -55,83 +46,61 @@ const expiryDate = ref('');
   </main>
 </template>
 
-<script>
-import axios from "axios";
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import axios from 'axios';
+import vehicleServicesInstance from '../services/vehicleService';
 
-export default {
-  props: ['idVehiculo'],
-  data() {
-    return {
-      correoLogin: "",
-      vehiculo: null,
-      reserva: {
-        fechaInicioReserva: "",
-        fechaFinReserva: "",
-        quiereExtras: null,
-        estadoReserva: null,
-        horaReserva: null,
-        costoReserva: "",
+const router = useRouter();
+const route = useRoute();
+const vehiculo = ref(null);
+const reserva = ref({
+  fechaInicioReserva: "2024-12-16",
+  fechaFinReserva: "2024-12-20",
+  quiereExtras: false,
+  estadoReserva: 1,
+  horaReserva: 0,
+  costoReserva: 0,
+});
+
+const idUsuario = ref(localStorage.getItem("idUsuario"));
+
+const fetchVehiculo = async () => {
+  try {
+    const idVehiculo = route.params.idVehiculo; // Obtén el idVehiculo de los parámetros de la ruta
+    const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
+    const response = await axios.get(`http://localhost:8080/api/vehiculos/obtenerVehiculoPorId/${idVehiculo}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Añade el token al encabezado
       },
-      idUsuario: null,
-    };
-  },
-  methods: {
-    async enviarReserva() {
-      this.reserva.fechaInicioReserva = "2024-12-16";
-      this.reserva.fechaFinReserva = "2024-12-20";
-      this.reserva.quiereExtras = false;
-      this.reserva.estadoReserva = 1;
-      this.reserva.horaReserva = 0;
-      this.reserva.costoReserva = this.vehiculo.costo;
-
-      try {
-        const response = await axios.post(
-          `${import.meta.env.VITE_BASE_URL}api/reserva/crear-reserva`,
-          this.reserva,
-          { params: { idUsuario: this.idUsuario, idVehiculo: this.idVehiculo } }
-        );
-        if (response.data >= 0) alert("Reserva realizada con éxito");
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    },
-    toComprobante(idUsuario) {
-      this.$router.push({ name: 'comprobante', params: { idUsuario } });
-    },
-    async fetchVehiculo() {
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}api/vehiculos/obtenerVehiculoPorId/${this.idVehiculo}`);
-        this.vehiculo = response.data;
-      } catch (error) {
-        console.error("Error al cargar los detalles del vehículo:", error);
-      }
-    },
-    async fetchIdByEmail(){
-      try {
-        console.log(`Fetching ID for email: ${this.correoLogin}`);
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}api/usuarios/idByEmail`, {
-          params: { email: this.correoLogin }
-        });
-        this.idUsuario = response.data;
-      } catch (error) {
-        console.error("Error al cargar el id del usuario:", error);
-      }
-    },
-    Volver() {
-      window.location.href = "/verAutosSegunCalendario";
-    }
-  },
-  mounted() {
-    this.fetchVehiculo();
-    // Recuperar el correo del localStorage cuando el componente es montado
-    const correo = localStorage.getItem('correoLogin');
-    if (correo) {
-      this.correoLogin = JSON.parse(correo);
-      console.log(`Correo recuperado: ${this.correoLogin}`);
-      this.fetchIdByEmail(); // Llamar a la función para obtener el id del usuario
-    }
-  },
+    });
+    vehiculo.value = response.data; // Asigna el vehículo a la variable
+    reserva.value.costoReserva = vehiculo.value.costo; // Asigna el costo del vehículo a la reserva
+  } catch (error) {
+    console.error("Error al obtener el vehículo:", error);
+    alert("No se pudo cargar la información del vehículo.");
+  }
 };
+
+const enviarReserva = async () => {
+  try {
+    const response2 = await vehicleServicesInstance.enviarReserva(reserva.value ,idUsuario.value, route.params.idVehiculo);
+    reserva.value = response2.data; // Asigna la reserva a la variable
+    reserva.value.idUsuario = idUsuario.value; // Asigna el idUsuario a la reserva
+    reserva.idVehiculo = vehiculo.value.idVehiculo; // Asigna el idVehiculo a la reserva
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+const Volver = () => {
+  router.push('/seleccionVehiculoCliente/' + route.params.idVehiculo);
+};
+
+onMounted(() => {
+  fetchVehiculo(); // Llama a la función al cargar el componente
+});
 </script>
 
 

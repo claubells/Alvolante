@@ -26,9 +26,10 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRouter,useRoute } from 'vue-router';
 import axios from 'axios';
 
+const router = useRouter();
 const route = useRoute();
 const vehiculo = ref(null);
 
