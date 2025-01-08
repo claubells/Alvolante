@@ -14,7 +14,7 @@ Ir a la carpeta recursos y luego al archivo "application.properties". Dentro de 
 spring.jpa.hibernate.ddl-auto=create
 ```
 Luego de esto ejecutar el backend y cambiar la linea anterior a "update".
-## 5.- Abrir con Visual Studio code la carpeta frontendUsuario
+## 5.- Abrir con Visual Studio Code la carpeta "frontendUsuario"
 ## 6.- En la terminal del frontend ingresar 
 ```bash
 npm install
