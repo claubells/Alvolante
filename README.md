@@ -5,7 +5,7 @@ Puedes clonar el repositorio desde la terminal ejecutando el siguiente comando:
 ```bash
 git clone https://github.com/Diegomuu/Alvolante.git
 ```
-## 2.- Creat base de datos
+## 2.- Crear la base de datos
 Abrir pgadmin y crear una base de datos llamada "alvolante" 
 ## 3.- Abrir en el Intellj la carpeta "Backend"
 ## 4.- Cambiar contraseña de la base de datos
@@ -23,3 +23,4 @@ npm install
 ```bash
 npm run dev
 ```
+## 8.- Listo! Ya estas preparado para simular un arriendo o reserva de vehículos 😼
