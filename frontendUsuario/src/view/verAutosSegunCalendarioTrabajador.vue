@@ -113,7 +113,7 @@ const fetchVehiculosDispo = async () => {
 };
 
 const verDetallesVehiculoTrabajador = (idVehiculo) => {
-  router.push({ name: 'seleccionVehiculoAdmin', params: { idVehiculo } });
+  router.push({ name: 'seleccionVehiculoTrabajador', params: { idVehiculo } });
 };
 
 const resetearFiltros = () => {

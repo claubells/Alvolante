@@ -95,11 +95,10 @@ const router = createRouter({
             meta: { showHeader: true },
         },
         {
-            path: '/pagoAdmin/:idVehiculo',
-            name: 'pagoAdmin',
-            component: () => import('../view/pagoAdmin.vue'),
+            path: '/pagoTrabajador/:idVehiculo',
+            name: 'pagoTrabajador',
+            component: () => import('../view/pagoTrabajador.vue'),
             props: true,
-            meta: { showHeader: true },
         },   
         {
             path: '/calendarioCliente',
@@ -177,22 +176,22 @@ const router = createRouter({
  
         },
         {
-            path: '/seleccionVehiculoAdmin/:idVehiculo',
-            name: 'seleccionVehiculoAdmin',
-            component: () => import('../view/seleccionVehiculoAdmin.vue'), 
+            path: '/seleccionVehiculoTrabajador/:idVehiculo',
+            name: 'seleccionVehiculoTrabajador',
+            component: () => import('../view/seleccionVehiculoTrabajador.vue'), 
             props: true,
  
         },
         {
-            path: '/rellenarDatosClienteAdmin',
-            name: 'rellenarDatosClienteAdmin',
-            component: () => import('../view/rellenarDatosClienteAdmin.vue'), 
+            path: '/rellenarDatosClienteTrabajador',
+            name: 'rellenarDatosClienteTrabajador',
+            component: () => import('../view/rellenarDatosClienteTrabajador.vue'), 
  
         },
         {
             path: '/verBoleta',
             name: 'verBoleta',
-            component: () => import('../view/verBoleta.vue'), 
+            component: () => import('../view/verBoletaTrabajador.vue'), 
         },
 
         {

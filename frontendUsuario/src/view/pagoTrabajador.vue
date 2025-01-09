@@ -1,9 +1,15 @@
 <template>
+  <div class="sidebar">
+      <ul>
+        <img class="image" src="./media/logoalvolante.png">
+        <li><a href="#"@click="toInicio">Inicio</a></li>
+        <li><a href="#" @click="cierreSesion">Cerrar sesión</a></li>
+      </ul>
+    </div>
   <main class="main-container">
     <div class="container mt-5">
       <div class="content-wrapper">
         <div class="container-custom" v-if="vehiculo">
-          <button @click="Volver" class="select-button2">Volver</button>
           <h2><i class="bi bi-cart"></i> Compra </h2>
           <h3>Resumen</h3>
           <div class="vehiculo-resumen">
@@ -33,10 +39,10 @@ import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import axios from 'axios';
 import vehicleServicesInstance from '../services/vehicleService';
-import VerBoleta from './verBoleta.vue';
+
 import Swal from 'sweetalert2';
 
-const router = useRouter();
+
 const route = useRoute();
 const vehiculo = ref(null);
 const reserva = ref({
@@ -47,8 +53,6 @@ const reserva = ref({
   horaReserva: 0,
   costoReserva: 0,
 });
-
-const idUsuario = ref(localStorage.getItem("idUsuario"));
 
 const fetchVehiculo = async () => {
   try {
@@ -69,19 +73,16 @@ const fetchVehiculo = async () => {
     }
   } catch (error) {
     console.error("Error al obtener el vehículo:", error);
-    alert("No se pudo cargar la información del vehículo.");
   }
 };
+const toInicio = () => {
+  window.location.href = "/trabajador";
+};
 
-const enviarReserva = async () => {
-  try {
-    const response2 = await vehicleServicesInstance.enviarReserva(reserva.value ,idUsuario.value, route.params.idVehiculo);
-    reserva.value = response2.data; // Asigna la reserva a la variable
-    reserva.value.idUsuario = idUsuario.value; // Asigna el idUsuario a la reserva
-    reserva.idVehiculo = vehiculo.value.idVehiculo; // Asigna el idVehiculo a la reserva
-  } catch (error) {
-    console.error("Error:", error);
-  }
+const cierreSesion = () => {
+  localStorage.removeItem("jwtToken");
+  localStorage.removeItem("idUsuario");
+  window.location.href = "/";
 };
 
 const Volver = () => {
@@ -89,7 +90,7 @@ const Volver = () => {
   
 };
 const verBoleta = () => {
-  window.location.href = "/rellenarDatosClienteAdmin";
+  window.location.href = "/rellenarDatosClienteTrabajador";
 };
 const paymentError = async () => {
   await Swal.fire({
@@ -203,5 +204,46 @@ body {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #ff80ab;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: fixed;
+  height: 100%;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 12px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  display: block;
+  padding: 7px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.sidebar ul li a:hover {
+  background-color: #ff4081;
+}
+
+.image {
+  max-width: 100%;
+  margin-bottom: 10px;
+  border-radius: 8px;
 }
 </style>

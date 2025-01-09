@@ -80,7 +80,7 @@ const cierreSesion = () => {
 };
 
 const toInicio = () => {
-  window.location.href = "/admin";
+  window.location.href = "/trabajador";
 };
 
 const enviarFormulario = async () => {

@@ -68,7 +68,7 @@ const cierreSesion = () => {
 };
 
 const toInicio = () => {
-  window.location.href = "/admin"; // Redirecciona al inicio del administrador
+  window.location.href = "/trabajador"; // Redirecciona al inicio del trabajador
 };
 
 onMounted(() => {

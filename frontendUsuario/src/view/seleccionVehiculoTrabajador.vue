@@ -68,10 +68,12 @@ const fetchVehiculo = async () => {
 };
 
 const verDetallesVehiculoPago = (idVehiculo) => {
-  router.push({ name: 'pagoAdmin', params: { idVehiculo } });
+  router.push({ name: 'pagoTrabajador', params: { idVehiculo } }).then(() => {
+    location.reload();
+  });
 };
 
-const Volver = () => window.location.href = "/verAutosSegunCalendario";
+const Volver = () => window.location.href = "/verAutosSegunCalendarioTrabajador";
 
 onMounted(() => {
   fetchVehiculo(); // Llama a la función al cargar el componente
