@@ -24,8 +24,9 @@ public class SucursalService {
         Optional<SucursalEntity> sucursal = sucursalRepository.findById(id);
         return sucursal.orElse(null);
     }
+
     public List<SucursalEntity> getAllSucursales(){
-        return (List<SucursalEntity>)sucursalRepository.findAll();
+        return sucursalRepository.findAll();
     }
 
 }

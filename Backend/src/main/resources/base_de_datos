@@ -15,3 +15,21 @@ VALUES
 ('IWMR', 'Activo', 'Honda', 'HR-V', 'MMMM14', 'CHS013HON', '24000', 27000.00, 2022, 'SUV', 'Negro', 5, true, '2024-01-15'),
 ('SDMR', 'Activo', 'Nissan', 'Sentra', 'NNNN15', 'CHS014NIS', '20000', 25000.00, 2023, 'Sedán', 'Gris', 5, true, '2024-02-05'),
 ('EDMR', 'Activo', 'Mitsubishi', 'Mirage', 'OOOO16', 'CHS015MIT', '18000', 21000.00, 2022, 'Hatchback', 'Rojo', 4, true, '2024-03-15');
+
+INSERT INTO sucursal (region, telefono, direccion, gerente_responsable, estado) VALUES
+('Región de Arica y Parinacota', '582123456', 'Calle Principal 123, Arica', 'Juan Pérez', 'Operativa'),
+('Región de Tarapacá', '572123456', 'Avenida del Mar 456, Iquique', 'Ana López', 'Operativa'),
+('Región de Antofagasta', '552123456', 'Calle Los Minerales 789, Antofagasta', 'Carlos Ruiz', 'Operativa'),
+('Región de Atacama', '512123456', 'Avenida Copayapu 321, Copiapó', 'María González', 'Operativa'),
+('Región de Coquimbo', '512987654', 'Calle de las Estrellas 654, La Serena', 'Pedro Ramírez', 'Operativa'),
+('Región de Valparaíso', '322123456', 'Calle del Puerto 987, Valparaíso', 'Sofía Martínez', 'Operativa'),
+('Región Metropolitana', '222123456', 'Avenida Libertador 654, Santiago', 'Jorge Herrera', 'Operativa'),
+('Región del Libertador General Bernardo O’Higgins', '722123456', 'Calle Independencia 321, Rancagua', 'Fernanda Soto', 'Operativa'),
+('Región del Maule', '712123456', 'Avenida del Sol 654, Talca', 'Raúl Morales', 'Operativa'),
+('Región de Ñuble', '422123456', 'Calle Los Huertos 987, Chillán', 'Patricia Vega', 'Operativa'),
+('Región del Biobío', '412123456', 'Avenida Universidad 123, Concepción', 'Diego Fuentes', 'Operativa'),
+('Región de La Araucanía', '452123456', 'Calle de los Mapuches 456, Temuco', 'Andrea Castro', 'Operativa'),
+('Región de Los Ríos', '632123456', 'Calle del Río 789, Valdivia', 'Cristian Gómez', 'Operativa'),
+('Región de Los Lagos', '652123456', 'Avenida Austral 321, Puerto Montt', 'Carolina Rojas', 'Operativa'),
+('Región de Aysén del General Carlos Ibáñez del Campo', '672123456', 'Calle de los Glaciares 654, Coyhaique', 'Marcelo Vargas', 'Operativa'),
+('Región de Magallanes y de la Antártica Chilena', '612123456', 'Avenida del Fin del Mundo 987, Punta Arenas', 'Daniela Pizarro', 'Operativa');

@@ -16,6 +16,7 @@ public class SucursalController {
     @Autowired
     private SucursalService sucursalService;
 
+
     @GetMapping("/all")
     public List<SucursalEntity> getAllSucursales(){
         return sucursalService.getAllSucursales();
