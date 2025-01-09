@@ -23,6 +23,9 @@
           <div class="data-section">
             <h3>Datos Personales</h3> <!-- Datos del usuario, deberia devolverlo el Backend --> 
             <p><strong>Correo:</strong> {{ usuario?.email }}</p>
+            <p><strong>Rut:</strong> {{ usuario?.rut }}</p>
+            <p><strong>Teléfono:</strong> {{ usuario?.phone }}</p>
+            <p><strong>Fecha de nacimiento:</strong> {{ formatDate(usuario?.birthdate) }}</p>
             <button @click="editProfile" class="edit-button">Editar Perfil</button>
           </div>
         </div>
@@ -110,6 +113,22 @@ const editDocuments = () => {
 const viewDetails = () => {
   // Lógica para ver detalles
 };
+
+const formatDate = (dateString) => {
+  if (!dateString) return "Fecha no disponible";
+
+  const date = new Date(dateString);
+  const day = date.getDate(); // Día del mes
+  const monthNames = [
+    "enero del", "febrero del", "marzo del", "abril del", "mayo del", "junio del",
+    "julio del", "agosto del", "septiembre del", "octubre del", "noviembre del", "diciembre del",
+  ];
+  const month = monthNames[date.getMonth()]; // Nombre del mes
+  const year = date.getFullYear(); // Año
+
+  return `${day} ${month} ${year}`;
+};
+
 </script>
 
 <style>
