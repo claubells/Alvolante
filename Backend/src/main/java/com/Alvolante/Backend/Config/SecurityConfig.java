@@ -14,6 +14,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * SecurityConfig es una clase de configuración que define la configuración de seguridad para la aplicación.
+ */
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
@@ -22,12 +25,26 @@ public class SecurityConfig {
     private final CorsConfig corsConfig;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
+    /**
+     * Constructor para SecurityConfig.
+     *
+     * @param jwtFilter El filtro JWT para manejar la autenticación basada en tokens.
+     * @param corsConfig La configuración de CORS.
+     * @param customAccessDeniedHandler El manejador de excepciones de acceso denegado.
+     */
     public SecurityConfig(JwtFilter jwtFilter, CorsConfig corsConfig, CustomAccessDeniedHandler customAccessDeniedHandler) {
         this.jwtFilter = jwtFilter;
         this.corsConfig = corsConfig;
         this.customAccessDeniedHandler = customAccessDeniedHandler;
     }
 
+    /**
+     * Configura la cadena de filtros de seguridad.
+     *
+     * @param http El objeto HttpSecurity.
+     * @return La cadena de filtros de seguridad configurada.
+     * @throws Exception Si ocurre un error durante la configuración.
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         System.out.println("Configurando seguridad...");
@@ -49,7 +66,7 @@ public class SecurityConfig {
                             System.out.println("Acceso denegado. Rol requerido: " + requiredRoles + ", Rol actual del usuario: " + userRoles);
 
                             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                            response.getWriter().write("Acceso denegado. Rol requerido: " + requiredRoles + "\nRol actual del usuario: " + userRoles +"\nError:"+ accessDeniedException.getMessage());
+                            response.getWriter().write("Acceso denegado. Rol requerido: " + requiredRoles + "\nRol actual del usuario: " + userRoles + "\nError: " + accessDeniedException.getMessage());
                         })
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
@@ -57,11 +74,23 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Define el codificador de contraseñas.
+     *
+     * @return Una instancia de BCryptPasswordEncoder.
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Define el gestor de autenticación.
+     *
+     * @param authenticationConfiguration La configuración de autenticación.
+     * @return El gestor de autenticación.
+     * @throws Exception Si ocurre un error durante la configuración.
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();

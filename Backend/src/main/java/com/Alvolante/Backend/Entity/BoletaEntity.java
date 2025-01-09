@@ -1,11 +1,13 @@
 package com.Alvolante.Backend.Entity;
 
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+/**
+ * BoletaEntity es una entidad que representa los datos de una boleta.
+ */
 @Getter
 @Entity
 @Table(name = "boleta")
@@ -25,15 +27,28 @@ public class BoletaEntity {
     private LocalDate fechaEmision;
     private LocalTime horaEmision;
 
-    //private List<DetalleBoleta> detalles; // Detalles de productos o servicios
-
     private double subtotal;
     private double iva;
     private double total;
 
     private String formaPago;
 
-
+    /**
+     * Constructor con todos los atributos.
+     *
+     * @param idBoleta El ID de la boleta.
+     * @param nombreEmisor El nombre del emisor.
+     * @param rutEmisor El RUT del emisor.
+     * @param direccionEmisor La dirección del emisor.
+     * @param nombreCliente El nombre del cliente (opcional).
+     * @param rutCliente El RUT del cliente (opcional).
+     * @param fechaEmision La fecha de emisión.
+     * @param horaEmision La hora de emisión.
+     * @param subtotal El subtotal de la boleta.
+     * @param iva El IVA de la boleta.
+     * @param total El total de la boleta.
+     * @param formaPago La forma de pago.
+     */
     public BoletaEntity(long idBoleta, String nombreEmisor, String rutEmisor, String direccionEmisor, String nombreCliente, String rutCliente, LocalDate fechaEmision, LocalTime horaEmision, double subtotal, double iva, double total, String formaPago) {
         this.idBoleta = idBoleta;
         this.nombreEmisor = nombreEmisor;
@@ -49,10 +64,13 @@ public class BoletaEntity {
         this.formaPago = formaPago;
     }
 
-    public BoletaEntity() {}
+    /**
+     * Constructor vacío.
+     */
+    public BoletaEntity() {
+    }
 
-
-    //---------------getter and setter-------------
+    //---------------Getters y Setters-------------
     public String getFormaPago() {
         return formaPago;
     }

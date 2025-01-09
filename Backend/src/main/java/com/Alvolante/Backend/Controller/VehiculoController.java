@@ -7,16 +7,24 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * VehiculoController es un controlador que maneja las solicitudes HTTP relacionadas con los vehículos.
+ */
 @RestController
 @RequestMapping("/api/vehiculos")
 public class VehiculoController {
+
     @Autowired
     private VehiculoService vehiculoService;
 
-
+    /**
+     * Endpoint para crear un nuevo vehículo.
+     *
+     * @param nuevoVehiculo Los detalles del nuevo vehículo.
+     * @return Un código indicando el resultado de la operación.
+     */
     @PostMapping("/crear-vehiculo")
     public int createVehiculo(@RequestBody VehiculoEntity nuevoVehiculo) {
-
         try {
             int resultado = vehiculoService.createVehiculo(
                     nuevoVehiculo.getCodigoACRISS(),
@@ -40,41 +48,61 @@ public class VehiculoController {
             if (resultado == 2) {
                 System.out.println("Resultado enviado al frontend: " + resultado);
                 System.out.println("Chasis duplicado");
-                return 2; //chasis duplicado
+                return 2; // Chasis duplicado
             }
             if (resultado == 4) {
                 System.out.println("Resultado enviado al frontend: " + resultado);
-                System.out.println("Patente duplicado");
-                return 4; //patente duplicada
+                System.out.println("Patente duplicada");
+                return 4; // Patente duplicada
             }
             if (resultado == 0) {
                 System.out.println("Resultado enviado al frontend: " + resultado);
-                return 0;
+                return 0; // Éxito
             } else {
                 System.out.println("Resultado enviado al frontend: " + resultado);
-                return -1;
+                return -1; // Error general
             }
-
         } catch (Exception e) {
-            return -2;
+            return -2; // Error de excepción
         }
     }
 
+    /**
+     * Endpoint para obtener todos los vehículos.
+     *
+     * @return Una lista de todos los vehículos.
+     */
     @GetMapping("/all")
     public List<VehiculoEntity> getAllVehiculos() {
         return vehiculoService.getAllVehiculos();
     }
 
+    /**
+     * Endpoint para obtener un vehículo por su ID.
+     *
+     * @param id El ID del vehículo.
+     * @return El vehículo correspondiente al ID proporcionado.
+     */
     @GetMapping("/obtenerVehiculoPorId/{id}")
     public VehiculoEntity obtenerVehiculoPorId(@PathVariable Long id) {
         return vehiculoService.getVehiculoById(id);
     }
 
+    /**
+     * Endpoint para obtener todos los vehículos disponibles.
+     *
+     * @return Una lista de todos los vehículos disponibles.
+     */
     @GetMapping("/vehiculosDisponible")
     public List<VehiculoEntity> getVehiculosDisponible() {
         return vehiculoService.getVehiculosByDisponible();
     }
-    //Devuelve lista de vehiculos no repetidos por modelo, devuelve los de menor kilometraje y que esten disponibles
+
+    /**
+     * Endpoint para obtener una lista de vehículos no repetidos por modelo, devolviendo los de menor kilometraje y que estén disponibles.
+     *
+     * @return Una lista de vehículos únicos con menor kilometraje.
+     */
     @GetMapping("/disponibles-menor-kilometraje")
     public List<VehiculoEntity> getVehiculosUnicosConMenorKilometraje() {
         return vehiculoService.getVehiculosUnicosConMenorKilometraje();

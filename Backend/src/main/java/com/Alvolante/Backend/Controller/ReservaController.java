@@ -12,10 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-
+/**
+ * ReservaController es un controlador que maneja las solicitudes HTTP relacionadas con las reservas.
+ */
 @RestController
 @RequestMapping("/api/reserva")
 public class ReservaController {
+
     @Autowired
     private ReservaService reservaService;
 
@@ -31,6 +34,13 @@ public class ReservaController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    /**
+     * Endpoint para crear una nueva reserva.
+     *
+     * @param nuevaReserva Los detalles de la nueva reserva.
+     * @param token El token de autorización del usuario.
+     * @return La reserva creada.
+     */
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
     @PostMapping("/crear-reserva")
     public ReservaEntity createReserva(@RequestBody ReservaEntity nuevaReserva,
@@ -41,7 +51,7 @@ public class ReservaController {
             // Extraer el email del token
             String email = jwtUtil.getEmail(token.replace("Bearer ", ""));
 
-            // se busca el usuario por email
+            // Se busca el usuario por email
             UsuarioEntity usuario = usuarioRepository.findByEmail(email);
             if (usuario == null) {
                 throw new RuntimeException("Usuario no encontrado con email: " + email);
@@ -62,13 +72,13 @@ public class ReservaController {
 
             System.out.println("Reserva creada con éxito: " + reservaCreada);
 
-            System.out.println("\nId Reserva: "+ nuevaReserva.getIdReserva());
-            System.out.println("\nFecha Inicio: "+ nuevaReserva.getFechaInicioReserva());
-            System.out.println("\nFecha Final: "+ nuevaReserva.getFechaFinReserva());
-            System.out.println("\nEstado de Reserva: "+ nuevaReserva.getEstadoReserva());
-            System.out.println("\nCosto reserva: "+nuevaReserva.getCostoReserva());
-            System.out.println("\nUsuario-> idUsuario:"+nuevaReserva.getIdUsuario());
-            System.out.println("\nVehiculo-> idVehiculo: "+nuevaReserva.getIdVehiculo());
+            System.out.println("\nId Reserva: " + nuevaReserva.getIdReserva());
+            System.out.println("\nFecha Inicio: " + nuevaReserva.getFechaInicioReserva());
+            System.out.println("\nFecha Final: " + nuevaReserva.getFechaFinReserva());
+            System.out.println("\nEstado de Reserva: " + nuevaReserva.getEstadoReserva());
+            System.out.println("\nCosto reserva: " + nuevaReserva.getCostoReserva());
+            System.out.println("\nUsuario-> idUsuario: " + nuevaReserva.getIdUsuario());
+            System.out.println("\nVehiculo-> idVehiculo: " + nuevaReserva.getIdVehiculo());
 
             // Guardar la reserva
             return reservaRepository.save(nuevaReserva);
@@ -78,8 +88,14 @@ public class ReservaController {
         }
     }
 
+    /**
+     * Endpoint para obtener una reserva por su ID.
+     *
+     * @param id El ID de la reserva.
+     * @return La reserva correspondiente al ID proporcionado.
+     */
     @GetMapping("/reservaPorId/{id}")
-    public ReservaEntity findReservaById(@PathVariable Long id){return reservaService.getReservaById(id);}
-
-
+    public ReservaEntity findReservaById(@PathVariable Long id) {
+        return reservaService.getReservaById(id);
+    }
 }

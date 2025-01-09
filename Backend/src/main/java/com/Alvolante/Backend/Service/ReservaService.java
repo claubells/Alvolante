@@ -14,8 +14,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * ReservaService es una clase de servicio que maneja la lógica de negocio relacionada con las reservas.
+ */
 @Service
 public class ReservaService {
+
     @Autowired
     private ReservaRepository reservaRepository;
 
@@ -25,6 +29,13 @@ public class ReservaService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    /**
+     * Crea una nueva reserva.
+     *
+     * @param nuevaReserva Los detalles de la nueva reserva.
+     * @return La reserva creada.
+     * @throws RuntimeException Si ocurre un error durante la validación o el guardado de la reserva.
+     */
     public ReservaEntity createReserva(ReservaEntity nuevaReserva) {
         System.out.println("Ejecutando lógica de negocio en ReservaService");
 
@@ -51,21 +62,6 @@ public class ReservaService {
             throw new RuntimeException("El vehículo no está disponible para reservar.");
         }
 
-        /*
-        if(nuevaReserva.isQuiereExtras()){
-            System.out.println("\nQUIERE EXTRAS\n");
-            //llevarlo a crear un extra --> estado de reserva 0
-            ReservaEntity nuevaReserva = new ReservaEntity(fechaInicioReserva, fechaFinReserva, quiereExtras, 0, horaReserva, costoReserva, usuarioReserva, vehiculoReserva, extrasReserva);
-            reservaRepository.save(nuevaReserva);
-
-            System.out.println("\nId Reserva: ");
-            System.out.println(nuevaReserva.getIdReserva());
-
-            System.out.println("Reserva creada SÍ quiere extras\n");
-            System.out.println(nuevaReserva.toString());
-            return 3;//quiere reservar
-        }*/
-
         // Guardar la reserva
         ReservaEntity reservaGuardada = reservaRepository.save(nuevaReserva);
 
@@ -73,25 +69,34 @@ public class ReservaService {
         return reservaGuardada;
     }
 
+    /**
+     * Obtiene el estado de una reserva por su ID.
+     *
+     * @param idReserva El ID de la reserva.
+     * @return El estado de la reserva.
+     */
     public int estadoDeReserva(Long idReserva) {
         return reservaRepository.StateReservationByIdReservation(idReserva);
     }
 
-    public boolean tieneReservaActiva(Long userId){
-        //buscamos las reservas activas segun el id en repository
-        if(reservaRepository.findByIdUsuarioAndEstadoReserva(userId, 0).isEmpty()){
-            return false; // no encotro, esta vacio
-        }
-        return true; // tiene reservas, no esta vacio
+    /**
+     * Verifica si un usuario tiene una reserva activa.
+     *
+     * @param userId El ID del usuario.
+     * @return true si el usuario tiene una reserva activa, false en caso contrario.
+     */
+    public boolean tieneReservaActiva(Long userId) {
+        return !reservaRepository.findByIdUsuarioAndEstadoReserva(userId, 0).isEmpty();
     }
 
+    /**
+     * Obtiene una reserva por su ID de usuario.
+     *
+     * @param id El ID del usuario.
+     * @return La reserva correspondiente al ID del usuario proporcionado, o null si no se encuentra.
+     */
     public ReservaEntity getReservaById(Long id) {
         Optional<ReservaEntity> getReserva = reservaRepository.findByIdUsuario(id);
-        if (getReserva.isPresent()) {
-            return getReserva.get();
-        }else {
-            return null;
-        }
+        return getReserva.orElse(null);
     }
-
 }
