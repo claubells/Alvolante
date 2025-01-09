@@ -1,3 +1,112 @@
+<script setup>
+import { ref, onMounted } from "vue";
+import { useRouter, useRoute } from 'vue-router';
+import axios from 'axios';
+import ReservaService from '../services/reservaService';
+
+const router = useRouter();
+const vehiculo = ref(null);
+const route = useRoute();
+const sucursalRetiro = ref("");
+const sucursalEntrega = ref("");
+const idVehiculoLocal = localStorage.getItem("idVehiculoSeleccionado");
+const idUsuario = ref(localStorage.getItem("idUsuario"));
+
+const reserva = ref({
+  fechaInicioReserva: "",
+  fechaFinReserva: "",
+  estadoReserva: 1,
+  costoReserva: "",
+  extrasReserva: "",
+  idVehiculo: localStorage.getItem("idVehiculo"),
+});
+
+const fetchVehiculo = async () => {
+  try {
+    const idVehiculo = route.params.idVehiculo; // Obtén el idVehiculo de los parámetros de la ruta
+    const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
+    const response = await axios.get(http://localhost:8080/api/vehiculos/obtenerVehiculoPorId/${idVehiculo}, {
+      headers: {
+        Authorization: Bearer ${token}, // Añade el token al encabezado
+      },
+    });
+    vehiculo.value = response.data; // Asigna el vehículo a la variable
+    reserva.value.costoReserva = vehiculo.value.costo; // Asigna el costo del vehículo a la reserva
+  } catch (error) {
+    console.error("Error al obtener el vehículo:", error);
+    alert("No se pudo cargar la información del vehículo.");
+  }
+};
+
+const enviarReserva = async () => {
+  try {
+    console.log("Id de vehiculo seleccionado localStorage:", idVehiculoLocal);
+    console.log("Id del vehiculo actual:", reserva.value.idVehiculo);
+    const response2 = await ReservaService.enviarReserva(reserva.value);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+// Función para cargar las sucursales desde el localStorage
+const cargarSucursales = async () => {
+  try {
+    const idSucursalRetiro = localStorage.getItem("idSucursalRetiro");
+    const idSucursalEntrega = localStorage.getItem("idSucursalEntrega");
+
+    const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
+
+    if (idSucursalRetiro) {
+      const responseRetiro = await axios.get(http://localhost:8080/api/sucursales/${idSucursalRetiro},{
+      headers: {
+        Authorization: Bearer ${token}, // Añade el token al encabezado
+      },
+      });
+
+      console.log("Sucursal de retiro: \n -Region:", responseRetiro.data.region);
+      console.log(" -Dirección", responseRetiro.data.direccion);
+      sucursalRetiro.value = responseRetiro.data || "No seleccionado";
+    } else {
+      sucursalRetiro.value = "No seleccionado";
+    }
+
+    if (idSucursalEntrega) {
+      const responseEntrega = await axios.get(http://localhost:8080/api/sucursales/${idSucursalEntrega},{
+      headers: {
+        Authorization: Bearer ${token}, // Añade el token al encabezado
+      },
+      });
+    
+      console.log("Sucursal de entrega: \n -Region:", responseEntrega.data.region);
+      console.log(" -Dirección", responseEntrega.data.direccion);
+      sucursalEntrega.value = responseEntrega.data || "No seleccionado";
+    } else {
+      sucursalEntrega.value = "No seleccionado";
+    }
+
+  } catch (error) {
+    console.error("Error al cargar las sucursales por ID:", error);
+  }
+};
+
+const Volver = () => {
+  router.push('/seleccionVehiculoCliente/' + route.params.idVehiculo);
+};
+
+// Función principal que coordina la carga de datos
+const cargarDatos = async () => {
+  await Promise.all([fetchVehiculo(), cargarSucursales()]);
+};
+
+// Llama a la carga de datos al montar el componente
+onMounted(() => {
+  cargarDatos();
+});
+
+
+</script>
+
+
 <template>
   <main class="main-container">
     <div class="container mt-5">
@@ -13,9 +122,13 @@
                 <p>{{ vehiculo.modelo }}</p>
                 <p>{{ vehiculo.tipo }}</p>
               </div>
-              <div class="vehiculo-precio ml-auto">
-                <h4>$ {{ vehiculo.costo }}</h4>
-              </div>
+            </div>
+            <!-- Mostrar sucursales de retiro y entrega -->
+            <div class="sucursal-resumen mt-4">
+              <h4>Sucursal de Retiro:</h4>
+              <p>{{ sucursalRetiro.direccion }}</p>
+              <h4>Sucursal de Entrega:</h4>
+              <p>{{ sucursalEntrega.direccion }}</p>
             </div>
           </div>
           <p v-else>Cargando datos del vehículo...</p>
@@ -45,66 +158,6 @@
     </div>
   </main>
 </template>
-
-<script setup>
-import { ref, onMounted } from "vue";
-import { useRouter, useRoute } from 'vue-router';
-import axios from 'axios';
-import ReservaService from '../services/reservaService';
-
-const router = useRouter();
-const vehiculo = ref(null);
-const idVehiculoLocal = localStorage.getItem("idVehiculoSeleccionado");
-
-const reserva = ref({
-  fechaInicioReserva: "",
-  fechaFinReserva: "",
-  estadoReserva: 1,
-  costoReserva: "",
-  extrasReserva: "",
-  idVehiculo: localStorage.getItem("idVehiculo"),
-});
-
-const idUsuario = ref(localStorage.getItem("idUsuario"));
-
-const fetchVehiculo = async () => {
-  try {
-    const idVehiculo = route.params.idVehiculo; // Obtén el idVehiculo de los parámetros de la ruta
-    const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
-    const response = await axios.get(`http://localhost:8080/api/vehiculos/obtenerVehiculoPorId/${idVehiculo}`, {
-      headers: {
-        Authorization: `Bearer ${token}`, // Añade el token al encabezado
-      },
-    });
-    vehiculo.value = response.data; // Asigna el vehículo a la variable
-    reserva.value.costoReserva = vehiculo.value.costo; // Asigna el costo del vehículo a la reserva
-  } catch (error) {
-    console.error("Error al obtener el vehículo:", error);
-    alert("No se pudo cargar la información del vehículo.");
-  }
-};
-
-const enviarReserva = async () => {
-  try {
-    console.log("Id de vehiculo seleccionado localStorage:", idVehiculoLocal);
-    console.log("Id del vehiculo actual:", reserva.value.idVehiculo);
-    const response2 = await ReservaService.enviarReserva(reserva.value);
-  } catch (error) {
-    console.error("Error:", error);
-  }
-};
-
-const Volver = () => {
-  router.push('/seleccionVehiculoCliente/' + route.params.idVehiculo);
-};
-
-const route = useRoute();
-
-onMounted(() => {
-  fetchVehiculo(); // Llama a la función al cargar el componente
-});
-</script>
-
 
 <style>
 /* Estilos generales */
