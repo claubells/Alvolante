@@ -83,6 +83,9 @@ public class JwtFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         System.out.println("Autenticación exitosa: " +authenticationToken);
 
+        String roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
+        System.out.println("Usuario autenticado con roles: " + roles);
+
         filterChain.doFilter(request, response);
     }
 }

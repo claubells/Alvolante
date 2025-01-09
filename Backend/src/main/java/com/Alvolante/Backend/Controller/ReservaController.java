@@ -31,7 +31,7 @@ public class ReservaController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
     @PostMapping("/crear-reserva")
     public ReservaEntity createReserva(@RequestBody ReservaEntity nuevaReserva,
                                        @RequestHeader("Authorization") String token) {
@@ -62,28 +62,18 @@ public class ReservaController {
 
             System.out.println("Reserva creada con éxito: " + reservaCreada);
 
-
-
-            System.out.println("\nId Reserva: ");
-            System.out.println(nuevaReserva.getIdReserva());
-            System.out.println("\nFecha Inicio: ");
-            System.out.println(nuevaReserva.getFechaInicioReserva());
-            System.out.println("\nFecha Final: ");
-            System.out.println(nuevaReserva.getFechaFinReserva());
-            System.out.println("\nEstado de Reserva: ");
-            System.out.println(nuevaReserva.getEstadoReserva());
-            System.out.println("\nCosto reserva: ");
-            System.out.println(nuevaReserva.getCostoReserva());
-            System.out.println("\nUsuario: ");
-            System.out.println("\n\tidUsuario: ");
-            System.out.println(nuevaReserva.getIdUsuario());
-            System.out.println("\nVehiculo: ");
-            System.out.println("\n\tid Vehiculo: ");
-            System.out.println(nuevaReserva.getIdVehiculo());
+            System.out.println("\nId Reserva: "+ nuevaReserva.getIdReserva());
+            System.out.println("\nFecha Inicio: "+ nuevaReserva.getFechaInicioReserva());
+            System.out.println("\nFecha Final: "+ nuevaReserva.getFechaFinReserva());
+            System.out.println("\nEstado de Reserva: "+ nuevaReserva.getEstadoReserva());
+            System.out.println("\nCosto reserva: "+nuevaReserva.getCostoReserva());
+            System.out.println("\nUsuario-> idUsuario:"+nuevaReserva.getIdUsuario());
+            System.out.println("\nVehiculo-> idVehiculo: "+nuevaReserva.getIdVehiculo());
 
             // Guardar la reserva
             return reservaRepository.save(nuevaReserva);
         } catch (Exception e) {
+            System.err.println("Error al crear la reserva: " + e.getMessage());
             throw new RuntimeException("Error al crear la reserva: " + e.getMessage(), e);
         }
     }
