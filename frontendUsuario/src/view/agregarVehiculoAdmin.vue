@@ -11,7 +11,6 @@ const router = useRouter();
       <ul>
         <img class="image" src="./media/logoalvolante.png">
         <li><a href="#"@click="toInicio">Inicio</a></li>
-        <li><a class="botonSubir" href="#"@click="AgregarVehiculoAdmin">Añadir un vehículo</a></li>
         <li><a href="#" @click="cierreSesion">Cerrar sesión</a></li>
       </ul>
     </div>
@@ -226,12 +225,9 @@ export default {
     cierreSesion() {
       window.location.href = "/"; // redirecciona a la vista principal
     },
-    AgregarVehiculoAdmin() {
-        window.location.href = "/agregarvehiculo"; 
-      },
     toInicio() {
         window.location.href = "/admin"; 
-      },
+    },
     
   },
 };

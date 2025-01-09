@@ -5,7 +5,6 @@
       <ul>
         <img class="image" src="./media/logoalvolante.png">
         <li><a href="#" @click="toInicio">Inicio</a></li>
-        <li><a class="botonSubir" href="#" @click="AgregarVehiculoAdmin">Subir Vehículo</a></li>
         <li><a href="#" @click="cierreSesion">Cerrar sesión</a></li>
       </ul>
     </div>
@@ -69,10 +68,6 @@ const fetchVehiculosDispo = async () => {
 
 const cierreSesion = () => {
   window.location.href = "/"; // Redirecciona a la vista principal
-};
-
-const AgregarVehiculoAdmin = () => {
-  window.location.href = "/agregarvehiculo"; 
 };
 
 const toInicio = () => {

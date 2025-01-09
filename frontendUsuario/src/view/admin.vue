@@ -35,7 +35,7 @@ import { useRouter } from 'vue-router';
 
 // Métodos
 const cierreSesion = () => window.location.href = "/";
-const AgregarVehiculoAdmin = () => window.location.href = "/agregarvehiculo";
+const AgregarVehiculoAdmin = () => window.location.href = "/agregarvehiculoAdmin";
 const toInicio = () => window.location.href = "/admin";
 const VerVehiculos = () => window.location.href = "/vervehiculos";
 const Verestadisticas = () => window.location.href = "/estadisticasAdmin";

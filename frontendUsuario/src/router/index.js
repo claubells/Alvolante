@@ -32,8 +32,8 @@ const router = createRouter({
         },
 
         {
-            path: '/agregarVehiculo',
-            name: 'agregarVehiculo',
+            path: '/agregarVehiculoAdmin',
+            name: 'agregarVehiculoAdmin',
             component: () => import('../view/agregarVehiculoAdmin.vue')
         },
         {
@@ -204,6 +204,28 @@ const router = createRouter({
             path: '/agregarVehiculoTrabajador',
             name: 'agregarVehiculoTrabajador',
             component: () => import('../view/agregarVehiculoTrabajador.vue'), 
+        },
+
+        {
+            path: '/seleccionVehiculoAdmin/:idVehiculo',
+            name: 'seleccionVehiculoAdmin',
+            component: () => import('../view/seleccionVehiculoAdmin.vue'), 
+            props: true,
+ 
+        },
+
+        {
+            path: '/pagoAdmin/:idVehiculo',
+            name: 'pagoAdmin',
+            component: () => import('../view/pagoAdmin.vue'),
+            props: true,
+        },
+
+        {
+            path: '/rellenarDatosClienteAdmin',
+            name: 'rellenarDatosClienteAdmin',
+            component: () => import('../view/rellenarDatosClienteAdmin.vue'), 
+ 
         },
 
 
