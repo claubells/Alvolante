@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from 'vue-router';
 import axios from 'axios';
 import ReservaService from '../services/reservaService';
+import Swal from "sweetalert2";
 
 const router = useRouter();
 const vehiculo = ref(null);
@@ -25,16 +26,26 @@ const fetchVehiculo = async () => {
   try {
     const idVehiculo = route.params.idVehiculo; // Obtén el idVehiculo de los parámetros de la ruta
     const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
-    const response = await axios.get(http://localhost:8080/api/vehiculos/obtenerVehiculoPorId/${idVehiculo}, {
+    const response = await axios.get(`http://localhost:8080/api/vehiculos/obtenerVehiculoPorId/${idVehiculo}`, {
       headers: {
-        Authorization: Bearer ${token}, // Añade el token al encabezado
+        Authorization: `Bearer ${token}`, // Añade el token al encabezado
       },
     });
     vehiculo.value = response.data; // Asigna el vehículo a la variable
     reserva.value.costoReserva = vehiculo.value.costo; // Asigna el costo del vehículo a la reserva
+
+    
   } catch (error) {
     console.error("Error al obtener el vehículo:", error);
-    alert("No se pudo cargar la información del vehículo.");
+    await Swal.fire({
+      title: '¡Error!',
+      text: 'No se pudo cargar la información del vehículo',
+      icon: 'error',
+      confirmButtonText: 'Aceptar',
+      customClass: {
+        confirmButton: 'custom-confirm-button'
+      }
+    });
   }
 };
 
@@ -43,6 +54,17 @@ const enviarReserva = async () => {
     console.log("Id de vehiculo seleccionado localStorage:", idVehiculoLocal);
     console.log("Id del vehiculo actual:", reserva.value.idVehiculo);
     const response2 = await ReservaService.enviarReserva(reserva.value);
+
+    await Swal.fire({
+      title: '¡Perfecto!',
+      text: 'Reserva realizada con éxito',
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+      customClass: {
+        confirmButton: 'custom-confirm-button'
+      }
+    });
+
   } catch (error) {
     console.error("Error:", error);
   }
@@ -57,9 +79,9 @@ const cargarSucursales = async () => {
     const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
 
     if (idSucursalRetiro) {
-      const responseRetiro = await axios.get(http://localhost:8080/api/sucursales/${idSucursalRetiro},{
+      const responseRetiro = await axios.get(`http://localhost:8080/api/sucursales/${idSucursalRetiro}`,{
       headers: {
-        Authorization: Bearer ${token}, // Añade el token al encabezado
+        Authorization: `Bearer ${token}`, // Añade el token al encabezado
       },
       });
 
@@ -71,9 +93,9 @@ const cargarSucursales = async () => {
     }
 
     if (idSucursalEntrega) {
-      const responseEntrega = await axios.get(http://localhost:8080/api/sucursales/${idSucursalEntrega},{
+      const responseEntrega = await axios.get(`http://localhost:8080/api/sucursales/${idSucursalEntrega}`,{
       headers: {
-        Authorization: Bearer ${token}, // Añade el token al encabezado
+        Authorization: `Bearer ${token}`, // Añade el token al encabezado
       },
       });
     
@@ -114,21 +136,20 @@ onMounted(() => {
         <div class="col-md-6">
           <div class="container-custom" v-if="vehiculo">
             <button @click="Volver" class="select-button2">Volver</button>
-            <h2>Compra</h2>
-            <h3>Resumen</h3>
+            <h2>Resumen de Compra</h2>
             <div class="vehiculo-resumen">
               <img v-if="vehiculo.fotoVehiculo" :src="'data:image/jpeg;base64,' + vehiculo.fotoVehiculo" alt="Foto del Vehículo" class="vehiculo-imagen" />
               <div class="vehiculo-datos">
-                <p>{{ vehiculo.modelo }}</p>
-                <p>{{ vehiculo.tipo }}</p>
+                <h4>Datos del vehículo:</h4>
+                <p>{{ vehiculo.modelo +", "+ vehiculo.tipo +". "+ vehiculo.anio}}</p>
               </div>
             </div>
             <!-- Mostrar sucursales de retiro y entrega -->
             <div class="sucursal-resumen mt-4">
               <h4>Sucursal de Retiro:</h4>
-              <p>{{ sucursalRetiro.direccion }}</p>
+              <p>{{ sucursalRetiro.direccion + ", "+ sucursalRetiro.region }}</p>
               <h4>Sucursal de Entrega:</h4>
-              <p>{{ sucursalEntrega.direccion }}</p>
+              <p>{{ sucursalEntrega.direccion + ", "+ sucursalEntrega.region}}</p>
             </div>
           </div>
           <p v-else>Cargando datos del vehículo...</p>
@@ -137,6 +158,9 @@ onMounted(() => {
           <div class="container-custom">
             <h2>Detalles de Pago</h2>
             <form @submit.prevent="enviarReserva">
+              <h4>Precio vehículo: ${{vehiculo.costo}}</h4>
+              <h4>Extras: -</h4>
+              <h4>Total: ${{vehiculo.costo + reserva.extrasReserva}} (con IVA incluido)</h4>
               <div class="form-group">
                 <label for="cardNumber">Número de Tarjeta</label>
                 <input type="text" class="form-control" id="cardNumber" placeholder="Número de Tarjeta" required>
@@ -149,7 +173,7 @@ onMounted(() => {
                 <label for="cvv">CVV</label>
                 <input type="text" class="form-control" id="cvv" placeholder="CVV" required>
               </div>
-              <button type="submit" class="btn btn-primary btn-block mt-3">Pagar</button>
+              <button type="button" @click="enviarReserva" class="btn btn-primary btn-block mt-3">Pagar</button>
               <button type="button" @click="VerBoleta" class="btn btn-primary mt-3">Ver reserva</button>
             </form>
           </div>
