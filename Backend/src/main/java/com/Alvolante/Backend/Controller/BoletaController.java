@@ -10,17 +10,26 @@ import com.Alvolante.Backend.Service.BoletaService;
 
 import java.util.List;
 
+/**
+ * BoletaController es un controlador que maneja las solicitudes HTTP relacionadas con las boletas.
+ */
 @RestController
-@RequestMapping ("api/boleta")
+@RequestMapping("api/boleta")
 @CrossOrigin
 public class BoletaController {
+
     @Autowired
     private BoletaService boletaService;
 
+    /**
+     * Endpoint para generar una nueva boleta.
+     *
+     * @param nuevaBoleta Los detalles de la nueva boleta.
+     * @return La respuesta HTTP con la boleta generada o un mensaje de error.
+     */
     @PreAuthorize("hasRole('TRABAJADOR') or hasRole('ADMIN')")
     @PostMapping("/generarBoleta")
     public ResponseEntity<?> generarBoleta(@RequestBody BoletaEntity nuevaBoleta) {
-
         try {
             BoletaEntity boleta = boletaService.generarBoleta(
                     nuevaBoleta.getIdBoleta(),
@@ -35,7 +44,6 @@ public class BoletaController {
                     nuevaBoleta.getIva(),
                     nuevaBoleta.getTotal(),
                     nuevaBoleta.getFormaPago()
-
             );
 
             return ResponseEntity.ok(boleta);
@@ -44,15 +52,24 @@ public class BoletaController {
         }
     }
 
+    /**
+     * Endpoint para obtener una boleta por el nombre del cliente.
+     *
+     * @param NombreCliente El nombre del cliente.
+     * @return La boleta correspondiente al nombre del cliente.
+     */
     @GetMapping("/obtenerBoletaPorId")
     public BoletaEntity getBoletaPorId(@PathVariable String NombreCliente) {
         return boletaService.getBoletaByNombreCliente(NombreCliente);
     }
 
+    /**
+     * Endpoint para obtener todas las boletas.
+     *
+     * @return Una lista de todas las boletas.
+     */
     @GetMapping("/all")
     public List<BoletaEntity> getAllBoletas() {
         return boletaService.getAllBoletas();
     }
-
-
 }

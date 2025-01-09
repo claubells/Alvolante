@@ -20,6 +20,9 @@ import java.util.List;
 
 import org.springframework.http.HttpHeaders;
 
+/**
+ * JwtFilter es un componente que intercepta todas las solicitudes entrantes y verifica si el token es válido.
+ */
 @Component
 public class JwtFilter extends OncePerRequestFilter {
     // el filtro intercepta todas las solicitudes entrantes y verifica si el token es valido
@@ -27,12 +30,27 @@ public class JwtFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
 
-    @Autowired
+
+    /**
+     * Constructor para JwtFilter.
+     *
+     * @param jwtUtil Utilidad para manejo de tokens JWT.
+     * @param userDetailsService Servicio para obtener detalles del usuario.
+     */    @Autowired
     public JwtFilter(JwtUtil jwtUtil, UserDetailsService userDetailsService) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
     }
 
+    /**
+     * Método que filtra cada solicitud entrante.
+     *
+     * @param request La solicitud HTTP.
+     * @param response La respuesta HTTP.
+     * @param filterChain La cadena de filtros.
+     * @throws ServletException Si ocurre un error en el servlet.
+     * @throws IOException Si ocurre un error de E/S.
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,

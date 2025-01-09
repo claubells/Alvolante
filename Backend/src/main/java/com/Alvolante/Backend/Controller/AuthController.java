@@ -18,6 +18,9 @@ import com.Alvolante.Backend.Entity.UsuarioEntity;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * AuthController es un controlador que maneja las solicitudes HTTP relacionadas con la autenticación y registro de usuarios.
+ */
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin("*")
@@ -36,30 +39,34 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    //Realizar login del usuario
+    /**
+     * Realiza el login del usuario.
+     *
+     * @param loginDto Los datos de inicio de sesión del usuario.
+     * @return La respuesta HTTP con el token y el ID del usuario o un mensaje de error.
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
-        // se imprimen los datos recibidos en el back
-        System.out.println("Datos recibidos en el back: "+loginDto);
+        // Se imprimen los datos recibidos en el backend
+        System.out.println("Datos recibidos en el backend: " + loginDto);
 
-        try{
-
+        try {
             // Verificar si el usuario existe en la base de datos antes de autenticar
             UsuarioEntity user = usuarioRepository.findByEmail(loginDto.getEmail());
             if (user == null) {
-                // error 400
+                // Error 400
                 System.out.println("No se encontró el usuario con el correo proporcionado.");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body("El correo no está registrado. Por favor, regístrese primero.");
             }
 
-            // Se autentica al usuario con los datos proporcionados:
+            // Se autentica al usuario con los datos proporcionados
             UsernamePasswordAuthenticationToken loginToken = new UsernamePasswordAuthenticationToken(
                     loginDto.getEmail(),
                     loginDto.getPassword()
             );
 
-            System.out.println("Datos del login: \n\tcorreo: "+loginToken.getPrincipal().toString());
+            System.out.println("Datos del login: \n\tcorreo: " + loginToken.getPrincipal().toString());
             try {
                 authenticationManager.authenticate(loginToken);
                 System.out.println("Autenticación exitosa.");
@@ -69,25 +76,24 @@ public class AuthController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas.");
             }
 
-            //si es exitosa se genera JWT
+            // Si la autenticación es exitosa, se genera JWT
             System.out.println("\nSe llama a jwtUtil para crear el token.");
             String jwt = jwtUtil.createToken(loginDto.getEmail());
 
-
-            // se construye la respuesta con el token y la de idUsuario
+            // Se construye la respuesta con el token y el ID del usuario
             Map<String, Object> response = new HashMap<>();
             response.put("token", jwt);
             response.put("userId", user.getIdUsuario());
             response.put("role", user.getRole());
 
             System.out.println("Se generó con éxito");
-            System.out.println("token: "+ jwt);
-            System.out.println("userId: "+ user.getIdUsuario());
-            System.out.println("role: "+ user.getRole());
+            System.out.println("token: " + jwt);
+            System.out.println("userId: " + user.getIdUsuario());
+            System.out.println("role: " + user.getRole());
 
             return ResponseEntity.ok(response); // Devolver el token y el ID del usuario
 
-        }catch (BadCredentialsException e) {
+        } catch (BadCredentialsException e) {
             // Maneja credenciales incorrectas
             // 401 Unauthorized
             System.out.println("Credenciales incorrectas: " + e.getMessage());
@@ -95,30 +101,35 @@ public class AuthController {
                     .body("Credenciales incorrectas. Verifique su correo y contraseña.");
 
         } catch (Exception e) {
-            // cualquier otro error
+            // Cualquier otro error
             System.out.println("Error en el proceso de autenticación: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error interno en el servidor.");
         }
     }
 
-    //Registrar usuario
+    /**
+     * Registra un nuevo usuario.
+     *
+     * @param registerDto Los datos de registro del nuevo usuario.
+     * @return La respuesta HTTP con el mensaje de éxito o error.
+     */
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterDto registerDto) {
-        // se verifica si el usuario ya existe:
+        // Se verifica si el usuario ya existe
         UsuarioEntity foundUser = usuarioRepository.findByEmail(registerDto.getEmail());
-        if(foundUser != null){
-            // 409 la solicitud no se puede completar por un conflicto(ya existe)
+        if (foundUser != null) {
+            // 409 La solicitud no se puede completar por un conflicto (ya existe)
             return ResponseEntity.status(HttpStatus.CONFLICT).body("El correo ya se encuentra registrado.\n");
         }
-        // se puede implementar la validación de datos aqui y dar error 400 en caso de no cumplirse
+        // Se puede implementar la validación de datos aquí y dar error 400 en caso de no cumplirse
 
         try {
             // Asignar rol por defecto si no se proporciona
             String rol = (registerDto.getRole() == null || registerDto.getRole().isEmpty()) ? "CLIENTE" : registerDto.getRole();
             // Cifrar la contraseña
             String hashedPassword = passwordEncoder.encode(registerDto.getPassword());
-            // se crea un nuevo usuario
+            // Se crea un nuevo usuario
             UsuarioEntity newUser = new UsuarioEntity(
                     registerDto.getRut(),
                     registerDto.getNameParam(),
@@ -129,39 +140,42 @@ public class AuthController {
                     rol);
 
             usuarioRepository.save(newUser);
-            // 201 solicitud exitosa
+            // 201 Solicitud exitosa
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body("Usuario registrado con éxito.\n");
 
         } catch (Exception e) {
-            // 500 error en la logica del backend
+            // 500 Error en la lógica del backend
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error interno en el servidor.\n");
         }
-
     }
 
+    /**
+     * Verifica la validez de un token JWT.
+     *
+     * @param token El token JWT a verificar.
+     * @return La respuesta HTTP con el mensaje de validez del token.
+     */
     @PostMapping("/check-token")
     public ResponseEntity<?> checkToken(@RequestBody String token) {
         try {
-            if(token == null || !token.startsWith("Bearer")){
-                // 403 el cliente no tiene permisos para acceder al recurso solicitado.
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("El token no es valido.");
+            if (token == null || !token.startsWith("Bearer")) {
+                // 403 El cliente no tiene permisos para acceder al recurso solicitado
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("El token no es válido.");
             }
-            // se elimina el prefijo "Bearer"
+            // Se elimina el prefijo "Bearer"
             token = token.replace("Bearer ", "");
             boolean isValid = jwtUtil.isValid(token);
 
-            if(!isValid){
-                // 403 el cliente no tiene permisos para acceder al recurso solicitado.
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("El token no es valido.");
+            if (!isValid) {
+                // 403 El cliente no tiene permisos para acceder al recurso solicitado
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("El token no es válido.");
             }
-            return ResponseEntity.ok(Map.of("message","Token valido."));
+            return ResponseEntity.ok(Map.of("message", "Token válido."));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error en el servidor.\n");
         }
     }
-
-
 }

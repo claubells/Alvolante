@@ -5,25 +5,39 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import java.util.Date;
 
+/**
+ * UsuarioEntity es una entidad que representa los datos de un usuario.
+ */
 @Getter
 @Entity
 @Table(name = "usuario")
 public class UsuarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //Atributos
     private long idUsuario;
+
     private String rut;
     private String nameParam;
     private String email;
     private String phone;
+
     @JsonFormat
     private Date birthdate;
+
     private String password;
     private String role;
 
-    //Constructor de usuario
-
+    /**
+     * Constructor con todos los atributos.
+     *
+     * @param rut El RUT del usuario.
+     * @param nameParam El nombre del usuario.
+     * @param email El email del usuario.
+     * @param phone El teléfono del usuario.
+     * @param birthdate La fecha de nacimiento del usuario.
+     * @param password La contraseña del usuario.
+     * @param role El rol del usuario.
+     */
     public UsuarioEntity(String rut, String nameParam, String email, String phone, Date birthdate, String password, String role) {
         this.rut = rut;
         this.nameParam = nameParam;
@@ -34,9 +48,9 @@ public class UsuarioEntity {
         this.role = role;
     }
 
+    /**
+     * Constructor vacío.
+     */
     public UsuarioEntity() {
-
     }
-
-
 }
