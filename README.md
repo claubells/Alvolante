@@ -1,3 +1,8 @@
+# Bievenido/a a Alvolante 😺
+Este proyecto fue creado para la asignatura de Fundamentos de Ingeniería de Sowftware el 2-2024. En esta aplicación web podrás simular un arriendo de vehículo, podrás elegir entre los roles de trabajador, cliente y administrador.
+
+--------------------------------------------------------------------------------------------------------------
+
 # Manual de Uso
 
 ## 1. Clonar repositorio
@@ -6,7 +11,7 @@ Puedes clonar el repositorio desde la terminal ejecutando el siguiente comando:
 git clone https://github.com/Diegomuu/Alvolante.git
 ```
 ## 2.- Crear la base de datos
-Abrir pgadmin y crear una base de datos llamada "alvolante" 
+Abrir pgadmin y crear una base de datos llamada "alvolante", buscar el archivo "base de datos" y pegarlo en 
 ## 3.- Abrir en el Intellj la carpeta "Backend"
 ## 4.- Cambiar contraseña de la base de datos
 Ir a la carpeta recursos y luego al archivo "application.properties". Dentro de esta cambiar la contraseña de la base de datos a la suya y verificar que las tablas esten en "create", de la siguiente forma: 
