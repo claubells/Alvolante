@@ -45,7 +45,18 @@ const fetchVehiculosDispo = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    Swal.fire({
+      title: '¡Perfect!',
+      text: 'Se ha seleccinonado un vehiculo',
+      icon: 'success',
+      confirmButtonText: 'OK',
+      customClass: {
+        confirmButton: 'custom-confirm-button'
+      }
+    });
     vehiculos.value = response.data;
+
   } catch (error) {
     console.error("Error al obtener los vehículos:", error);
     Swal.fire({

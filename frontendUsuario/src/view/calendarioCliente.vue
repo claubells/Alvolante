@@ -7,12 +7,12 @@
       <!-- Calendarios -->
       <div class="form-container">
         <div class="form-input">
-          <label for="fecha-retiro">Fecha de Retiro:</label>
+          <label for="fechaRetiro">Fecha de Retiro:</label>
           <input type="date" id="fecha-retiro" v-model="fechaRetiro" />
         </div>
         <div class="form-input">
-          <label for="fecha-entrega">Fecha de Entrega:</label>
-          <input type="date" id="fecha-entrega" v-model="fechaEntrega" />
+          <label for="fechaEntrega">Fecha de Entrega:</label>
+          <input type="date" id="fechaEntrega" v-model="fechaEntrega" />
         </div>
         <!-- Lugar de retiro -->
         <div class="form-input">
@@ -80,11 +80,18 @@ const lugarRetiro = ref("");
 const lugarEntrega = ref("");
 
 // Métodos
-const handleSubmit = () => {
+const handleSubmit = async () => {
   const hoy = new Date(); // Fecha actual
-  const fechaRetiroDate = new Date(fechaRetiro.value);
-  const fechaEntregaDate = new Date(fechaEntrega.value);
 
+  console.log("Fechas seleccionadas..");
+  console.log("Fecha de retiro:", fechaRetiro.value);
+  console.log("Fecha de entrega:", fechaEntrega.value);
+
+  const fechaRetiroDate = toLocalDate(fechaRetiro.value);
+  const fechaEntregaDate = toLocalDate(fechaEntrega.value);
+
+  console.log("Fecha de retiro (Date):", fechaRetiroDate);
+  console.log("Fecha de entrega (Date):", fechaEntregaDate);
 
   if (!fechaRetiro.value || !fechaEntrega.value || !lugarRetiro.value || !lugarEntrega.value) {
     Swal.fire({
@@ -140,9 +147,32 @@ const handleSubmit = () => {
     return;
   }
 
-  localStorage.setItem('fechaRetiro', JSON.stringify(fechaRetiro.value));
-  localStorage.setItem('fechaEntrega', JSON.stringify(fechaEntrega.value));
+  await Swal.fire({
+    title: '¡Perfecto!',
+    text: 'Se han guardado los datos perfectamete',
+    icon: 'success',
+    confirmButtonText: 'OK',
+    customClass: {
+      confirmButton: 'custom-confirm-button'
+    }
+  });
+
+  console.log("Guardando fechas en localStorage...");
+  console.log("Fecha de retiro:", fechaRetiro.value);
+  console.log("Fecha de entrega:", fechaEntrega.value);
+  console.log("Lugar de retiro:", lugarRetiro.value);
+  console.log("Lugar de entrega:", lugarEntrega.value);
+  localStorage.setItem('fechaRetiro', fechaRetiro.value);
+  localStorage.setItem('fechaEntrega', fechaEntrega.value);
+
+  //redirigir
   window.location.href = "/verAutosSegunCalendario";
+};
+
+const toLocalDate = (fechaString) => {
+  const [year, month, day] = fechaString.split("-").map(Number);
+  return new Date(year, month - 1, day); 
+  // month - 1 porque los meses van de 0 a 11
 };
 </script>
 

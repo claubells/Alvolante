@@ -85,7 +85,7 @@ const fetchVehiculo = async () => {
 
 const enviarReserva = async () => {
   try {
-    const response2 = await ReservaService.enviarReserva(reserva.value ,idUsuario.value, route.params.idVehiculo);
+    const response2 = await ReservaService.enviarReserva(reserva.value);
     reserva.value = response2.data; // Asigna la reserva a la variable
     reserva.value.idUsuario = idUsuario.value; // Asigna el idUsuario a la reserva
     reserva.idVehiculo = vehiculo.value.idVehiculo; // Asigna el idVehiculo a la reserva

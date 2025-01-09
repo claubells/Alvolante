@@ -19,11 +19,19 @@ public class ReservaEntity {
     private int estadoReserva; // 0 enEsperaDeExtras, 1 activo, 2 inactivo
     private float costoReserva;
 
+    @Column(name = "id_sucursal_retiro", nullable = false)
+    private long idSucursalRetiro;
+
+    @Column(name = "id_sucursal_entrega", nullable = false)
+    private long idSucursalEntrega;
+
+
     @Column(name = "id_usuario", nullable = false)
     private long idUsuario;
 
     @Column(name = "id_vehiculo", nullable = false)
     private long idVehiculo;
+
 
     @ManyToMany
     @JoinTable(

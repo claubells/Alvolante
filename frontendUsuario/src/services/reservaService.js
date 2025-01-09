@@ -4,12 +4,27 @@ import axios from "axios"
 const API_URL = "http://localhost:8080"
 // 
 class ReservaService {
-  async enviarReserva(reserva, idUsuario, idVehiculo) {
+  async enviarReserva(reserva) {
     try {
       const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
+      if (!token) {
+        throw new Error("El token no está disponible en localStorage.");
+      }
+
+      // Agregamos el idVehiculo al objeto reserva
+      reserva.idVehiculo = idVehiculo.getItem("idVehiculo");
+      reserva.fechaInicioReserva = localStorage.getItem("fechaRetiro");
+      reserva.fechaFinReserva = localStorage.getItem("fechaEntrega");
+      reserva.estadoReserva = 0;
+      reserva.idSucursalRetiro = localStorage.getItem("idSucursalRetiro");
+      reserva.idSucursalEntrega = localStorage.getItem("idSucursalEntrega");
+      reserva.extrasReserva = null;
+    
+      console.log("Datos enviados al backend:", reserva);
+
       const response = await axios.post(
         "http://localhost:8080/api/reserva/crear-reserva",
-        reserva.value, // Datos de la reserva
+        reserva, // Datos de la reserva
         {
           headers: {
             Authorization: `Bearer ${token}`, // Incluye el token en el encabezado
@@ -20,7 +35,15 @@ class ReservaService {
       console.log("Reserva creada con éxito:", response.data);
       return response.data;
     } catch (error) {
-      console.error("Error al crear la reserva:", error.response || error);
+      if (error.response) {
+        console.error(
+          "Error al crear la reserva:",
+          error.response.status,
+          error.response.data
+        );
+      } else {
+        console.error("Error de red o configuración:", error.message);
+      }
       throw error;
     }
   }
