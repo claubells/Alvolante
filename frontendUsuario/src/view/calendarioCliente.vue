@@ -19,44 +19,20 @@
           <label for="lugar-retiro">Lugar de Retiro:</label>
           <select id="lugar-retiro" v-model="lugarRetiro">
             <option value="">Seleccione un lugar</option>
-            <option value="Sucursal Arica">Sucursal Arica</option>
-          <option value="Sucursal Iquique">Sucursal Iquique</option>
-          <option value="Sucursal Antofagasta">Sucursal Antofagasta</option>
-          <option value="Sucursal Copiapó">Sucursal Copiapó</option>
-          <option value="Sucursal La Serena">Sucursal La Serena</option>
-          <option value="Sucursal Valparaíso">Sucursal Valparaíso</option>
-          <option value="Sucursal Santiago">Sucursal Santiago</option>
-          <option value="Sucursal Rancagua">Sucursal Rancagua</option>
-          <option value="Sucursal Talca">Sucursal Talca</option>
-          <option value="Sucursal Chillán">Sucursal Chillán</option>
-          <option value="Sucursal Concepción">Sucursal Concepción</option>
-          <option value="Sucursal Puerto Montt">Sucursal Puerto Montt</option>
-          <option value="Sucursal Coyhaique">Sucursal Coyhaique</option>
-          <option value="Sucursal Punta Arenas">Sucursal Punta Arenas</option>
-          <option value="Sucursal Valdivia">Sucursal Valdivia</option>
+            <option v-for="sucursal in sucursales" :key="sucursal.idSucursal" :value="sucursal.region">
+              {{ sucursal.region }}
+            </option>
           </select>
         </div>
         <!-- Lugar de entrega -->
         <div class="form-input">
           <label for="lugar-entrega">Lugar de Entrega:</label>
           <select id="lugar-entrega" v-model="lugarEntrega">
-          <option value="">Seleccione un lugar</option>
-          <option value="Sucursal Arica">Sucursal Arica</option>
-          <option value="Sucursal Iquique">Sucursal Iquique</option>
-          <option value="Sucursal Antofagasta">Sucursal Antofagasta</option>
-          <option value="Sucursal Copiapó">Sucursal Copiapó</option>
-          <option value="Sucursal La Serena">Sucursal La Serena</option>
-          <option value="Sucursal Valparaíso">Sucursal Valparaíso</option>
-          <option value="Sucursal Santiago">Sucursal Santiago</option>
-          <option value="Sucursal Rancagua">Sucursal Rancagua</option>
-          <option value="Sucursal Talca">Sucursal Talca</option>
-          <option value="Sucursal Chillán">Sucursal Chillán</option>
-          <option value="Sucursal Concepción">Sucursal Concepción</option>
-          <option value="Sucursal Puerto Montt">Sucursal Puerto Montt</option>
-          <option value="Sucursal Coyhaique">Sucursal Coyhaique</option>
-          <option value="Sucursal Punta Arenas">Sucursal Punta Arenas</option>
-          <option value="Sucursal Valdivia">Sucursal Valdivia</option>
-          </select>
+            <option value="">Seleccione un lugar</option>
+            <option v-for="sucursal in sucursales" :key="sucursal.idSucursal" :value="sucursal.region">
+              {{ sucursal.region }}
+            </option>
+            </select>
         </div>
       </div>
                     
@@ -68,12 +44,14 @@
   
 <script setup>
 // Imports
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router'; 
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 // Variables reactivas
 const router = useRouter();
+const sucursales = ref([]); // regiones cargadas del back
 const fechaRetiro = ref("");
 const fechaEntrega = ref("");
 const lugarRetiro = ref("");
@@ -147,6 +125,28 @@ const handleSubmit = async () => {
     return;
   }
 
+  // Buscar el ID de la sucursal seleccionada
+  const sucursalRetiro = sucursales.value.find((s) => s.region === lugarRetiro.value);
+  const sucursalEntrega = sucursales.value.find((s) => s.region === lugarEntrega.value);
+
+  if (!sucursalRetiro || !sucursalEntrega) {
+    Swal.fire({
+      title: "¡Error!",
+      text: "No se pudo encontrar la sucursal seleccionada. Por favor, inténtelo nuevamente.",
+      icon: "error",
+      confirmButtonText: "OK",
+    });
+    return;
+  }
+
+  console.log("Guardando fechas en localStorage...");
+  localStorage.setItem('fechaRetiro', fechaRetiro.value);
+  localStorage.setItem('fechaEntrega', fechaEntrega.value);
+
+  console.log("Guardando las sucursales en localStorage...");
+  localStorage.setItem('idSucursalRetiro', sucursalRetiro.idSucursal);
+  localStorage.setItem('idSucursalEntrega', sucursalEntrega.idSucursal);
+
   await Swal.fire({
     title: '¡Perfecto!',
     text: 'Se han guardado los datos perfectamete',
@@ -157,16 +157,30 @@ const handleSubmit = async () => {
     }
   });
 
-  console.log("Guardando fechas en localStorage...");
-  console.log("Fecha de retiro:", fechaRetiro.value);
-  console.log("Fecha de entrega:", fechaEntrega.value);
-  console.log("Lugar de retiro:", lugarRetiro.value);
-  console.log("Lugar de entrega:", lugarEntrega.value);
-  localStorage.setItem('fechaRetiro', fechaRetiro.value);
-  localStorage.setItem('fechaEntrega', fechaEntrega.value);
-
   //redirigir
   window.location.href = "/verAutosSegunCalendario";
+};
+
+// Función para cargar las sucursales
+const cargarSucursales = async () => {
+  try {
+    const token = localStorage.getItem("jwtToken"); // Obtén el token desde el localStorage
+    const response = await axios.get("http://localhost:8080/api/sucursales/all", {
+      headers: {
+        Authorization: `Bearer ${token}`, // Agrega el token en el encabezado
+      },
+    });
+    sucursales.value = response.data; 
+    console.log("Sucursales cargadas:", sucursales.value);
+  } catch (error) {
+    console.error("Error al cargar las sucursales:", error);
+    Swal.fire({
+      title: "Error",
+      text: "No se pudieron cargar las sucursales. Por favor, inténtelo nuevamente.",
+      icon: "error",
+      confirmButtonText: "OK",
+    });
+  }
 };
 
 const toLocalDate = (fechaString) => {
@@ -174,6 +188,12 @@ const toLocalDate = (fechaString) => {
   return new Date(year, month - 1, day); 
   // month - 1 porque los meses van de 0 a 11
 };
+
+// Cargar las sucursales al montar el componente
+onMounted(() => {
+  cargarSucursales();
+});
+
 </script>
 
 <style>

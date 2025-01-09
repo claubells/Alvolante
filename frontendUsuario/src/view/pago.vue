@@ -54,6 +54,7 @@ import ReservaService from '../services/reservaService';
 
 const router = useRouter();
 const vehiculo = ref(null);
+const idVehiculoLocal = localStorage.getItem("idVehiculoSeleccionado");
 
 const reserva = ref({
   fechaInicioReserva: "",
@@ -85,10 +86,9 @@ const fetchVehiculo = async () => {
 
 const enviarReserva = async () => {
   try {
+    console.log("Id de vehiculo seleccionado localStorage:", idVehiculoLocal);
+    console.log("Id del vehiculo actual:", reserva.value.idVehiculo);
     const response2 = await ReservaService.enviarReserva(reserva.value);
-    reserva.value = response2.data; // Asigna la reserva a la variable
-    reserva.value.idUsuario = idUsuario.value; // Asigna el idUsuario a la reserva
-    reserva.idVehiculo = vehiculo.value.idVehiculo; // Asigna el idVehiculo a la reserva
   } catch (error) {
     console.error("Error:", error);
   }

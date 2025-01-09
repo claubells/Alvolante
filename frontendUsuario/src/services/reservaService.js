@@ -12,14 +12,19 @@ class ReservaService {
       }
 
       // Agregamos el idVehiculo al objeto reserva
-      reserva.idVehiculo = idVehiculo.getItem("idVehiculo");
+      //reserva.idVehiculo = idVehiculo.getItem("idVehiculo");
+      
       reserva.fechaInicioReserva = localStorage.getItem("fechaRetiro");
       reserva.fechaFinReserva = localStorage.getItem("fechaEntrega");
       reserva.estadoReserva = 0;
       reserva.idSucursalRetiro = localStorage.getItem("idSucursalRetiro");
       reserva.idSucursalEntrega = localStorage.getItem("idSucursalEntrega");
       reserva.extrasReserva = null;
-    
+      
+      console.log("Datos de la reserva: \nidSucursalEntrega", reserva.idSucursalEntrega, "\nidSucursalRetiro", 
+        reserva.idSucursalRetiro, "\nfechaInicioReserva", reserva.fechaInicioReserva, "\nfechaFinReserva", reserva.fechaFinReserva, 
+        "\nextrasReserva", reserva.extrasReserva);
+
       console.log("Datos enviados al backend:", reserva);
 
       const response = await axios.post(

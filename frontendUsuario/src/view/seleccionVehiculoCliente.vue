@@ -50,6 +50,7 @@ const fetchVehiculo = async () => {
   }
 };
 
+
 const guardarIdVehiculo = (idVehiculo) => {
   localStorage.setItem("idVehiculo", idVehiculo);
 };
