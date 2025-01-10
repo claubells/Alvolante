@@ -9,7 +9,7 @@
         <div class="button-container">
           <div class="nombre-cliente"> {{ usuario?.nameParam }}</div> 
           <button @click="toPerfilCliente"><i class="bi bi-person nav-icon"></i> Perfil</button>
-          <button @click="toHistorialArriendo"><i class="bi bi-journal nav-icon"></i> Historial de Arriendo</button>
+          <button @click="toHistorialReserva"><i class="bi bi-journal nav-icon"></i> Historial de Reservas</button>
           <button @click="toComprobantesPago"><i class="bi bi-card-checklist nav-icon"></i> Comprobantes de Pago</button>
           <button @click="logout"><i class="bi bi-box-arrow-right nav-icon"></i> Cerrar Sesión</button>
         </div>
@@ -36,25 +36,9 @@
           <div class="document-section">
             <h3>Documentos</h3>
             <p><strong>DNI:</strong> 111111111111</p>
-            <p><strong>Licencia de conducir:</strong> bsljdbajf</p>
+            <p><strong>Licencia de conducir:</strong> abcdefghijklmnñopqrstuvwxyz</p>
             <button @click="editDocuments" class="edit-doc-button">Agregar Documentos</button>
           </div>
-        </div>
-      </div>
-
-      <!-- Contenedor para "Historial de Arriendo" -->
-      <div class="history-container">
-        <h2 class="history-title"><i class="bi bi-journal nav-icon"></i>  Historial de Arriendo</h2>
-        <div class="history-section">
-          <p>Vehículos Arrendados</p>
-          <ul>
-            <li><strong>Hyundai Creta:</strong> Activo <i class="bi bi-dot nav-icon-status-v"></i></li>
-            <li><strong>Ford Mustang:</strong> Finalizado <i class="bi bi-dot nav-icon-status-r"></i></li>
-            <li><strong>Suzuki Swift:</strong> Finalizado <i class="bi bi-dot nav-icon-status-r"></i></li>
-            <li><strong>KIA Morning:</strong> Finalizado <i class="bi bi-dot nav-icon-status-r"></i></li>
-            <li><strong>Suzuki Jimny:</strong> Finalizado <i class="bi bi-dot nav-icon-status-r"></i></li>
-            <li><strong>BMW M4:</strong> Finalizado <i class="bi bi-dot nav-icon-status-r"></i></li>
-          </ul>
         </div>
       </div>
     </div> <!-- Cierre de content-container -->
@@ -96,11 +80,11 @@ const logout = () => {
 // Redireccionar a la página perfilCliente
 const toPerfilCliente = () => window.location.href = "/perfilCliente";
 
-// Redireccionar a la página del historial de arriendo
-const toHistorialArriendo = () => window.location.href = "/historialArriendo";
+// Redireccionar a la página del historial de reservas
+const toHistorialReserva = () => window.location.href = "/historialReserva";
 
 // Redireccionar a la página de comprobantes de pago
-const toComprobantesPago = () => window.location.href = "/comprobantesPago";
+const toComprobantesPago = () => window.location.href = "/historialComprobante";
 
 const editProfile = () => {
   // Lógica para editar el perfil
@@ -219,7 +203,7 @@ body {
 
 /* Contenedor central para "Datos Cliente" */
 .data-container {
-  height: 40%;
+  height: 42%;
   width: 70%;
   padding: 2rem;
   background-color: rgba(255, 255, 255, 0.8);
@@ -258,7 +242,6 @@ body {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: 1rem;
 }
 
 .edit-button:hover {
@@ -312,40 +295,7 @@ body {
 .edit-doc-button:hover {
   background-color: #ff6f61;
 }
-.history-container{
-  position: absolute;
-  height: 77%;
-  width: 24%;
-  padding: 1.5rem;
-  background-color: rgba(255, 255, 255, 0.8);
-  margin-top: 0.1rem;
-  margin-right: 6rem;
-  margin-left: 73%; /* Añadir margen izquierdo */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.history-title{
-  font-size: 200%;
-  color: #633434;
-  
-  margin-bottom: 15%;    
-}
-.history-section {
-  font-size: 130%;
-  color: #555;
-      
-}
-.history-section p {
-  font-size: 100%;
-  color: #333;
-  font-weight: bold;
-  margin-bottom: 2rem;    
-}
-.history-section li {
-  font-size: 100%;
-  color: #333;
-  
-  margin-bottom: 5%;    
-}
+
 /* Iconos */
 .nav-icon {
   margin-right: 5px;

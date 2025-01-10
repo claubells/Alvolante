@@ -4,13 +4,13 @@
         <div class="button-container">
           <div class="nombre-cliente"> {{ usuario?.nameParam }}</div> 
           <button @click="toPerfilCliente"><i class="bi bi-person nav-icon"></i> Perfil</button>
-          <button @click="toHistorialArriendo"><i class="bi bi-journal nav-icon"></i> Historial de Arriendo</button>
-          <button @click="toComprobantesPago"><i class="bi bi-card-checklist nav-icon"></i> Comprobantes de Pago</button>
+          <button @click="toHistorialReserva"><i class="bi bi-journal nav-icon"></i> Historial de Reservas</button>
+          <button @click="toHistorialComprobantes"><i class="bi bi-card-checklist nav-icon"></i> Comprobantes de Pago</button>
           <button @click="logout"><i class="bi bi-box-arrow-right nav-icon"></i> Cerrar Sesión</button>
         </div>
       </div>
 
-    <h1>Historial de reservas</h1>
+    <h1>Comprobantes de Pagos</h1>
     <div class="reserva-container mt-5">
       <div v-if="reservas.length">
         <div v-for="reserva in reservas" :key="reserva.idReserva" class="reserva-card">
@@ -97,8 +97,17 @@ onMounted(() => {
 // Redireccionar a la página perfilCliente
 const toPerfilCliente = () => window.location.href = "/perfilCliente";
 
-// Redireccionar a la página del historial de arriendo
-const toHistorialArriendo = () => window.location.href = "/historialArriendo";
+// Redireccionar a la página del historial de Reservas
+const toHistorialReserva = () => window.location.href = "/historialReserva";
+
+// Redireccionar a la página de comprobantes de pago
+const toHistorialComprobantes = () => window.location.href = "/historialComprobante";
+
+// Redireccionar a la página de inicio
+const logout = () => {
+  localStorage.clear();
+  window.location.href = "/";
+};
 
 </script>
   

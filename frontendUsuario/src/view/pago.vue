@@ -43,7 +43,7 @@
                 <input type="text" class="form-control" id="cvv" placeholder="CVV" required>
               </div>
               <button type="submit" class="btn btn-primary btn-block mt-3">Pagar</button>
-              <button type="button" @click="VerBoleta" class="btn btn-primary mt-3">Ver reserva</button>
+              <button type="button" @click="VerBoletas" class="btn btn-primary mt-3">Ver boletas</button>
             </form>
           </div>
         </div>
@@ -183,10 +183,8 @@ const Volver = () => {
   router.push('/seleccionVehiculoCliente/' + route.params.idVehiculo);
 };
 
-// Función para ver la boleta
-const VerBoleta = () => {
-  router.push('/boleta/' + route.params.idVehiculo);
-};
+// Redireccionar a la página de comprobantes de pago
+const VerBoletas = () => window.location.href = "/historialComprobante";
 
 // Cargar datos al montar el componente
 onMounted(() => {
