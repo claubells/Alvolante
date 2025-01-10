@@ -11,17 +11,24 @@
       </div>
 
     <h1>Comprobantes de Pagos</h1>
-    <div class="reserva-container mt-5">
-      <div v-if="reservas.length">
-        <div v-for="reserva in reservas" :key="reserva.idReserva" class="reserva-card">
-          <p><strong>ID Reserva:</strong> {{ reserva.idReserva }}</p>
-          <p><strong>Fecha Inicio:</strong> {{ formatDate(reserva.fechaInicioReserva) }}</p>
-          <p><strong>Fecha Fin:</strong> {{ formatDate(reserva.fechaFinReserva) }}</p>
-          <p><strong>Estado:</strong> {{ formatEstado(reserva.estadoReserva) }}</p>
-          <p><strong>Costo:</strong> ${{ reserva.costoReserva }}</p>
+    <div class="boleta-container mt-5">
+      <div v-if="boletas.length">
+        <div v-for="boleta in boletas" :key="boleta.idBoleta" class="boleta-card">
+          <p><strong>ID Boleta:</strong> {{ boleta.idBoleta }}</p>
+          <p><strong>Nombre Emisor:</strong> {{ boleta.nombreEmisor }}</p>
+          <p><strong>Rut Emisor:</strong> {{ boleta.rutEmisor }}</p>
+          <p><strong>Dirección Emisor:</strong> {{ boleta.direccionEmisor }}</p>
+          <p><strong>Nombre Cliente:</strong> {{ boleta.nombreCliente }}</p>
+          <p><strong>Rut Cliente:</strong> {{ boleta.rutCliente }}</p>
+          <p><strong>Fecha Emisión:</strong> {{ formatDate(boleta.fechaEmision) }}</p>
+          <p><strong>Hora Emisión:</strong> {{ boleta.horaEmision }}</p>
+          <p><strong>Subtotal:</strong> {{ boleta.subtotal }}</p>
+          <p><strong>IVA:</strong> {{ boleta.iva }}</p>
+          <p><strong>Costo Total:</strong> ${{ boleta.total }}</p>
+          <p><strong>Forma de Pago:</strong> {{ boleta.formaPago }}</p>
         </div>
       </div>
-      <p v-else>No hay reservas disponibles.</p>
+      <p v-else>No hay boletas disponibles.</p>
     </div>
   </template>
   
@@ -33,24 +40,24 @@ import axios from "axios";
 import Swal from 'sweetalert2';
 
 // Variables reactivas
-const reservas = ref([]); // Lista para almacenar las reservas
+const boletas = ref([]); // Lista para almacenar las boletas
 const usuario = ref('');
 
 // Métodos
-const fetchReservas = async () => {
+const fetchBoletas = async () => {
   try {
     const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
-    const response = await axios.get("http://localhost:8080/api/reserva/usuario", {
+    const response = await axios.get("http://localhost:8080/api/boleta/obtenerBoletaPorId", {
       headers: {
         Authorization: `Bearer ${token}`, // Añade el token al encabezado
       },
     });
-    reservas.value = response.data; // Asigna las reservas a la variable
+    boletas.value = response.data; // Asigna las boletas a la variable
   } catch (error) {
-    console.error("Error al obtener las reservas:", error);
+    console.error("Error al obtener las boletas:", error);
     Swal.fire({
       title: "Error",
-      text: "No se pudieron cargar las reservas disponibles.",
+      text: "No se pudieron cargar las boletas disponibles.",
       icon: "error",
     });
   }
@@ -69,11 +76,6 @@ const loadUserData = async () => {
 
 onMounted(loadUserData);
 
-// Función para formatear el estado de la reserva
-const formatEstado = (estado) => {
-  return estado === 1 ? "Activo" : "Inactivo";
-};
-
 const formatDate = (dateString) => {
   if (!dateString) return "Fecha no disponible";
 
@@ -91,7 +93,7 @@ const formatDate = (dateString) => {
 
 // Cargar datos al montar el componente
 onMounted(() => {
-  fetchReservas(); // Llama a la función al cargar el componente
+    fetchBoletas(); // Llama a la función al cargar el componente
 });
 
 // Redireccionar a la página perfilCliente
@@ -108,83 +110,82 @@ const logout = () => {
   localStorage.clear();
   window.location.href = "/";
 };
-
 </script>
-  
-  <style>
-  /* Contenedor principal */
-  body {
-    background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
-    color: #000;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .container {
-    display: flex;
-    min-height: 100vh;
-  }
-  /* Contenedor principal */
-  .main-content {
-    margin-left: 270px;
-    padding: 40px;
-    flex: 1;
-  }
-  
-  h1 {
-    font-size: 28px;
-    margin-bottom: 30px;
-    margin-left: 42.56%;
-  }
-  
-  /* Contenedor de vehículos */
-  .reserva-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center;
-    
-  }
-  
-  .reserva-card {
-    border: 1px solid #ffd1dc;
-  border-radius: 15px;
-  padding: 20px;
-  width: 350px;
-  background: #fff;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-  }
-  
-  
-  
-  .reserva-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+
+<style>
+/* Contenedor principal */
+body {
+background: linear-gradient(135deg, #ffe6cc, #ffd1dc);
+color: #000;
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
 }
 
-.reserva-card p {
-  font-size: 16px;
-  margin: 10px 0;
-  color: #555;
+.container {
+display: flex;
+min-height: 100vh;
+}
+/* Contenedor principal */
+.main-content {
+margin-left: 270px;
+padding: 40px;
+flex: 1;
 }
 
-.reserva-card p strong {
-  color: #000000;
+h1 {
+font-size: 28px;
+margin-bottom: 30px;
+margin-left: 42.56%;
+}
+
+/* Contenedor de vehículos */
+.boleta-container {
+display: flex;
+flex-wrap: wrap;
+gap: 30px;
+justify-content: center;
+
+}
+
+.boleta-card {
+border: 1px solid #ffd1dc;
+border-radius: 15px;
+padding: 20px;
+width: 350px;
+background: #fff;
+box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+text-align: center;
+transition: transform 0.3s, box-shadow 0.3s;
+}
+
+
+
+.boleta-card:hover {
+transform: scale(1.05);
+box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+.boleta-card p {
+font-size: 16px;
+margin: 10px 0;
+color: #555;
+}
+
+.boleta-card p strong {
+color: #000000;
 }
 
 p {
-  font-size: 18px;
-  color: #333;
+font-size: 18px;
+color: #333;
 }
 
 p[v-else] {
-  text-align: center;
-  font-size: 20px;
-  color: #ff0095;
+text-align: center;
+font-size: 20px;
+color: #ff0095;
 }
-  </style>
+</style>
   
   
