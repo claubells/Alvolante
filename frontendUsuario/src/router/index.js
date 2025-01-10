@@ -228,6 +228,13 @@ const router = createRouter({
  
         },
 
+        {
+            path: '/historialArriendo',
+            name: 'historialArriendo',
+            component: () => import('../view/historialArriendo.vue'), 
+            meta: { showHeader: true }
+        },
+
 
              
         
