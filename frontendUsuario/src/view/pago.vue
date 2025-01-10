@@ -1,4 +1,24 @@
 <template>
+  <header class="navbar navbar-expand-lg navbar-light bg-light w-100">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav w-100 d-flex justify-content-between">
+        <li class="nav-item flex-fill text-center">
+          <a class="nav-link disabled fw-bold" href="#" tabindex="-1" aria-disabled="true">Seleccionar sucursal y fechas</a>
+        </li>
+        <li class="nav-item flex-fill text-center">
+          <a class="nav-link disabled fw-bold" href="#" tabindex="-1" aria-disabled="true">Seleccionar vehiculo</a>
+        </li>
+        <li class="nav-item flex-fill text-center">
+          <a class="nav-link disabled fw-bold" href="#" tabindex="-1" aria-disabled="true">Confirmar reserva</a>
+        </li>
+        <li class="nav-item flex-fill text-center">
+          <a class="nav-link active fw-bold custom-link" aria-current="page" aria-disabled="true">Pagar</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
   <main class="main-container">
     <div class="container mt-5">
       <div class="row">
