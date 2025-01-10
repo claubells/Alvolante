@@ -36,8 +36,6 @@ public class ReservaEntity {
     @Column(name = "id_vehiculo", nullable = false)
     private long idVehiculo;
 
-    private List<ExtraEntity> extrasReserva; // Extras opcionales asociados a la reserva
-
     /**
      * Constructor con todos los atributos.
      *
@@ -47,16 +45,14 @@ public class ReservaEntity {
      * @param costoReserva El costo de la reserva.
      * @param idUsuario El ID del usuario.
      * @param idVehiculo El ID del vehículo.
-     * @param extrasReserva La lista de extras opcionales asociados a la reserva.
      */
-    public ReservaEntity(Date fechaInicioReserva, Date fechaFinReserva, int estadoReserva, float costoReserva, long idUsuario, long idVehiculo, List<ExtraEntity> extrasReserva) {
+    public ReservaEntity(Date fechaInicioReserva, Date fechaFinReserva, int estadoReserva, float costoReserva, long idUsuario, long idVehiculo) {
         this.fechaInicioReserva = fechaInicioReserva;
         this.fechaFinReserva = fechaFinReserva;
         this.estadoReserva = estadoReserva;
         this.costoReserva = costoReserva;
         this.idUsuario = idUsuario;
         this.idVehiculo = idVehiculo;
-        this.extrasReserva = extrasReserva;
     }
 
     /**
