@@ -92,13 +92,12 @@ const reserva = ref({
   estadoReserva: 1,
   costoReserva: "",
   extrasReserva: "",
-  idVehiculo: localStorage.getItem("idVehiculo"),
+  idVehiculo: route.params.idVehiculo,
 });
 
 const idUsuario = ref(localStorage.getItem("idUsuario"));
 const nombreCliente = ref(localStorage.getItem("nombreCliente"));
 const rutCliente = ref(localStorage.getItem("rutCliente"));
-
 
 // Función para obtener los datos del vehículo
 const fetchVehiculo = async () => {
@@ -143,9 +142,9 @@ const cargarSucursales = async () => {
 
       console.log("Sucursal de retiro: \n -Region:", responseRetiro.data.region);
       console.log(" -Dirección", responseRetiro.data.direccion);
-      sucursalRetiro.value = responseRetiro.data || "No seleccionado";
+      sucursalRetiro.value = responseRetiro.data || { direccion: "No seleccionado", region: "No seleccionado" };
     } else {
-      sucursalRetiro.value = "No seleccionado";
+      sucursalRetiro.value = { direccion: "No seleccionado", region: "No seleccionado" };
     }
 
     if (idSucursalEntrega) {
@@ -157,9 +156,9 @@ const cargarSucursales = async () => {
 
       console.log("Sucursal de entrega: \n -Region:", responseEntrega.data.region);
       console.log(" -Dirección", responseEntrega.data.direccion);
-      sucursalEntrega.value = responseEntrega.data || "No seleccionado";
+      sucursalEntrega.value = responseEntrega.data || { direccion: "No seleccionado", region: "No seleccionado" };
     } else {
-      sucursalEntrega.value = "No seleccionado";
+      sucursalEntrega.value = { direccion: "No seleccionado", region: "No seleccionado" };
     }
   } catch (error) {
     console.error("Error al cargar las sucursales:", error);
@@ -177,23 +176,28 @@ const enviarReserva = async () => {
       }
     });
 
+    // Calcular el IVA
     const iva = (reserva.value.costoReserva * 0.19).toFixed(2);
 
     // Generar boleta después de crear la reserva
-    const responseBoleta = await axios.post('http://localhost:8080/api/boleta/generarBoleta', {
-      fecha_emision: new Date().toISOString().split('T')[0],
-      hora_emision: new Date().toLocaleTimeString(),
-      iva: iva,
-      subtotal: reserva.value.costoReserva,
-      total: reserva.value.costoReserva + iva,
-      direccion_emisor: sucursalRetiro.value.direccion,
-      idUsuario: idUsuario.value,
-      forma_pago: "Crédito",
-      nombre_cliente: nombreCliente.value,
-      nombre_emisor: "Trabajador Alvolante",
-      rut_cliente: rutCliente.value,
-      rut_emisor: "12345678-9" // Rut emisor random
-    }, {
+    const boleta = {
+  fechaEmision: new Date().toISOString().split('T')[0],
+  horaEmision: new Date().toTimeString().split(' ')[0], // "HH:mm:ss"
+  iva: iva,
+  subtotal: reserva.value.costoReserva,
+  total: parseFloat(reserva.value.costoReserva) + parseFloat(iva),
+  direccionEmisor: sucursalRetiro.value.direccion,
+  formaPago: "Crédito",
+  nombreCliente: nombreCliente.value,
+  nombreEmisor: "Trabajador Alvolante",
+  rutCliente: rutCliente.value,
+  rutEmisor: "12345678-9"
+};
+
+    // Log para depuración
+    console.log("Datos de la boleta:", boleta);
+
+    const responseBoleta = await axios.post('http://localhost:8080/api/boleta/generarBoleta', boleta, {
       headers: {
         Authorization: `Bearer ${token}`, // Añade el token al encabezado
         'Content-Type': 'application/json'
