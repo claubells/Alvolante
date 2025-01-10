@@ -40,6 +40,9 @@ public class BoletaService {
 
         BoletaEntity nuevaBoleta = new BoletaEntity(idBoleta, nombreEmisor, rutEmisor, direccionEmisor, nombreCliente, rutCliente, fechaEmision, horaEmision, subtotal, iva, total, formaPago);
 
+        // Log para depuración
+        System.out.println("Boleta a guardar: " + nuevaBoleta);
+
         boletaRepo.save(nuevaBoleta);
 
         return nuevaBoleta;

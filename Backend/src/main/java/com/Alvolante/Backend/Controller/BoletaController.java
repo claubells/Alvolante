@@ -31,6 +31,9 @@ public class BoletaController {
     @PostMapping("/generarBoleta")
     public ResponseEntity<?> generarBoleta(@RequestBody BoletaEntity nuevaBoleta) {
         try {
+            // Log para depuración
+            System.out.println("Datos recibidos: " + nuevaBoleta);
+
             BoletaEntity boleta = boletaService.generarBoleta(
                     nuevaBoleta.getIdBoleta(),
                     nuevaBoleta.getNombreEmisor(),
