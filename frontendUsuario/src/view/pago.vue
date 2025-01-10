@@ -76,6 +76,9 @@ const reserva = ref({
 });
 
 const idUsuario = ref(localStorage.getItem("idUsuario"));
+const nombreCliente = ref(localStorage.getItem("nombreCliente"));
+const rutCliente = ref(localStorage.getItem("rutCliente"));
+
 
 // Función para obtener los datos del vehículo
 const fetchVehiculo = async () => {
@@ -143,21 +146,43 @@ const cargarSucursales = async () => {
   }
 };
 
-
-
-// Función para enviar la reserva
+// Función para enviar la reserva y generar la boleta
 const enviarReserva = async () => {
   try {
     const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
-    const response = await axios.post('http://localhost:8080/api/reserva/crear-reserva', reserva.value, {
+    const responseReserva = await axios.post('http://localhost:8080/api/reserva/crear-reserva', reserva.value, {
       headers: {
         Authorization: `Bearer ${token}`, // Añade el token al encabezado
         'Content-Type': 'application/json'
       }
     });
+
+    const iva = (reserva.value.costoReserva * 0.19).toFixed(2);
+
+    // Generar boleta después de crear la reserva
+    const responseBoleta = await axios.post('http://localhost:8080/api/boleta/generarBoleta', {
+      fecha_emision: new Date().toISOString().split('T')[0],
+      hora_emision: new Date().toLocaleTimeString(),
+      iva: iva,
+      subtotal: reserva.value.costoReserva,
+      total: reserva.value.costoReserva + iva,
+      direccion_emisor: sucursalRetiro.value.direccion,
+      idUsuario: idUsuario.value,
+      forma_pago: "Crédito",
+      nombre_cliente: nombreCliente.value,
+      nombre_emisor: "Trabajador Alvolante",
+      rut_cliente: rutCliente.value,
+      rut_emisor: "12345678-9" // Rut emisor random
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Añade el token al encabezado
+        'Content-Type': 'application/json'
+      }
+    });
+
     Swal.fire({
       title: '¡Éxito!',
-      text: '¡Reserva realizada exitosamente!',
+      text: '¡Reserva y boleta realizadas exitosamente!',
       icon: 'success',
       confirmButtonText: 'OK',
       customClass: {
@@ -165,10 +190,10 @@ const enviarReserva = async () => {
       }
     });
   } catch (error) {
-    console.error("Error al realizar la reserva:", error);
+    console.error("Error al realizar la reserva o generar la boleta:", error);
     await Swal.fire({
       title: '¡Error!',
-      text: 'No se pudo realizar la reserva.',
+      text: 'No se pudo realizar la reserva o generar la boleta.',
       icon: 'warning',
       confirmButtonText: 'OK',
       customClass: {
@@ -183,8 +208,10 @@ const Volver = () => {
   router.push('/seleccionVehiculoCliente/' + route.params.idVehiculo);
 };
 
-// Redireccionar a la página de comprobantes de pago
-const VerBoletas = () => window.location.href = "/historialComprobante";
+// Función para ver la boleta
+const VerBoleta = () => {
+  router.push('/boleta/' + route.params.idVehiculo);
+};
 
 // Cargar datos al montar el componente
 onMounted(() => {

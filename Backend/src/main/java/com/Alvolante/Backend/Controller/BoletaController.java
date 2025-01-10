@@ -27,7 +27,7 @@ public class BoletaController {
      * @param nuevaBoleta Los detalles de la nueva boleta.
      * @return La respuesta HTTP con la boleta generada o un mensaje de error.
      */
-    @PreAuthorize("hasRole('TRABAJADOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('TRABAJADOR') or hasRole('ADMIN') or hasRole('CLIENTE')")
     @PostMapping("/generarBoleta")
     public ResponseEntity<?> generarBoleta(@RequestBody BoletaEntity nuevaBoleta) {
         try {
