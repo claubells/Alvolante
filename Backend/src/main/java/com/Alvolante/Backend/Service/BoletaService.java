@@ -36,9 +36,9 @@ public class BoletaService {
      * @param formaPago La forma de pago.
      * @return La boleta generada.
      */
-    public BoletaEntity generarBoleta(long idBoleta, String nombreEmisor, String rutEmisor, String direccionEmisor, String nombreCliente, String rutCliente, LocalDate fechaEmision, LocalTime horaEmision, double subtotal, double iva, double total, String formaPago) {
+    public BoletaEntity generarBoleta(long idBoleta, String nombreEmisor, String rutEmisor, String direccionEmisor, String nombreCliente, String rutCliente, LocalDate fechaEmision, LocalTime horaEmision, double subtotal, double iva, double total, String formaPago, int idusuario) {
 
-        BoletaEntity nuevaBoleta = new BoletaEntity(idBoleta, nombreEmisor, rutEmisor, direccionEmisor, nombreCliente, rutCliente, fechaEmision, horaEmision, subtotal, iva, total, formaPago);
+        BoletaEntity nuevaBoleta = new BoletaEntity(idBoleta, nombreEmisor, rutEmisor, direccionEmisor, nombreCliente, rutCliente, fechaEmision, horaEmision, subtotal, iva, total, formaPago, idusuario);
 
         // Log para depuración
         System.out.println("Boleta a guardar: " + nuevaBoleta);
@@ -70,5 +70,10 @@ public class BoletaService {
      */
     public List<BoletaEntity> getAllBoletas() {
         return boletaRepo.findAll();
+    }
+
+    
+    public List<BoletaEntity> findBoletasByUsuarioId(Long idUsuario) {
+        return boletaRepo.findByIdUsuario(idUsuario);
     }
 }

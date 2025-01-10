@@ -17,6 +17,8 @@ public class BoletaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idBoleta;
 
+    private int idUsuario;
+
     private String nombreEmisor;
     private String rutEmisor;
     private String direccionEmisor;
@@ -49,7 +51,7 @@ public class BoletaEntity {
      * @param total El total de la boleta.
      * @param formaPago La forma de pago.
      */
-    public BoletaEntity(long idBoleta, String nombreEmisor, String rutEmisor, String direccionEmisor, String nombreCliente, String rutCliente, LocalDate fechaEmision, LocalTime horaEmision, double subtotal, double iva, double total, String formaPago) {
+    public BoletaEntity(long idBoleta, String nombreEmisor, String rutEmisor, String direccionEmisor, String nombreCliente, String rutCliente, LocalDate fechaEmision, LocalTime horaEmision, double subtotal, double iva, double total, String formaPago, int idUsuario) {
         this.idBoleta = idBoleta;
         this.nombreEmisor = nombreEmisor;
         this.rutEmisor = rutEmisor;
@@ -62,6 +64,7 @@ public class BoletaEntity {
         this.iva = iva;
         this.total = total;
         this.formaPago = formaPago;
+        this.idUsuario = idUsuario;
     }
 
     /**
@@ -165,5 +168,11 @@ public class BoletaEntity {
 
     public void setIdBoleta(long idBoleta) {
         this.idBoleta = idBoleta;
+    }
+    public int getIdUsuario() {
+        return Math.toIntExact(idUsuario);
+    }
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }

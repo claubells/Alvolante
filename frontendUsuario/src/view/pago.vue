@@ -175,6 +175,7 @@ const enviarReserva = async () => {
         'Content-Type': 'application/json'
       }
     });
+    console.log("idUsuario en localStorage:", localStorage.getItem("idUsuario"));
 
     // Calcular el IVA
     const iva = (reserva.value.costoReserva * 0.19).toFixed(2);
@@ -191,7 +192,8 @@ const enviarReserva = async () => {
   nombreCliente: nombreCliente.value,
   nombreEmisor: "Trabajador Alvolante",
   rutCliente: rutCliente.value,
-  rutEmisor: "12345678-9"
+  rutEmisor: "12345678-9",
+  idUsuario: 1
 };
 
     // Log para depuración
@@ -232,10 +234,8 @@ const Volver = () => {
   router.push('/seleccionVehiculoCliente/' + route.params.idVehiculo);
 };
 
-// Función para ver la boleta
-const VerBoleta = () => {
-  router.push('/boleta/' + route.params.idVehiculo);
-};
+// Función para ver las boletas
+const VerBoletas = () => window.location.href = "/historialComprobante";
 
 // Cargar datos al montar el componente
 onMounted(() => {

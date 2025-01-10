@@ -2,6 +2,9 @@ package com.Alvolante.Backend.Repository;
 
 import com.Alvolante.Backend.Entity.BoletaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import java.util.List;
 
 /**
@@ -23,4 +26,8 @@ public interface BoletaRepository extends JpaRepository<BoletaEntity, Long> {
      * @return Una lista de todas las boletas.
      */
     List<BoletaEntity> findAll();
+
+    
+    List<BoletaEntity> findByIdUsuario(Long idUsuario);
+
 }

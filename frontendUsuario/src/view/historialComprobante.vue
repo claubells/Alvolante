@@ -11,21 +11,18 @@
       </div>
 
     <h1>Comprobantes de Pagos</h1>
-    <div class="boleta-container mt-5">
-      <div v-if="boletas.length">
+    <div class="main-content">
+      <div class="boletas-container" v-if="boletas.length">
         <div v-for="boleta in boletas" :key="boleta.idBoleta" class="boleta-card">
+          <p><strong>Nombre emisor:</strong> {{ boleta.nombreEmisor }}</p>
+          <p><strong>Rut emisor:</strong> {{ boleta.rutEmisor }}</p>
+          <p><strong>Direccion Emisión:</strong> {{ boleta.direccionEmisor }}</p>
           <p><strong>ID Boleta:</strong> {{ boleta.idBoleta }}</p>
-          <p><strong>Nombre Emisor:</strong> {{ boleta.nombreEmisor }}</p>
-          <p><strong>Rut Emisor:</strong> {{ boleta.rutEmisor }}</p>
-          <p><strong>Dirección Emisor:</strong> {{ boleta.direccionEmisor }}</p>
           <p><strong>Nombre Cliente:</strong> {{ boleta.nombreCliente }}</p>
-          <p><strong>Rut Cliente:</strong> {{ boleta.rutCliente }}</p>
-          <p><strong>Fecha Emisión:</strong> {{ formatDate(boleta.fechaEmision) }}</p>
-          <p><strong>Hora Emisión:</strong> {{ boleta.horaEmision }}</p>
-          <p><strong>Subtotal:</strong> {{ boleta.subtotal }}</p>
-          <p><strong>IVA:</strong> {{ boleta.iva }}</p>
-          <p><strong>Costo Total:</strong> ${{ boleta.total }}</p>
-          <p><strong>Forma de Pago:</strong> {{ boleta.formaPago }}</p>
+          <p><strong>Rut:</strong> {{ boleta.rutCliente }}</p>
+          <p><strong>Total:</strong> ${{ boleta.total }}</p>
+
+          <!-- Añadir otros campos si es necesario -->
         </div>
       </div>
       <p v-else>No hay boletas disponibles.</p>
@@ -47,19 +44,26 @@ const usuario = ref('');
 const fetchBoletas = async () => {
   try {
     const token = localStorage.getItem("jwtToken"); // Obtén el token del almacenamiento local
-    const response = await axios.get("http://localhost:8080/api/boleta/obtenerBoletaPorId", {
+    if (!token) {
+      throw new Error("Token no encontrado");
+    }
+    const response = await axios.get('http://localhost:8080/api/boleta/usuario', {
       headers: {
         Authorization: `Bearer ${token}`, // Añade el token al encabezado
       },
     });
-    boletas.value = response.data; // Asigna las boletas a la variable
+    boletas.value = response.data;
+
+    // Asigna el costo del vehículo desde localStorage a cada boleta
+    const vehiculoCosto = localStorage.getItem("vehiculoCosto");
+    if (vehiculoCosto) {
+      boletas.value.forEach(boleta => {
+        boleta.total = parseFloat(vehiculoCosto);
+      });
+    }
   } catch (error) {
     console.error("Error al obtener las boletas:", error);
-    Swal.fire({
-      title: "Error",
-      text: "No se pudieron cargar las boletas disponibles.",
-      icon: "error",
-    });
+    alert("No se pudo cargar la información de las boletas.");
   }
 };
 
