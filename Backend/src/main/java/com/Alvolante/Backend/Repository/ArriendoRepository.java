@@ -24,4 +24,6 @@ public interface ArriendoRepository extends JpaRepository<ArriendoEntity, Long> 
      * @return Una lista de arriendos con el estado de pago proporcionado.
      */
     List<ArriendoEntity> findByEstadoPago(boolean estadoPago);
+
+
 }

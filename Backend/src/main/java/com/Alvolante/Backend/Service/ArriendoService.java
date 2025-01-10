@@ -1,5 +1,9 @@
 package com.Alvolante.Backend.Service;
 
+import com.Alvolante.Backend.Entity.ReservaEntity;
+import com.Alvolante.Backend.Entity.VehiculoEntity;
+import com.Alvolante.Backend.Repository.UsuarioRepository;
+import com.Alvolante.Backend.Repository.VehiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.Alvolante.Backend.Entity.ArriendoEntity;
@@ -15,14 +19,50 @@ public class ArriendoService {
     @Autowired
     private ArriendoRepository arriendoRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private VehiculoRepository vehiculoRepository;
     /**
      * Crea un nuevo arriendo.
      *
      * @param nuevoArriendo Los detalles del nuevo arriendo.
      * @return El arriendo creado.
+     * @throws RuntimeException Si ocurre un error durante la validación o el guardado del arriendo.
      */
-    public ArriendoEntity crearArriendo(ArriendoEntity nuevoArriendo) {
-        return arriendoRepository.save(nuevoArriendo);
+    public ArriendoEntity createArriendo(ArriendoEntity nuevoArriendo) {
+        System.out.println("Ejecutando lógica de negocio en ArriendoService");
+
+        // Validar que el usuario existe
+        if (!usuarioRepository.existsById(nuevoArriendo.getIdTrabajador())) {
+            throw new RuntimeException("Usuario no encontrado con ID: " + nuevoArriendo.getIdTrabajador());
+        }
+
+        // Validar que el vehículo existe
+        if (!vehiculoRepository.existsById(nuevoArriendo.getIdVehiculo())) {
+            throw new RuntimeException("Vehículo no encontrado con ID: " + nuevoArriendo.getIdVehiculo());
+        }
+
+        // Validar las fechas
+        if (nuevoArriendo.getFechaInicioArriendo().after(nuevoArriendo.getFechaFinArriendo())) {
+            throw new RuntimeException("La fecha de inicio no puede ser posterior a la fecha final.");
+        }
+
+        // Validar que el vehículo está disponible
+        VehiculoEntity vehiculo = vehiculoRepository.findById(nuevoArriendo.getIdVehiculo())
+                .orElseThrow(() -> new RuntimeException("Vehículo no encontrado con ID: " + nuevoArriendo.getIdVehiculo()));
+
+        if (!vehiculo.isDisponibilidad()) {
+            throw new RuntimeException("El vehículo no está disponible para reservar.");
+        }
+
+        // Guardar el arriendo:
+        ArriendoEntity arriendoGuardado = arriendoRepository.save(nuevoArriendo);
+
+        System.out.println("Arriendo guardado con éxito en ArriendoService: " + arriendoGuardado);
+
+        return arriendoGuardado;
     }
 
     /**

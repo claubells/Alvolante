@@ -98,7 +98,7 @@ public class ReservaController {
      *
      * @param id El ID de la reserva.
      * @return La reserva correspondiente al ID proporcionado.
-     */
+     * */
     @PreAuthorize("hasRole('CLIENTE') or hasRole('ADMIN')")
     @GetMapping("/usuario")
     public List<ReservaEntity> getReservasByUsuarioId(@RequestHeader("Authorization") String token) {

@@ -13,9 +13,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @Setter
 @Getter
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-@Table(name = "Arriendo")
+@Table(name = "arriendo")
 public class ArriendoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,25 +31,23 @@ public class ArriendoEntity {
     // Atributos asociados a la reserva
     private Date fechaInicioArriendo;
     private Date fechaFinArriendo;
-    private int horaArriendo;
     private float costoArriendo;
     private boolean estadoPago; // true = pagado, false = pendiente
 
-    /**
-     * Constructor con todos los atributos.
-     *
-     * @param rutAsociado El RUT asociado al arriendo.
-     * @param nameAsociado El nombre asociado al arriendo.
-     * @param emailAsociado El email asociado al arriendo.
-     * @param phoneAsociado El teléfono asociado al arriendo.
-     * @param birthdateAsociado La fecha de nacimiento asociada al arriendo.
-     * @param fechaInicioArriendo La fecha de inicio del arriendo.
-     * @param fechaFinArriendo La fecha de fin del arriendo.
-     * @param horaArriendo La hora del arriendo.
-     * @param costoArriendo El costo del arriendo.
-     * @param estadoPago El estado de pago del arriendo (true = pagado, false = pendiente).
-     */
-    public ArriendoEntity(String rutAsociado, String nameAsociado, String emailAsociado, String phoneAsociado, Date birthdateAsociado, Date fechaInicioArriendo, Date fechaFinArriendo, int horaArriendo, float costoArriendo, boolean estadoPago) {
+    @Column(name = "id_sucursal_retiro", nullable = false)
+    private long idSucursalRetiro;
+
+    @Column(name = "id_sucursal_entrega", nullable = false)
+    private long idSucursalEntrega;
+
+    @Column(name = "id_trabajador", nullable = false)
+    private long idTrabajador;
+
+    @Column(name = "id_vehiculo", nullable = false)
+    private long idVehiculo;
+
+    public ArriendoEntity(long idArriendo, String rutAsociado, String nameAsociado, String emailAsociado, String phoneAsociado, Date birthdateAsociado, Date fechaInicioArriendo, Date fechaFinArriendo, float costoArriendo, boolean estadoPago, long idSucursalRetiro, long idSucursalEntrega, long idTrabajador, long idVehiculo) {
+        this.idArriendo = idArriendo;
         this.rutAsociado = rutAsociado;
         this.nameAsociado = nameAsociado;
         this.emailAsociado = emailAsociado;
@@ -58,9 +55,12 @@ public class ArriendoEntity {
         this.birthdateAsociado = birthdateAsociado;
         this.fechaInicioArriendo = fechaInicioArriendo;
         this.fechaFinArriendo = fechaFinArriendo;
-        this.horaArriendo = horaArriendo;
         this.costoArriendo = costoArriendo;
         this.estadoPago = estadoPago;
+        this.idSucursalRetiro = idSucursalRetiro;
+        this.idSucursalEntrega = idSucursalEntrega;
+        this.idTrabajador = idTrabajador;
+        this.idVehiculo = idVehiculo;
     }
 
     /**
