@@ -36,11 +36,6 @@ public class ReservaEntity {
     @Column(name = "id_vehiculo", nullable = false)
     private long idVehiculo;
 
-    @ManyToMany
-    @JoinTable(
-            name = "extras_reserva",
-            joinColumns = @JoinColumn(name = "id_reserva"),
-            inverseJoinColumns = @JoinColumn(name = "id_extra"))
     private List<ExtraEntity> extrasReserva; // Extras opcionales asociados a la reserva
 
     /**

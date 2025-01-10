@@ -47,7 +47,7 @@ public interface ReservaRepository extends JpaRepository<ReservaEntity, Long> {
      * @param idUsuario El ID del usuario.
      * @return Una Optional con la reserva correspondiente al ID del usuario proporcionado.
      */
-    @Query
-    Optional<ReservaEntity> findByIdUsuario(Long idUsuario);
+
+    List<ReservaEntity> findByIdUsuario(Long idUsuario);
 
 }

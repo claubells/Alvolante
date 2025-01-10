@@ -8,7 +8,12 @@ import com.Alvolante.Backend.Repository.ReservaRepository;
 import com.Alvolante.Backend.Repository.UsuarioRepository;
 import com.Alvolante.Backend.Repository.VehiculoRepository;
 import com.Alvolante.Backend.Service.ReservaService;
+
+import java.util.List;
+
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -94,8 +99,21 @@ public class ReservaController {
      * @param id El ID de la reserva.
      * @return La reserva correspondiente al ID proporcionado.
      */
-    @GetMapping("/reservaPorId/{id}")
-    public ReservaEntity findReservaById(@PathVariable Long id) {
-        return reservaService.getReservaById(id);
+    @PreAuthorize("hasRole('CLIENTE') or hasRole('ADMIN')")
+    @GetMapping("/usuario")
+    public List<ReservaEntity> getReservasByUsuarioId(@RequestHeader("Authorization") String token) {
+        // Extraer el email del token
+        String email = jwtUtil.getEmail(token.replace("Bearer ", ""));
+
+        // Se busca el usuario por email
+        UsuarioEntity usuario = usuarioRepository.findByEmail(email);
+        if (usuario == null) {
+            throw new RuntimeException("Usuario no encontrado con email: " + email);
+        }
+
+        // Obtener las reservas del usuario
+        List<ReservaEntity> reservas = reservaService.findReservasByUsuarioId(usuario.getIdUsuario());
+
+        return reservas;
     }
 }

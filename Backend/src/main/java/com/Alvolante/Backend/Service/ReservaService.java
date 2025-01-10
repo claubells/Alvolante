@@ -7,6 +7,8 @@ import com.Alvolante.Backend.Entity.VehiculoEntity;
 import com.Alvolante.Backend.Repository.ReservaRepository;
 import com.Alvolante.Backend.Repository.UsuarioRepository;
 import com.Alvolante.Backend.Repository.VehiculoRepository;
+
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -95,8 +97,8 @@ public class ReservaService {
      * @param id El ID del usuario.
      * @return La reserva correspondiente al ID del usuario proporcionado, o null si no se encuentra.
      */
-    public ReservaEntity getReservaById(Long id) {
-        Optional<ReservaEntity> getReserva = reservaRepository.findByIdUsuario(id);
-        return getReserva.orElse(null);
+    public List<ReservaEntity> findReservasByUsuarioId(Long idUsuario) {
+        return reservaRepository.findByIdUsuario(idUsuario);
     }
+    
 }

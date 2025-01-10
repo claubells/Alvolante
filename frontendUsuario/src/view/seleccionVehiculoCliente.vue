@@ -14,10 +14,9 @@
       <p><strong>Tipo:</strong> {{ vehiculo.tipo }}</p>
       <p><strong>Color:</strong> {{ vehiculo.color }}</p>
       <p><strong>Asientos:</strong> {{ vehiculo.capacidadPasajeros }}</p>
-      <p><strong>Accesorios:</strong> {{ vehiculo.accesorios }}</p>
       <p><strong>Fechas:</strong> (información por completar)</p>
       <p><strong>Total Vehículo:</strong> {{ vehiculo.costo }}</p>
-      <p><strong>Total:</strong> (vehículo + accesorios)</p>
+      <p><strong>Total:</strong> (vehículo)</p>
       <button @click="verDetallesVehiculoPago(vehiculo.idVehiculo)" class="select-button">Arrendar</button>
     </div>
   </div>

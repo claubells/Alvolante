@@ -19,11 +19,9 @@ class ReservaService {
       reserva.estadoReserva = 0;
       reserva.idSucursalRetiro = localStorage.getItem("idSucursalRetiro");
       reserva.idSucursalEntrega = localStorage.getItem("idSucursalEntrega");
-      reserva.extrasReserva = null;
       
       console.log("Datos de la reserva: \nidSucursalEntrega", reserva.idSucursalEntrega, "\nidSucursalRetiro", 
-        reserva.idSucursalRetiro, "\nfechaInicioReserva", reserva.fechaInicioReserva, "\nfechaFinReserva", reserva.fechaFinReserva, 
-        "\nextrasReserva", reserva.extrasReserva);
+        reserva.idSucursalRetiro, "\nfechaInicioReserva", reserva.fechaInicioReserva, "\nfechaFinReserva", reserva.fechaFinReserva);
 
       console.log("Datos enviados al backend:", reserva);
 

@@ -85,7 +85,6 @@ public class ExtraController {
                 }
 
                 extraActual.setCantidadSeleccionada(extra.getCantidadSeleccionada());
-                reservaPendiente.getExtrasReserva().add(extraActual);
             }
             extraService.actualizarReserva(reservaPendiente);
 
