@@ -34,7 +34,7 @@ Abre **pgadmin** y crear una base de datos llamada `alvolante`.
 ## 3.- Abrir en el Intellj la carpeta "Backend"
 ## 4.- Cambiar contraseña de la base de datos y ejecutar el backend
 Ve a la carpeta `resources` y luego al archivo `application.properties`.Cambia la contraseña de la base de datos por la tuya y verifica que la propiedad para la creación de tablas esté configurada como create, de la siguiente forma:
-```bash
+```properties
 spring.jpa.hibernate.ddl-auto=create
 ```
 Este programa requiere **Java 17 (JDK)**, por lo que es necesario tenerlo instalado previamente.
