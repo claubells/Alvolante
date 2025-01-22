@@ -43,7 +43,7 @@ Dirígete al archivo `BackendApplication` ubicado en la siguiente ruta:
 ```plaintext
 src\main\java\com\Alvolante\Backend
 ```
-Presiona el botón play o la combinación de teclas Shift + F10.
+Presiona el botón play o la combinación de teclas **Shift + F10**.
 Una vez ejecutado el backend por primera vez, regresa al archivo `application.properties` y cambia la propiedad `spring.jpa.hibernate.ddl-auto` de `create` a `update`, para evitar la recreación de las tablas en futuras ejecuciones:
 ```properties
 spring.jpa.hibernate.ddl-auto=update
@@ -62,6 +62,6 @@ En la misma consola anterior ejecuta el siguiente comando:
 ```bash
 npm run dev
 ```
-Luego, presiona **control + clic** en la URL que aparece en la terminal.
+Luego, presiona **Ctrl + clic** en la URL que aparece en la terminal.
 ## 9.- ¡Listo!😼
 ¡Ya estás preparado para simular un arriendo o reserva de vehículos!
