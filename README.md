@@ -1,7 +1,7 @@
 # Bievenido/a a Alvolante 😺
 Este proyecto fue creado para la asignatura de Fundamentos de Ingeniería de Sowftware el 2-2024. En esta aplicación web podrás simular un arriendo de vehículo, podrás elegir entre los roles de trabajador, cliente y administrador.
 
---------------------------------------------------------------------------------------------------------------
+---
 
 ## Créditos
 Este proyecto fue desarrollado con mucho esfuerzo y dedicación por el siguiente equipo:
