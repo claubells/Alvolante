@@ -41,7 +41,7 @@ Este programa requiere **Java 17 (JDK)**, por lo que es necesario tenerlo instal
 Para ejecutar el backend:
 Dirígete al archivo `BackendApplication` ubicado en la siguiente ruta:
 ```plaintext
-**\src\main\java\com\Alvolante\Backend
+src\main\java\com\Alvolante\Backend
 ```
 Presiona el botón play o la combinación de teclas Shift + F10.
 Una vez ejecutado el backend por primera vez, regresa al archivo `application.properties` y cambia la propiedad `spring.jpa.hibernate.ddl-auto` de `create` a `update`, para evitar la recreación de las tablas en futuras ejecuciones:
